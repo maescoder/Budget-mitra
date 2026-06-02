@@ -80,9 +80,6 @@ Antigravity uses a highly scalable, microservices-inspired architecture:
 
 ---
 
-
----
-
 <div align="center">
   <p>Built with ❤️ by The GC Coders.</p>
 </div>
