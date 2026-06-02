@@ -2,7 +2,8 @@ const mysql = require('mysql2/promise');
 const fs = require('fs');
 const csv = require('csv-parser');
 
-const DB_URL = "mysql://root:vansh@localhost:3306";
+require('dotenv').config(); // Load .env
+const DB_URL = process.env.DATABASE_URL || "mysql://root:vansh@localhost:3306";
 const DB_NAME = "antigravity";
 
 async function seed() {
