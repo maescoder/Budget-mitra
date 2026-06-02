@@ -23,8 +23,8 @@ Current price comparison tools only show you *what* a product costs today. They 
 - *Will the price drop again before Diwali?*
 
 ## 💡 The Solution
-**Antigravity** is a **Price Intelligence System**. 
-Where traditional tools answer *"Where is it cheapest right now?"*, Antigravity uses Historical Data, Trend Analysis, and Machine Learning to tell you **when** to buy.
+**Budet Mitra** is a **Price Intelligence System**. 
+Where traditional tools answer *"Where is it cheapest right now?"*, It uses Historical Data, Trend Analysis, and Machine Learning to tell you **when** to buy.
 
 ---
 
