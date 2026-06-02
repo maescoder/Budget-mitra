@@ -80,45 +80,6 @@ Antigravity uses a highly scalable, microservices-inspired architecture:
 
 ---
 
-## 🚀 Quick Start
-
-### 1. Clone the repository
-```bash
-git clone https://github.com/your-username/antigravity.git
-cd antigravity
-```
-
-### 2. Setup the Backend (Node.js)
-```bash
-cd backend
-npm install
-cp .env.example .env # Add your MySQL, Redis, and SendGrid keys
-npm run dev
-```
-
-### 3. Setup the ML Service (Python)
-```bash
-cd ml
-pip install -r requirements.txt
-uvicorn main:app --reload
-```
-
-### 4. Setup the Frontend (Next.js)
-```bash
-cd frontend
-npm install
-npm run dev
-```
-Your app will be running on `http://localhost:3000`.
-
----
-
-## 🔮 Roadmap
-- [ ] MVP v1.0 Launch (Web Platform)
-- [ ] Browser Extension Integration
-- [ ] Native Mobile Apps (iOS / Android)
-- [ ] International Markets Support
-- [ ] Community Reviews & Trust Score
 
 ---
 
