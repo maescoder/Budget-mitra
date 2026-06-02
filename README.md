@@ -1,7 +1,4 @@
-<div align="center">
-  <img src="https://via.placeholder.com/120x120/4F46E5/FFFFFF?text=AG" alt="Antigravity Logo" style="border-radius: 20%; margin-bottom: 20px;" width="120" height="120" />
-  
-  <h1>Budget-Mitra</h1>
+<h1>Budget-Mitra</h1>
   <p><strong>AI-Powered Price Intelligence Platform</strong></p>
   
   > *"Don't just compare prices. Understand them."*
@@ -126,5 +123,5 @@ Your app will be running on `http://localhost:3000`.
 ---
 
 <div align="center">
-  <p>Built with ❤️ by the Antigravity Team.</p>
+  <p>Built with ❤️ by The GC Coders.</p>
 </div>
