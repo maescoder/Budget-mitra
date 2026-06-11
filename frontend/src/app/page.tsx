@@ -222,308 +222,230 @@ export default function Home() {
   };
 
   return (
-    <AuroraBackground className="min-h-[100vh] w-full text-white overflow-hidden relative selection:bg-cyan-500/30" showRadialGradient={true}>
-      
-      {/* Animated Interactive Background Glows */}
-      <div 
-        className="absolute top-[20%] left-[20%] w-[50vw] h-[50vw] bg-cyan-600/20 blur-[150px] rounded-full mix-blend-screen pointer-events-none"
-        style={{ transform: `translate(${-mousePos.x * 4}px, ${-mousePos.y * 4}px) scale(${1 + Math.sin(time) * 0.1})`, transition: 'transform 0.1s ease-out' }}
-      ></div>
-      <div 
-        className="absolute bottom-[10%] right-[10%] w-[60vw] h-[60vw] bg-indigo-600/20 blur-[150px] rounded-full mix-blend-screen pointer-events-none"
-        style={{ transform: `translate(${mousePos.x * 4}px, ${mousePos.y * 4}px) scale(${1 + Math.cos(time) * 0.1})`, transition: 'transform 0.1s ease-out' }}
-      ></div>
-      
-      {/* Floating 3D Gravity Bubbles */}
-      <div className="absolute inset-0 pointer-events-none overflow-hidden opacity-80">
-        {[...Array(25)].map((_, i) => {
-          const size = ((i % 6) * 15 + 25); // Bubbles ranging from 25px to 100px
-          const speedX = ((i % 5) + 1) * 0.4;
-          const speedY = ((i % 4) + 1) * 0.4;
-          return (
-            <div 
-              key={i}
-              className="absolute rounded-full backdrop-blur-sm border border-cyan-400/30"
-              style={{
-                width: size + 'px',
-                height: size + 'px',
-                left: (i * 4) + '%',
-                top: ((i * 11) % 100) + '%',
-                background: 'radial-gradient(circle at 30% 30%, rgba(34,211,238,0.4), rgba(15,23,42,0.1))',
-                boxShadow: 'inset -5px -5px 15px rgba(0,0,0,0.5), inset 5px 5px 15px rgba(255,255,255,0.1)',
-                transform: `translate(${mousePos.x * speedX}px, ${mousePos.y * speedY}px) translateY(${Math.sin(time * speedY + i) * 60}px) scale(${1 + Math.sin(time + i) * 0.1})`,
-                transition: 'transform 0.1s ease-out',
-              }}
-            />
-          );
-        })}
-      </div>
 
-      {/* Navigation */}
-      <nav className="fixed w-full top-0 z-50 bg-[#050914]/60 backdrop-blur-md border-b border-white/5">
-        <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
-          <div className="flex items-center gap-3">
-            <div className="w-10 h-10 flex items-center justify-center">
-              <img src="/images/budget-mitra-logo-new.png" alt="Budget Mitra Logo" className="w-full h-full object-contain mix-blend-multiply dark:mix-blend-screen" />
-            </div>
-            <span className="text-2xl font-black tracking-tight">Budget Mitra</span>
-          </div>
-          <div className="hidden md:flex items-center gap-8 text-sm font-medium text-slate-300">
-            <a href="/compare" className="hover:text-cyan-400 transition-colors font-bold text-white flex items-center gap-1"><LinkIcon className="w-4 h-4"/> Compare</a>
-            <a href="/alerts" className="hover:text-cyan-400 transition-colors">Price Alerts</a>
-            <div className="flex items-center gap-4">
-              {user ? (
-                <div className="flex items-center gap-4 border-l border-white/10 pl-4">
-                  <div className="flex items-center gap-2">
-                    <div className="w-8 h-8 rounded-full bg-cyan-500/20 flex items-center justify-center border border-cyan-500/50">
-                      <User className="w-4 h-4 text-cyan-400" />
-                    </div>
-                    <span className="font-bold text-white">{user.name}</span>
-                  </div>
-                  <button 
-                    onClick={logout} 
-                    className="p-2 text-slate-400 hover:text-rose-400 hover:bg-rose-500/10 rounded-full transition-all"
-                    title="Sign Out"
-                  >
-                    <LogOut className="w-4 h-4" />
-                  </button>
-                </div>
-              ) : (
-                <>
-                  <button onClick={() => router.push('/login')} className="hover:text-cyan-400 transition-colors font-semibold">
-                    Sign In
-                  </button>
-                  <button onClick={() => router.push('/signup')} className="px-5 py-2.5 rounded-full bg-cyan-500 hover:bg-cyan-400 transition-all shadow-[0_0_15px_rgba(34,211,238,0.4)] text-[#050914] font-bold">
-                    Sign Up
-                  </button>
-                </>
-              )}
-            </div>
-          </div>
-        </div>
-      </nav>
-
-      {/* Main Hero Section */}
-      <main className="relative z-10 max-w-7xl mx-auto px-6 pt-40 pb-20 lg:pt-48 lg:pb-32 flex flex-col lg:flex-row items-center gap-16">
+    <div className="bg-surface text-on-surface min-h-screen flex flex-col antialiased">
+      <header className="bg-surface dark:bg-surface-dim shadow-[8px_8px_16px_#B8C2D0,-8px_-8px_16px_#FFFFFF] dark:shadow-none w-full sticky top-0 z-50 transition-all duration-300">
+<div className="flex justify-between items-center w-full px-margin-desktop py-4 max-w-container-max mx-auto">
+{/*  Brand  */}
+<div className="flex items-center gap-4">
+<a className="text-headline-md font-headline-md font-bold text-on-surface dark:text-surface-bright flex items-center gap-2" href="#">
+<div className="w-10 h-10 rounded-full flex items-center justify-center btn-neu text-primary">
+<span className="material-symbols-outlined" style={{ fontVariationSettings: "\'FILL\' 1" }}>account_balance_wallet</span>
+</div>
+                    Budget Mitra
+                </a>
+</div>
+{/*  Navigation Links (Desktop)  */}
+<nav className="hidden md:flex items-center gap-8">
+{/*  Intent: Home/Explore -> Default to no specific active state based on provided labels, but 'Deals' or 'Compare' might be closest to landing page. Will leave inactive for general landing, or highlight first if forced. Leaving inactive as it&apos;s a general landing.  */}
+<a className="text-on-surface-variant font-medium hover:text-primary transition-all duration-300 font-label-md text-label-md px-4 py-2 rounded-lg hover:shadow-neu-inset" href="#">Compare</a>
+<a className="text-on-surface-variant font-medium hover:text-primary transition-all duration-300 font-label-md text-label-md px-4 py-2 rounded-lg hover:shadow-neu-inset" href="#">Price Alerts</a>
+<a className="text-on-surface-variant font-medium hover:text-primary transition-all duration-300 font-label-md text-label-md px-4 py-2 rounded-lg hover:shadow-neu-inset" href="#">Deals</a>
+<a className="text-on-surface-variant font-medium hover:text-primary transition-all duration-300 font-label-md text-label-md px-4 py-2 rounded-lg hover:shadow-neu-inset" href="#">Calculators</a>
+</nav>
+{/*  Actions  */}
+<div className="flex items-center gap-4">
+<a className="text-on-surface-variant font-medium hover:text-primary transition-all duration-300 font-label-md text-label-md hidden sm:block px-4 py-2 rounded-lg hover:shadow-neu-inset" href="#">Log In</a>
+<a className="bg-primary text-on-primary font-label-md text-label-md px-6 py-2.5 rounded-full btn-neu shadow-neu-extruded hover:shadow-neu-floating transition-shadow" href="#">Get Started</a>
+</div>
+</div>
+</header>
+      <main className="flex-grow">
         
-        {/* Left Typography */}
-        <div className="flex-1 w-full text-center lg:text-left relative z-10">
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-cyan-950/50 border border-cyan-800/50 text-cyan-400 text-sm font-semibold mb-8 animate-pulse">
-            <Zap className="w-4 h-4" /> AI-Powered Price Intelligence
-          </div>
-          <h1 className="text-5xl md:text-7xl font-extrabold tracking-tight leading-[1.1] mb-6">
-            Compare prices.<br />
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-500 animate-[pulse_3s_ease-in-out_infinite]">Track trends.</span><br />
-            Buy smarter.
-          </h1>
-          <p className="text-lg md:text-xl text-slate-400 mb-10 max-w-2xl mx-auto lg:mx-0 leading-relaxed">
-            Stop guessing when to buy. BudgetMitra tracks millions of products across Amazon, Flipkart, Myntra, and Croma to predict the perfect time to purchase.
-          </p>
-          <div className="flex items-center justify-center lg:justify-start gap-8 text-slate-300">
-            <div className="flex items-center gap-2">
-              <ShieldCheck className="w-5 h-5 text-cyan-400" /> <span className="font-medium">98% Accuracy</span>
-            </div>
-            <div className="flex items-center gap-2">
-              <TrendingUp className="w-5 h-5 text-blue-400" /> <span className="font-medium">Live Market Data</span>
-            </div>
-          </div>
-        </div>
+{/*  Hero Section  */}
+<section className="relative pt-24 pb-32 px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto flex flex-col items-center justify-center text-center overflow-hidden">
+{/*  Subtle motion background could be a shader, but using CSS gradients for pure HTML structural request, or assuming placeholder if needed. Will use structural subtle blobs for neumorphic feel  */}
+<div className="absolute inset-0 z-[-1] overflow-hidden opacity-30 pointer-events-none">
+<div className="absolute top-10 left-1/4 w-96 h-96 bg-secondary/20 rounded-full mix-blend-multiply filter blur-3xl opacity-70 animate-blob"></div>
+<div className="absolute top-10 right-1/4 w-96 h-96 bg-tertiary-fixed-dim/20 rounded-full mix-blend-multiply filter blur-3xl opacity-70 animate-blob animation-delay-2000"></div>
+<div className="absolute -bottom-8 left-1/3 w-96 h-96 bg-primary-fixed-dim/20 rounded-full mix-blend-multiply filter blur-3xl opacity-70 animate-blob animation-delay-4000"></div>
+</div>
+<h1 className="font-headline-lg-mobile text-headline-lg-mobile md:font-headline-lg md:text-headline-lg text-primary mb-6 max-w-3xl">
+                Compare prices. Track trends. <br /><span className="text-secondary">Buy smarter.</span>
+</h1>
+<p className="font-body-lg text-body-lg text-on-surface-variant mb-12 max-w-2xl">
+                Your ultimate financial tool for smart shopping. We monitor millions of products so you never overpay again.
+            </p>
+{/*  Neumorphic Search Bar  */}
+<div className="w-full max-w-2xl relative">
+<div className="input-neu rounded-full flex items-center p-2 pl-6 pr-2 h-16 w-full group transition-all duration-300">
+<span className="material-symbols-outlined text-outline group-focus-within:text-primary transition-colors">search</span>
+<input 
+    className="bg-transparent border-none w-full h-full text-body-lg font-body-lg text-on-surface placeholder:text-outline-variant focus:ring-0 px-4" 
+    placeholder="Paste product URL or search..." 
+    type="text" 
+    value={inputValue}
+    onChange={(e) => setInputValue(e.target.value)}
+    onKeyDown={(e) => e.key === 'Enter' && handleSubmit(e)}
+  />
+<button 
+    onClick={handleSubmit}
+    className="btn-neu bg-secondary text-on-secondary w-12 h-12 rounded-full flex items-center justify-center flex-shrink-0 transition-transform hover:scale-105 active:scale-95"
+  >
+<span className="material-symbols-outlined">arrow_forward</span>
+</button>
+</div>
+</div>
+</section>
+{/*  Trusted Platforms (Extruded Cards)  */}
+<section className="py-16 bg-surface px-margin-mobile md:px-margin-desktop">
+<div className="max-w-container-max mx-auto text-center">
+<p className="font-label-md text-label-md text-outline mb-8 uppercase tracking-widest">Tracking prices across</p>
+<div className="flex flex-wrap justify-center gap-6 md:gap-12">
+{/*  Placeholder logos represented by neumorphic blocks  */}
+<div className="card-neu w-32 h-16 flex items-center justify-center text-primary-container font-label-md font-bold grayscale hover:grayscale-0 transition-all duration-300 hover:-translate-y-1">
+                        Amazon
+                    </div>
+<div className="card-neu w-32 h-16 flex items-center justify-center text-secondary font-label-md font-bold grayscale hover:grayscale-0 transition-all duration-300 hover:-translate-y-1">
+                        Flipkart
+                    </div>
+<div className="card-neu w-32 h-16 flex items-center justify-center text-tertiary-container font-label-md font-bold grayscale hover:grayscale-0 transition-all duration-300 hover:-translate-y-1">
+                        Myntra
+                    </div>
+<div className="card-neu w-32 h-16 flex items-center justify-center text-on-primary-fixed-variant font-label-md font-bold grayscale hover:grayscale-0 transition-all duration-300 hover:-translate-y-1">
+                        Chroma
+                    </div>
+</div>
+</div>
+</section>
+{/*  Trending Price Drops (Grid)  */}
+<section className="py-24 px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto">
+<div className="flex justify-between items-end mb-12">
+<div>
+<h2 className="font-headline-md text-headline-md text-primary mb-2">Trending Price Drops</h2>
+<p className="font-body-md text-body-md text-on-surface-variant">Real-time steals you shouldn&apos;t miss.</p>
+</div>
+<button className="btn-neu px-6 py-2 rounded-full font-label-md text-label-md text-secondary bg-surface hidden sm:block">View All</button>
+</div>
+<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+{/*  Product Card 1  */}
+<div className="card-neu p-6 flex flex-col h-full hover:shadow-neu-floating transition-shadow duration-300 cursor-pointer group">
+<div className="w-full aspect-square rounded-xl shadow-neu-inset bg-surface flex items-center justify-center mb-6 relative overflow-hidden">
+<span className="material-symbols-outlined text-6xl text-outline-variant group-hover:scale-110 transition-transform duration-500">smartphone</span>
+<div className="absolute top-3 left-3 bg-tertiary-fixed-dim text-on-tertiary-fixed text-xs font-bold px-2 py-1 rounded-full shadow-sm">
+                            -24%
+                        </div>
+</div>
+<div className="flex-grow">
+<p className="font-label-sm text-label-sm text-outline mb-1">Electronics</p>
+<h3 className="font-label-md text-label-md text-primary mb-2 line-clamp-2">Premium Noise-Cancelling Headphones Pro</h3>
+<div className="flex items-center gap-2 mb-4">
+<span className="font-headline-sm text-headline-sm text-secondary">₹14,999</span>
+<span className="font-body-md text-body-md text-outline line-through">₹19,999</span>
+</div>
+</div>
+<button className="w-full py-3 rounded-xl font-label-md text-label-md text-primary bg-surface shadow-neu-extruded group-hover:bg-primary group-hover:text-on-primary transition-colors active:shadow-neu-inset mt-auto">View Deal</button>
+</div>
+{/*  Product Card 2  */}
+<div className="card-neu p-6 flex flex-col h-full hover:shadow-neu-floating transition-shadow duration-300 cursor-pointer group">
+<div className="w-full aspect-square rounded-xl shadow-neu-inset bg-surface flex items-center justify-center mb-6 relative overflow-hidden">
+<span className="material-symbols-outlined text-6xl text-outline-variant group-hover:scale-110 transition-transform duration-500">watch</span>
+<div className="absolute top-3 left-3 bg-tertiary-fixed-dim text-on-tertiary-fixed text-xs font-bold px-2 py-1 rounded-full shadow-sm">
+                            -15%
+                        </div>
+</div>
+<div className="flex-grow">
+<p className="font-label-sm text-label-sm text-outline mb-1">Wearables</p>
+<h3 className="font-label-md text-label-md text-primary mb-2 line-clamp-2">Smart Fitness Watch Series 5</h3>
+<div className="flex items-center gap-2 mb-4">
+<span className="font-headline-sm text-headline-sm text-secondary">₹3,499</span>
+<span className="font-body-md text-body-md text-outline line-through">₹4,199</span>
+</div>
+</div>
+<button className="w-full py-3 rounded-xl font-label-md text-label-md text-primary bg-surface shadow-neu-extruded group-hover:bg-primary group-hover:text-on-primary transition-colors active:shadow-neu-inset mt-auto">View Deal</button>
+</div>
+{/*  Product Card 3  */}
+<div className="card-neu p-6 flex flex-col h-full hover:shadow-neu-floating transition-shadow duration-300 cursor-pointer group">
+<div className="w-full aspect-square rounded-xl shadow-neu-inset bg-surface flex items-center justify-center mb-6 relative overflow-hidden">
+<span className="material-symbols-outlined text-6xl text-outline-variant group-hover:scale-110 transition-transform duration-500">laptop_mac</span>
+<div className="absolute top-3 left-3 bg-tertiary-fixed-dim text-on-tertiary-fixed text-xs font-bold px-2 py-1 rounded-full shadow-sm">
+                            -10%
+                        </div>
+</div>
+<div className="flex-grow">
+<p className="font-label-sm text-label-sm text-outline mb-1">Computers</p>
+<h3 className="font-label-md text-label-md text-primary mb-2 line-clamp-2">Ultra-Thin Work Laptop M2</h3>
+<div className="flex items-center gap-2 mb-4">
+<span className="font-headline-sm text-headline-sm text-secondary">₹89,999</span>
+<span className="font-body-md text-body-md text-outline line-through">₹99,999</span>
+</div>
+</div>
+<button className="w-full py-3 rounded-xl font-label-md text-label-md text-primary bg-surface shadow-neu-extruded group-hover:bg-primary group-hover:text-on-primary transition-colors active:shadow-neu-inset mt-auto">View Deal</button>
+</div>
+{/*  Product Card 4  */}
+<div className="card-neu p-6 flex flex-col h-full hover:shadow-neu-floating transition-shadow duration-300 cursor-pointer group">
+<div className="w-full aspect-square rounded-xl shadow-neu-inset bg-surface flex items-center justify-center mb-6 relative overflow-hidden">
+<span className="material-symbols-outlined text-6xl text-outline-variant group-hover:scale-110 transition-transform duration-500">blender</span>
+<div className="absolute top-3 left-3 bg-tertiary-fixed-dim text-on-tertiary-fixed text-xs font-bold px-2 py-1 rounded-full shadow-sm">
+                            -32%
+                        </div>
+</div>
+<div className="flex-grow">
+<p className="font-label-sm text-label-sm text-outline mb-1">Home Appliances</p>
+<h3 className="font-label-md text-label-md text-primary mb-2 line-clamp-2">Smart High-Speed Blender Pro Max</h3>
+<div className="flex items-center gap-2 mb-4">
+<span className="font-headline-sm text-headline-sm text-secondary">₹4,299</span>
+<span className="font-body-md text-body-md text-outline line-through">₹6,499</span>
+</div>
+</div>
+<button className="w-full py-3 rounded-xl font-label-md text-label-md text-primary bg-surface shadow-neu-extruded group-hover:bg-primary group-hover:text-on-primary transition-colors active:shadow-neu-inset mt-auto">View Deal</button>
+</div>
+</div>
+<button className="btn-neu w-full mt-8 py-3 rounded-full font-label-md text-label-md text-secondary bg-surface sm:hidden">View All Deals</button>
+</section>
+{/*  Feature Grid (Bento Style Neumorphism)  */}
+<section className="py-24 bg-surface-container-low px-margin-mobile md:px-margin-desktop">
+<div className="max-w-container-max mx-auto">
+<div className="text-center mb-16">
+<h2 className="font-headline-md text-headline-md text-primary mb-4">Smart Shopping Arsenal</h2>
+<p className="font-body-lg text-body-lg text-on-surface-variant max-w-2xl mx-auto">Equip yourself with data. Our tools are designed to give you the advantage in every purchase.</p>
+</div>
+<div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+{/*  Feature 1: Alerts  */}
+<div className="card-neu p-8 flex flex-col items-center text-center">
+<div className="w-20 h-20 rounded-2xl shadow-neu-inset flex items-center justify-center mb-6">
+<div className="w-12 h-12 rounded-full shadow-neu-extruded flex items-center justify-center bg-surface text-secondary">
+<span className="material-symbols-outlined" style={{ fontVariationSettings: "\'FILL\' 1" }}>notifications_active</span>
+</div>
+</div>
+<h3 className="font-headline-sm text-headline-sm text-primary mb-3">Real-time Price Alerts</h3>
+<p className="font-body-md text-body-md text-on-surface-variant">Set your target price and we&apos;ll notify you the second it drops. Never miss a deal.</p>
+</div>
+{/*  Feature 2: History  */}
+<div className="card-neu p-8 flex flex-col items-center text-center md:-translate-y-8">
+<div className="w-20 h-20 rounded-2xl shadow-neu-inset flex items-center justify-center mb-6">
+<div className="w-12 h-12 rounded-full shadow-neu-extruded flex items-center justify-center bg-surface text-tertiary-fixed-dim">
+<span className="material-symbols-outlined" style={{ fontVariationSettings: "\'FILL\' 1" }}>monitoring</span>
+</div>
+</div>
+<h3 className="font-headline-sm text-headline-sm text-primary mb-3">Historical Data</h3>
+<p className="font-body-md text-body-md text-on-surface-variant">View up to 12 months of price history charts to know if it&apos;s genuinely a good time to buy.</p>
+{/*  Mini visual representation of a chart  */}
+<div className="w-full mt-6 h-16 shadow-neu-inset rounded-lg p-2 flex items-end justify-between px-4">
+<div className="w-2 bg-secondary rounded-t-sm h-1/4"></div>
+<div className="w-2 bg-secondary rounded-t-sm h-2/4"></div>
+<div className="w-2 bg-secondary rounded-t-sm h-1/3"></div>
+<div className="w-2 bg-secondary rounded-t-sm h-3/4"></div>
+<div className="w-2 bg-tertiary-fixed-dim rounded-t-sm h-full"></div>
+</div>
+</div>
+{/*  Feature 3: Compare  */}
+<div className="card-neu p-8 flex flex-col items-center text-center">
+<div className="w-20 h-20 rounded-2xl shadow-neu-inset flex items-center justify-center mb-6">
+<div className="w-12 h-12 rounded-full shadow-neu-extruded flex items-center justify-center bg-surface text-primary-fixed-dim">
+<span className="material-symbols-outlined" style={{ fontVariationSettings: "\'FILL\' 1" }}>compare_arrows</span>
+</div>
+</div>
+<h3 className="font-headline-sm text-headline-sm text-primary mb-3">Smart Comparison</h3>
+<p className="font-body-md text-body-md text-on-surface-variant">We instantly check multiple retailers to find you the lowest price including shipping.</p>
+</div>
+</div>
+</div>
+</section>
 
-        {/* Right Search Component & Sales Bubble */}
-        <div className="flex-1 w-full max-w-lg relative perspective-[1200px] transform-style-3d">
-          
-          {/* Floating 3D Sales Bubble */}
-          <div 
-            className="absolute -top-16 -right-16 z-30 cursor-pointer"
-            style={{ 
-              transform: `translateY(${Math.sin(time * 2) * 15}px) rotateX(${mousePos.y * 0.15 + 10}deg) rotateY(${mousePos.x * -0.15 - 15}deg)`,
-              transition: 'transform 0.1s ease-out'
-            }}
-          >
-            <div className="relative shadow-[0_30px_60px_rgba(34,211,238,0.4)] bg-gradient-to-br from-slate-900 to-[#0a0f1d] border-2 border-cyan-500/50 backdrop-blur-xl rounded-2xl p-5 w-72 overflow-hidden before:absolute before:inset-0 before:bg-gradient-to-tr before:from-transparent before:via-white/10 before:to-transparent before:translate-x-[-150%] hover:before:animate-[shimmer_1.5s_infinite]">
-              <div className="absolute top-0 right-0 w-40 h-40 bg-cyan-500/30 blur-[50px] rounded-full pointer-events-none"></div>
-              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent -translate-x-[150%] animate-[shimmer_2s_infinite]"></div>
-              
-              <div className="flex items-start justify-between mb-2">
-                <div className="flex items-center gap-2">
-                  <Sparkles className="w-4 h-4 text-amber-400 animate-pulse" />
-                  <span className="text-xs font-bold text-amber-400 tracking-wider uppercase">Live Soon</span>
-                </div>
-                <div className="px-2 py-0.5 rounded-full bg-cyan-500/20 text-cyan-400 text-[10px] font-bold border border-cyan-500/30">
-                  {nextSale.platform}
-                </div>
-              </div>
-              
-              <h3 className="text-lg font-black text-white mb-1 leading-tight">{nextSale.name}</h3>
-              
-              <div className="flex items-center gap-1.5 text-xs text-slate-400 font-medium mt-3">
-                <CalendarClock className="w-3.5 h-3.5" />
-                Coming up in ~<span className="text-white font-bold">{estimatedDays} Days</span>
-              </div>
-            </div>
-          </div>
-
-          <div className="p-8 rounded-[2rem] bg-slate-900/50 backdrop-blur-xl border border-slate-700/50 shadow-2xl relative z-20">
-            <div className="absolute inset-0 rounded-[2rem] bg-gradient-to-b from-white/5 to-transparent pointer-events-none"></div>
-            
-            <h2 className="text-2xl font-bold text-white mb-2">Product Analyzer</h2>
-            <p className="text-sm text-slate-400 mb-8">Paste a product URL or search by name.</p>
-
-            <div className="flex gap-2 p-1 bg-slate-800/50 rounded-xl mb-6">
-              <button 
-                onClick={() => { setSearchMode('name'); setInputValue(""); setSuggestions([]); }}
-                className={`flex-1 flex justify-center items-center gap-2 py-2.5 rounded-lg text-sm font-semibold transition-all ${searchMode === 'name' ? 'bg-cyan-500 text-white shadow-lg shadow-cyan-500/25' : 'text-slate-400 hover:text-white hover:bg-slate-700/50'}`}
-              >
-                <Type className="w-4 h-4" /> Name
-              </button>
-              <button 
-                onClick={() => { setSearchMode('url'); setInputValue(""); setSuggestions([]); }}
-                className={`flex-1 flex justify-center items-center gap-2 py-2.5 rounded-lg text-sm font-semibold transition-all ${searchMode === 'url' ? 'bg-blue-500 text-white shadow-lg shadow-blue-500/25' : 'text-slate-400 hover:text-white hover:bg-slate-700/50'}`}
-              >
-                <LinkIcon className="w-4 h-4" /> Paste URL
-              </button>
-            </div>
-
-            <form onSubmit={handleSubmit} className="space-y-4">
-              <div className="relative group z-20">
-                <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
-                  <Search className="w-5 h-5 text-slate-400 group-focus-within:text-cyan-400 transition-colors" />
-                </div>
-                <input 
-                  type={searchMode === 'url' ? "url" : "text"}
-                  className="w-full bg-slate-950/50 border border-slate-700 rounded-xl py-4 pl-12 pr-4 text-white placeholder-slate-500 outline-none focus:border-cyan-500/50 focus:ring-1 focus:ring-cyan-500/50 transition-all"
-                  placeholder={searchMode === 'name' ? "e.g., iPhone 15, Sony WH-1000XM5" : "https://amazon.in/..."}
-                  value={inputValue}
-                  onChange={handleInputChange}
-                  disabled={isLoading}
-                  required
-                />
-
-                {/* Dropdown Suggestions */}
-                {searchMode === 'name' && suggestions.length > 0 && (
-                  <div className="absolute top-[calc(100%+8px)] left-0 w-full bg-slate-800 border border-slate-700 rounded-xl shadow-2xl overflow-hidden py-2">
-                    {suggestions.map((prod) => (
-                      <div 
-                        key={prod.product_key}
-                        onMouseDown={(e) => { e.preventDefault(); handleSelectProduct(prod); }}
-                        className="px-4 py-3 hover:bg-slate-700/80 cursor-pointer flex items-center gap-3 transition-colors"
-                      >
-                        <Search className="w-4 h-4 text-slate-400 flex-shrink-0" />
-                        <span className="text-sm font-medium text-slate-200 truncate">{prod.product_name}</span>
-                      </div>
-                    ))}
-                  </div>
-                )}
-              </div>
-
-              {error && <div className="text-sm font-medium text-red-400 bg-red-400/10 border border-red-400/20 rounded-lg p-3">{error}</div>}
-
-              <button 
-                type="submit"
-                disabled={isLoading}
-                className="w-full py-4 rounded-xl bg-gradient-to-r from-cyan-500 to-blue-600 text-white font-bold text-lg hover:shadow-[0_0_30px_rgba(34,211,238,0.4)] transition-all flex items-center justify-center gap-2 disabled:opacity-70 disabled:cursor-not-allowed transform active:scale-[0.98]"
-              >
-                {isLoading ? (
-                  <div className="w-6 h-6 border-3 border-white/30 border-t-white rounded-full animate-spin"></div>
-                ) : (
-                  <>Analyze Now <ArrowRight className="w-5 h-5" /></>
-                )}
-              </button>
-            </form>
-          </div>
-        </div>
       </main>
+      {/* Footer is now globally handled in layout.tsx */}
+    </div>
 
-      {/* Trending Deals 3D Carousel */}
-      <section className="relative z-10 max-w-7xl mx-auto px-6 pb-32">
-        <div className="flex items-center gap-3 mb-10">
-          <div className="w-10 h-10 rounded-xl bg-purple-500/20 flex items-center justify-center border border-purple-500/50">
-            <Sparkles className="w-5 h-5 text-purple-400" />
-          </div>
-          <h2 className="text-3xl font-extrabold text-white tracking-tight">Trending Drops Today</h2>
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 perspective-[1000px]">
-          {/* Card 1 */}
-          <div 
-            onClick={() => {
-              setSelectedProductKey('apple-iphone-15-128gb-black');
-              setSelectedProductName('Apple iPhone 15 128GB Black');
-              setTimeout(() => {
-                const e = new Event('submit', { cancelable: true }) as any;
-                handleSubmit(e);
-              }, 100);
-            }}
-            className="group relative h-64 bg-gradient-to-br from-slate-900 to-[#050914] border border-slate-800 rounded-3xl p-6 cursor-pointer hover:border-cyan-500/50 transition-all duration-300 transform hover:rotate-y-[-5deg] hover:rotate-x-[5deg] hover:scale-[1.02] hover:shadow-[0_20px_40px_rgba(34,211,238,0.15)] overflow-hidden"
-          >
-            <div className="absolute top-0 right-0 w-32 h-32 bg-cyan-500/10 blur-[50px] rounded-full group-hover:bg-cyan-500/20 transition-all"></div>
-            <div className="flex justify-between items-start mb-12">
-              <span className="px-3 py-1 bg-emerald-500/20 text-emerald-400 text-xs font-bold rounded-lg border border-emerald-500/30">15% DROP</span>
-              <div className="w-8 h-8 rounded-full bg-slate-800 flex items-center justify-center group-hover:bg-cyan-500 transition-colors">
-                <ArrowRight className="w-4 h-4 text-white group-hover:-rotate-45 transition-transform" />
-              </div>
-            </div>
-            <h3 className="text-xl font-bold text-white mb-2">Apple iPhone 15</h3>
-            <div className="flex items-baseline gap-2">
-              <span className="text-3xl font-black text-white">₹65,999</span>
-              <span className="text-sm font-medium text-slate-500 line-through">₹79,900</span>
-            </div>
-          </div>
-
-          {/* Card 2 */}
-          <div 
-            onClick={() => {
-              setSelectedProductKey('sony-wh-1000xm5-black');
-              setSelectedProductName('Sony WH-1000XM5 Black');
-              setTimeout(() => {
-                const e = new Event('submit', { cancelable: true }) as any;
-                handleSubmit(e);
-              }, 100);
-            }}
-            className="group relative h-64 bg-gradient-to-br from-slate-900 to-[#050914] border border-slate-800 rounded-3xl p-6 cursor-pointer hover:border-purple-500/50 transition-all duration-300 transform hover:-translate-y-2 hover:scale-[1.02] hover:shadow-[0_20px_40px_rgba(168,85,247,0.15)] overflow-hidden"
-          >
-            <div className="absolute top-0 right-0 w-32 h-32 bg-purple-500/10 blur-[50px] rounded-full group-hover:bg-purple-500/20 transition-all"></div>
-            <div className="flex justify-between items-start mb-12">
-              <span className="px-3 py-1 bg-emerald-500/20 text-emerald-400 text-xs font-bold rounded-lg border border-emerald-500/30">22% DROP</span>
-              <div className="w-8 h-8 rounded-full bg-slate-800 flex items-center justify-center group-hover:bg-purple-500 transition-colors">
-                <ArrowRight className="w-4 h-4 text-white group-hover:-rotate-45 transition-transform" />
-              </div>
-            </div>
-            <h3 className="text-xl font-bold text-white mb-2">Sony WH-1000XM5</h3>
-            <div className="flex items-baseline gap-2">
-              <span className="text-3xl font-black text-white">₹24,990</span>
-              <span className="text-sm font-medium text-slate-500 line-through">₹31,990</span>
-            </div>
-          </div>
-
-          {/* Card 3 */}
-          <div 
-            onClick={() => {
-              setSelectedProductKey('samsung-galaxy-s24-256gb-onyx-black');
-              setSelectedProductName('Samsung Galaxy S24 256GB Onyx Black');
-              setTimeout(() => {
-                const e = new Event('submit', { cancelable: true }) as any;
-                handleSubmit(e);
-              }, 100);
-            }}
-            className="group relative h-64 bg-gradient-to-br from-slate-900 to-[#050914] border border-slate-800 rounded-3xl p-6 cursor-pointer hover:border-blue-500/50 transition-all duration-300 transform hover:rotate-y-[5deg] hover:rotate-x-[5deg] hover:scale-[1.02] hover:shadow-[0_20px_40px_rgba(59,130,246,0.15)] overflow-hidden"
-          >
-            <div className="absolute top-0 right-0 w-32 h-32 bg-blue-500/10 blur-[50px] rounded-full group-hover:bg-blue-500/20 transition-all"></div>
-            <div className="flex justify-between items-start mb-12">
-              <span className="px-3 py-1 bg-amber-500/20 text-amber-400 text-xs font-bold rounded-lg border border-amber-500/30">LOW STOCK</span>
-              <div className="w-8 h-8 rounded-full bg-slate-800 flex items-center justify-center group-hover:bg-blue-500 transition-colors">
-                <ArrowRight className="w-4 h-4 text-white group-hover:-rotate-45 transition-transform" />
-              </div>
-            </div>
-            <h3 className="text-xl font-bold text-white mb-2">Samsung Galaxy S24</h3>
-            <div className="flex items-baseline gap-2">
-              <span className="text-3xl font-black text-white">₹74,999</span>
-              <span className="text-sm font-medium text-slate-500 line-through">₹79,999</span>
-            </div>
-          </div>
-        </div>
-      </section>
-
-    </AuroraBackground>
   );
 }
