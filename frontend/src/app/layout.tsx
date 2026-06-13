@@ -1,16 +1,28 @@
 import type { Metadata } from "next";
-import { Inter, JetBrains_Mono } from "next/font/google";
+import { Newsreader, Sora } from "next/font/google";
 import "./globals.css";
+import { AuthProvider } from "@/context/AuthContext";
+import { TransitionProvider } from "@/context/TransitionContext";
+import InteractiveAccents from "@/components/InteractiveAccents";
+import CursorFollower from "@/components/CursorFollower";
 
-const inter = Inter({ subsets: ["latin"], variable: '--font-inter' });
-const jetbrainsMono = JetBrains_Mono({ subsets: ["latin"], variable: '--font-jetbrains-mono' });
+const sora = Sora({ 
+  subsets: ["latin"], 
+  variable: "--font-sora",
+  weight: ["100", "200", "300", "400", "500", "600", "700", "800"]
+});
+
+const newsreader = Newsreader({ 
+  subsets: ["latin"], 
+  variable: "--font-newsreader",
+  weight: ["200", "300", "400", "500", "600", "700", "800"],
+  style: ["normal", "italic"]
+});
 
 export const metadata: Metadata = {
-  title: "BudgetMitra – Smart Price Comparator",
-  description: "Compare smarter. Buy better. AI-powered price intelligence for smarter shopping.",
+  title: "BudgetMitra – Wealth, Refined.",
+  description: "Experience financial clarity through an organic blend of human wisdom and technological precision.",
 };
-
-import { AuthProvider } from "@/context/AuthContext";
 
 export default function RootLayout({
   children,
@@ -18,12 +30,17 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body className={`${inter.variable} ${jetbrainsMono.variable} font-sans bg-background min-h-screen`}>
+    <html lang="en" className="scroll-smooth">
+      <body className={`${sora.variable} ${newsreader.variable} font-sans bg-background text-on-background min-h-screen antialiased`}>
         <AuthProvider>
-          {children}
+          <TransitionProvider>
+            <InteractiveAccents />
+            <CursorFollower />
+            {children}
+          </TransitionProvider>
         </AuthProvider>
       </body>
     </html>
   );
 }
+

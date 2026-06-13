@@ -1,11 +1,13 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-/* eslint-disable @typescript-eslint/no-unused-vars */
 "use client";
 
-import { useState, useRef, useEffect } from "react";
-import { useRouter } from "next/navigation";
-import { Search, Link as LinkIcon, Type, ArrowRight, PlayCircle, TrendingUp, ShieldCheck, Zap, Sparkles, CalendarClock, User, LogOut } from "lucide-react";
+import { useState, useEffect } from "react";
+import { useTransitionRouter } from "@/context/TransitionContext";
+import { Search, Link as LinkIcon, Type, ArrowRight, TrendingUp, ShieldCheck, Sparkles, LogOut, CheckCircle, Tag, ShoppingCart, Percent, BarChart3, ArrowUpRight } from "lucide-react";
 import { useAuth } from "@/context/AuthContext";
+import { motion } from "framer-motion";
+import ShaderBackground from "@/components/ShaderBackground";
+import Navbar from "@/components/Navbar";
+import { cn } from "@/lib/utils";
 
 const staticProducts = [
   { product_key: "apple-iphone-15-128gb-black", product_name: "Apple iPhone 15 128GB Black", brand: "Apple", category: "mobile" },
@@ -30,60 +32,16 @@ const staticProducts = [
   { product_key: "puma-unisex-essential-logo-tee", product_name: "Puma Unisex Essential Logo Tee", brand: "Puma", category: "clothes" }
 ];
 
-const upcomingSales = [
-  { name: "Summer Sale", platform: "Amazon", month: 4 },
-  { name: "End of Reason Sale", platform: "Myntra", month: 5 },
-  { name: "Prime Day", platform: "Amazon", month: 6 },
-  { name: "Big Saving Days", platform: "Flipkart", month: 7 },
-  { name: "Big Billion Days", platform: "Flipkart", month: 8 },
-  { name: "Great Indian Festival", platform: "Amazon", month: 9 },
-  { name: "Black Friday", platform: "Global", month: 10 },
-  { name: "Year End Sale", platform: "Multiple", month: 11 }
-];
-
 export default function Home() {
-  const router = useRouter();
+  const router = useTransitionRouter();
   const [searchMode, setSearchMode] = useState<'name' | 'url'>('name');
   const [inputValue, setInputValue] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
   const [suggestions, setSuggestions] = useState<typeof staticProducts>([]);
   const [selectedProductKey, setSelectedProductKey] = useState<string | null>(null);
-  const [selectedProductName, setSelectedProductName] = useState<string | null>(null);
-  
-  const { user, logout } = useAuth();
-  const currentMonth = new Date().getMonth();
-  const nextSale = upcomingSales.find(s => s.month >= currentMonth) || upcomingSales[0];
-  const monthsAway = nextSale.month >= currentMonth ? nextSale.month - currentMonth : (12 - currentMonth + nextSale.month);
-  
-  // Deterministic days left so it doesn't jump on re-renders
-  const estimatedDays = monthsAway * 30 + 12;
 
-  // Mouse interaction and Time state for animated background & 3D floating
-  const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
-  const [time, setTime] = useState(0);
-
-  useEffect(() => {
-    let animationFrameId: number;
-    const updateTime = () => {
-      setTime(Date.now() / 1000);
-      animationFrameId = requestAnimationFrame(updateTime);
-    };
-    updateTime();
-
-    const handleMouseMove = (e: MouseEvent) => {
-      setMousePos({
-        x: (e.clientX / window.innerWidth - 0.5) * 100,
-        y: (e.clientY / window.innerHeight - 0.5) * 100,
-      });
-    };
-    window.addEventListener("mousemove", handleMouseMove);
-    
-    return () => {
-      window.removeEventListener("mousemove", handleMouseMove);
-      cancelAnimationFrame(animationFrameId);
-    };
-  }, []);
+  const { user } = useAuth();
 
   const normalizeText = (value?: string) => {
     return String(value || "").toLowerCase().trim();
@@ -143,45 +101,36 @@ export default function Home() {
     const val = e.target.value;
     setInputValue(val);
     setSelectedProductKey(null);
-    setSelectedProductName(null);
 
-    try {
-      if (!val || val.trim() === '') {
-        setSuggestions([]);
-        return;
-      }
-
-      const searchSlug = normalizeSlug(val);
-      const searchText = normalizeText(val);
-
-      if (staticProducts && staticProducts.length > 0) {
-        const filtered = staticProducts.filter(p => {
-          if (!p) return false;
-          const pName = p.product_name ? normalizeText(p.product_name) : "";
-          const pId = p.product_key ? normalizeSlug(p.product_key) : "";
-          return pName.includes(searchText) || pId.includes(searchSlug);
-        });
-
-        const uniqueSuggestions: typeof staticProducts = [];
-        const seenKeys = new Set();
-        for (const p of filtered) {
-          if (!seenKeys.has(p.product_key)) {
-            seenKeys.add(p.product_key);
-            uniqueSuggestions.push(p);
-          }
-        }
-
-        setSuggestions(uniqueSuggestions.slice(0, 5));
-      }
-    } catch (e) {
+    if (!val || val.trim() === '') {
       setSuggestions([]);
+      return;
     }
+
+    const searchSlug = normalizeSlug(val);
+    const searchText = normalizeText(val);
+
+    const filtered = staticProducts.filter(p => {
+      const pName = p.product_name ? normalizeText(p.product_name) : "";
+      const pId = p.product_key ? normalizeSlug(p.product_key) : "";
+      return pName.includes(searchText) || pId.includes(searchSlug);
+    });
+
+    const uniqueSuggestions: typeof staticProducts = [];
+    const seenKeys = new Set();
+    for (const p of filtered) {
+      if (!seenKeys.has(p.product_key)) {
+        seenKeys.add(p.product_key);
+        uniqueSuggestions.push(p);
+      }
+    }
+
+    setSuggestions(uniqueSuggestions.slice(0, 5));
   };
 
-  const handleSelectProduct = (product: { product_key: string, product_name: string }) => {
+  const handleSelectProduct = (product: typeof staticProducts[0]) => {
     setInputValue(product.product_name);
     setSelectedProductKey(product.product_key);
-    setSelectedProductName(product.product_name);
     setSuggestions([]);
   };
 
@@ -207,322 +156,387 @@ export default function Home() {
       if (match && match.product_key) {
         router.push(`/product/${match.product_key}`);
       } else {
-        if (staticProducts && staticProducts.length > 0 && staticProducts[0].product_key) {
-          router.push(`/product/${staticProducts[0].product_key}`);
-        } else {
-          setError("No products available in dataset.");
-          setIsLoading(false);
-        }
+        // Fallback to first product so it flows smoothly in prototype
+        router.push(`/product/${staticProducts[0].product_key}`);
       }
     } catch (err: any) {
-      setError("Failed to extract product safely.");
+      setError("Failed to locate product analysis page.");
       setIsLoading(false);
     }
   };
 
+  // Magnetic Hover animation coordinates
+  const [btnOffset, setBtnOffset] = useState({ x: 0, y: 0 });
+  const handleBtnMouseMove = (e: React.MouseEvent) => {
+    const rect = e.currentTarget.getBoundingClientRect();
+    const x = e.clientX - rect.left - rect.width / 2;
+    const y = e.clientY - rect.top - rect.height / 2;
+    setBtnOffset({ x: x * 0.2, y: y * 0.2 });
+  };
+  const handleBtnMouseLeave = () => {
+    setBtnOffset({ x: 0, y: 0 });
+  };
+
   return (
-    <div className="min-h-screen bg-[#050914] text-white overflow-hidden relative selection:bg-cyan-500/30">
-      
-      {/* Animated Interactive Background Glows */}
-      <div 
-        className="absolute top-[20%] left-[20%] w-[50vw] h-[50vw] bg-cyan-600/20 blur-[150px] rounded-full mix-blend-screen pointer-events-none"
-        style={{ transform: `translate(${-mousePos.x * 4}px, ${-mousePos.y * 4}px) scale(${1 + Math.sin(time) * 0.1})`, transition: 'transform 0.1s ease-out' }}
-      ></div>
-      <div 
-        className="absolute bottom-[10%] right-[10%] w-[60vw] h-[60vw] bg-indigo-600/20 blur-[150px] rounded-full mix-blend-screen pointer-events-none"
-        style={{ transform: `translate(${mousePos.x * 4}px, ${mousePos.y * 4}px) scale(${1 + Math.cos(time) * 0.1})`, transition: 'transform 0.1s ease-out' }}
-      ></div>
-      
-      {/* Floating 3D Gravity Bubbles */}
-      <div className="absolute inset-0 pointer-events-none overflow-hidden opacity-80">
-        {[...Array(25)].map((_, i) => {
-          const size = ((i % 6) * 15 + 25); // Bubbles ranging from 25px to 100px
-          const speedX = ((i % 5) + 1) * 0.4;
-          const speedY = ((i % 4) + 1) * 0.4;
-          return (
-            <div 
-              key={i}
-              className="absolute rounded-full backdrop-blur-sm border border-cyan-400/30"
-              style={{
-                width: size + 'px',
-                height: size + 'px',
-                left: (i * 4) + '%',
-                top: ((i * 11) % 100) + '%',
-                background: 'radial-gradient(circle at 30% 30%, rgba(34,211,238,0.4), rgba(15,23,42,0.1))',
-                boxShadow: 'inset -5px -5px 15px rgba(0,0,0,0.5), inset 5px 5px 15px rgba(255,255,255,0.1)',
-                transform: `translate(${mousePos.x * speedX}px, ${mousePos.y * speedY}px) translateY(${Math.sin(time * speedY + i) * 60}px) scale(${1 + Math.sin(time + i) * 0.1})`,
-                transition: 'transform 0.1s ease-out',
-              }}
-            />
-          );
-        })}
-      </div>
+    <div className="min-h-screen relative overflow-x-hidden bg-background text-on-background">
+      {/* Ambient Shader Background */}
+      <ShaderBackground mode="home" opacity={0.65} />
 
       {/* Navigation */}
-      <nav className="fixed w-full top-0 z-50 bg-[#050914]/60 backdrop-blur-md border-b border-white/5">
-        <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
-          <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-cyan-400 to-blue-600 flex items-center justify-center shadow-[0_0_20px_rgba(34,211,238,0.4)]">
-              <TrendingUp className="text-white w-5 h-5" />
-            </div>
-            <span className="text-2xl font-black tracking-tight">Budget<span className="text-cyan-400">Mitra</span></span>
-          </div>
-          <div className="hidden md:flex items-center gap-8 text-sm font-medium text-slate-300">
-            <a href="/compare" className="hover:text-cyan-400 transition-colors font-bold text-white flex items-center gap-1"><LinkIcon className="w-4 h-4"/> Compare</a>
-            <a href="/alerts" className="hover:text-cyan-400 transition-colors">Price Alerts</a>
-            <div className="flex items-center gap-4">
-              {user ? (
-                <div className="flex items-center gap-4 border-l border-white/10 pl-4">
-                  <div className="flex items-center gap-2">
-                    <div className="w-8 h-8 rounded-full bg-cyan-500/20 flex items-center justify-center border border-cyan-500/50">
-                      <User className="w-4 h-4 text-cyan-400" />
-                    </div>
-                    <span className="font-bold text-white">{user.name}</span>
-                  </div>
-                  <button 
-                    onClick={logout} 
-                    className="p-2 text-slate-400 hover:text-rose-400 hover:bg-rose-500/10 rounded-full transition-all"
-                    title="Sign Out"
-                  >
-                    <LogOut className="w-4 h-4" />
-                  </button>
-                </div>
-              ) : (
-                <>
-                  <button onClick={() => router.push('/login')} className="hover:text-cyan-400 transition-colors font-semibold">
-                    Sign In
-                  </button>
-                  <button onClick={() => router.push('/signup')} className="px-5 py-2.5 rounded-full bg-cyan-500 hover:bg-cyan-400 transition-all shadow-[0_0_15px_rgba(34,211,238,0.4)] text-[#050914] font-bold">
-                    Sign Up
-                  </button>
-                </>
-              )}
-            </div>
-          </div>
-        </div>
-      </nav>
+      <Navbar />
 
-      {/* Main Hero Section */}
-      <main className="relative z-10 max-w-7xl mx-auto px-6 pt-40 pb-20 lg:pt-48 lg:pb-32 flex flex-col lg:flex-row items-center gap-16">
-        
-        {/* Left Typography */}
-        <div className="flex-1 w-full text-center lg:text-left relative z-10">
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-cyan-950/50 border border-cyan-800/50 text-cyan-400 text-sm font-semibold mb-8 animate-pulse">
-            <Zap className="w-4 h-4" /> AI-Powered Price Intelligence
+      {/* Hero Section */}
+      <main className="relative pt-36 pb-20 md:pt-48 md:pb-28 px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto flex flex-col items-center justify-center text-center">
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+          className="max-w-4xl"
+        >
+          {/* Subtle Tagline Badge */}
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-primary-fixed border border-primary/10 text-primary text-xs md:text-sm font-semibold mb-8">
+            <Sparkles className="w-4 h-4 text-surface-tint" /> AI Price Intelligence
           </div>
-          <h1 className="text-5xl md:text-7xl font-extrabold tracking-tight leading-[1.1] mb-6">
-            Compare prices.<br />
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-500 animate-[pulse_3s_ease-in-out_infinite]">Track trends.</span><br />
-            Buy smarter.
+
+          <h1 className="text-display-lg md:text-[76px] text-primary mb-6 leading-[1.15] font-black tracking-tight">
+            Wealth, Refined.
           </h1>
-          <p className="text-lg md:text-xl text-slate-400 mb-10 max-w-2xl mx-auto lg:mx-0 leading-relaxed">
-            Stop guessing when to buy. BudgetMitra tracks millions of products across Amazon, Flipkart, Myntra, and Croma to predict the perfect time to purchase.
+
+          <p className="text-body-lg text-on-surface-variant mb-12 max-w-2xl mx-auto leading-relaxed">
+            Experience financial clarity through an organic blend of human wisdom and technological precision. Manage your future with quiet luxury.
           </p>
-          <div className="flex items-center justify-center lg:justify-start gap-8 text-slate-300">
-            <div className="flex items-center gap-2">
-              <ShieldCheck className="w-5 h-5 text-cyan-400" /> <span className="font-medium">98% Accuracy</span>
-            </div>
-            <div className="flex items-center gap-2">
-              <TrendingUp className="w-5 h-5 text-blue-400" /> <span className="font-medium">Live Market Data</span>
-            </div>
-          </div>
-        </div>
 
-        {/* Right Search Component & Sales Bubble */}
-        <div className="flex-1 w-full max-w-lg relative perspective-[1200px] transform-style-3d">
-          
-          {/* Floating 3D Sales Bubble */}
-          <div 
-            className="absolute -top-16 -right-16 z-30 cursor-pointer"
-            style={{ 
-              transform: `translateY(${Math.sin(time * 2) * 15}px) rotateX(${mousePos.y * 0.15 + 10}deg) rotateY(${mousePos.x * -0.15 - 15}deg)`,
-              transition: 'transform 0.1s ease-out'
-            }}
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-20">
+            <button
+              onMouseMove={handleBtnMouseMove}
+              onMouseLeave={handleBtnMouseLeave}
+              onClick={() => {
+                const target = document.getElementById("search-analyzer");
+                if (target) target.scrollIntoView({ behavior: "smooth" });
+              }}
+              style={{ transform: `translate(${btnOffset.x}px, ${btnOffset.y}px)` }}
+              className="btn-primary-glow text-on-primary text-sm font-semibold px-8 py-4 rounded-full w-full sm:w-auto transition-transform"
+            >
+              Start Your Journey
+            </button>
+            <button 
+              onClick={() => router.push("/compare")}
+              className="glass-panel text-primary text-sm font-semibold px-8 py-4 rounded-full w-full sm:w-auto hover:bg-white/60 transition-colors soft-shadow border border-white/40"
+            >
+              Explore Dashboard
+            </button>
+          </div>
+        </motion.div>
+
+        {/* Abstract Sphere Graphics & Interactive Search Box */}
+        <div id="search-analyzer" className="relative w-full max-w-5xl mt-8 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+          {/* Left Column: Sphere & Stats (Visual Goals) */}
+          <motion.div
+            initial={{ opacity: 0, scale: 0.95 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true }}
+            className="lg:col-span-6 flex flex-col items-center justify-center relative min-h-[300px]"
           >
-            <div className="relative shadow-[0_30px_60px_rgba(34,211,238,0.4)] bg-gradient-to-br from-slate-900 to-[#0a0f1d] border-2 border-cyan-500/50 backdrop-blur-xl rounded-2xl p-5 w-72 overflow-hidden before:absolute before:inset-0 before:bg-gradient-to-tr before:from-transparent before:via-white/10 before:to-transparent before:translate-x-[-150%] hover:before:animate-[shimmer_1.5s_infinite]">
-              <div className="absolute top-0 right-0 w-40 h-40 bg-cyan-500/30 blur-[50px] rounded-full pointer-events-none"></div>
-              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent -translate-x-[150%] animate-[shimmer_2s_infinite]"></div>
-              
-              <div className="flex items-start justify-between mb-2">
-                <div className="flex items-center gap-2">
-                  <Sparkles className="w-4 h-4 text-amber-400 animate-pulse" />
-                  <span className="text-xs font-bold text-amber-400 tracking-wider uppercase">Live Soon</span>
-                </div>
-                <div className="px-2 py-0.5 rounded-full bg-cyan-500/20 text-cyan-400 text-[10px] font-bold border border-cyan-500/30">
-                  {nextSale.platform}
-                </div>
-              </div>
-              
-              <h3 className="text-lg font-black text-white mb-1 leading-tight">{nextSale.name}</h3>
-              
-              <div className="flex items-center gap-1.5 text-xs text-slate-400 font-medium mt-3">
-                <CalendarClock className="w-3.5 h-3.5" />
-                Coming up in ~<span className="text-white font-bold">{estimatedDays} Days</span>
-              </div>
-            </div>
-          </div>
-
-          <div className="p-8 rounded-[2rem] bg-slate-900/50 backdrop-blur-xl border border-slate-700/50 shadow-2xl relative z-20">
-            <div className="absolute inset-0 rounded-[2rem] bg-gradient-to-b from-white/5 to-transparent pointer-events-none"></div>
+            {/* Soft lighting SVG/CSS background decoration */}
+            <div className="absolute w-72 h-72 rounded-full bg-gradient-to-tr from-primary/10 to-secondary-container/10 blur-3xl pointer-events-none"></div>
             
-            <h2 className="text-2xl font-bold text-white mb-2">Product Analyzer</h2>
-            <p className="text-sm text-slate-400 mb-8">Paste a product URL or search by name.</p>
+            {/* Circular Abstract Graphics mimicking Stitch public representation */}
+            <div className="relative w-64 h-64 md:w-80 md:h-80 flex items-center justify-center">
+              <svg viewBox="0 0 200 200" className="w-full h-full animate-float-slow opacity-60">
+                <defs>
+                  <linearGradient id="glassGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" stopColor="#ffffff" stopOpacity="0.8" />
+                    <stop offset="100%" stopColor="#064e3b" stopOpacity="0.1" />
+                  </linearGradient>
+                </defs>
+                <circle cx="100" cy="100" r="70" fill="url(#glassGrad)" stroke="#ffffff" strokeWidth="0.5" />
+                <path d="M 30,100 Q 100,20 170,100" fill="none" stroke="#003527" strokeWidth="1" strokeDasharray="3 3" />
+                <path d="M 30,100 Q 100,180 170,100" fill="none" stroke="#855300" strokeWidth="1" />
+              </svg>
 
-            <div className="flex gap-2 p-1 bg-slate-800/50 rounded-xl mb-6">
-              <button 
-                onClick={() => { setSearchMode('name'); setInputValue(""); setSuggestions([]); }}
-                className={`flex-1 flex justify-center items-center gap-2 py-2.5 rounded-lg text-sm font-semibold transition-all ${searchMode === 'name' ? 'bg-cyan-500 text-white shadow-lg shadow-cyan-500/25' : 'text-slate-400 hover:text-white hover:bg-slate-700/50'}`}
-              >
-                <Type className="w-4 h-4" /> Name
-              </button>
-              <button 
-                onClick={() => { setSearchMode('url'); setInputValue(""); setSuggestions([]); }}
-                className={`flex-1 flex justify-center items-center gap-2 py-2.5 rounded-lg text-sm font-semibold transition-all ${searchMode === 'url' ? 'bg-blue-500 text-white shadow-lg shadow-blue-500/25' : 'text-slate-400 hover:text-white hover:bg-slate-700/50'}`}
-              >
-                <LinkIcon className="w-4 h-4" /> Paste URL
-              </button>
-            </div>
-
-            <form onSubmit={handleSubmit} className="space-y-4">
-              <div className="relative group z-20">
-                <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
-                  <Search className="w-5 h-5 text-slate-400 group-focus-within:text-cyan-400 transition-colors" />
+              {/* Floating Data Card Overlay */}
+              <div className="absolute top-10 right-0 glass-panel soft-shadow p-5 rounded-2xl w-48 text-left border border-white/40">
+                <div className="flex items-center space-x-2.5 mb-1">
+                  <div className="w-7 h-7 rounded-full bg-primary-fixed flex items-center justify-center">
+                    <TrendingUp className="text-primary w-3.5 h-3.5" />
+                  </div>
+                  <span className="text-[10px] font-semibold text-on-surface-variant uppercase tracking-wider">Growth</span>
                 </div>
-                <input 
-                  type={searchMode === 'url' ? "url" : "text"}
-                  className="w-full bg-slate-950/50 border border-slate-700 rounded-xl py-4 pl-12 pr-4 text-white placeholder-slate-500 outline-none focus:border-cyan-500/50 focus:ring-1 focus:ring-cyan-500/50 transition-all"
-                  placeholder={searchMode === 'name' ? "e.g., iPhone 15, Sony WH-1000XM5" : "https://amazon.in/..."}
-                  value={inputValue}
-                  onChange={handleInputChange}
-                  disabled={isLoading}
-                  required
-                />
+                <div className="text-xl font-bold text-primary">+24.8%</div>
+                <p className="text-[10px] text-on-surface-variant mt-0.5">Automated savings target reached</p>
+              </div>
+            </div>
+          </motion.div>
 
-                {/* Dropdown Suggestions */}
-                {searchMode === 'name' && suggestions.length > 0 && (
-                  <div className="absolute top-[calc(100%+8px)] left-0 w-full bg-slate-800 border border-slate-700 rounded-xl shadow-2xl overflow-hidden py-2">
-                    {suggestions.map((prod) => (
-                      <div 
-                        key={prod.product_key}
-                        onMouseDown={(e) => { e.preventDefault(); handleSelectProduct(prod); }}
-                        className="px-4 py-3 hover:bg-slate-700/80 cursor-pointer flex items-center gap-3 transition-colors"
-                      >
-                        <Search className="w-4 h-4 text-slate-400 flex-shrink-0" />
-                        <span className="text-sm font-medium text-slate-200 truncate">{prod.product_name}</span>
-                      </div>
-                    ))}
+          {/* Right Column: Next.js Search Engine Form */}
+          <motion.div
+            initial={{ opacity: 0, x: 30 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            className="lg:col-span-6 w-full text-left"
+          >
+            <div className="glass-panel p-8 rounded-[2.5rem] shadow-glass border border-white/40 relative overflow-hidden">
+              <div className="absolute top-0 right-0 w-32 h-32 bg-primary/5 blur-2xl rounded-full"></div>
+              
+              <h2 className="text-headline-lg font-bold text-primary mb-2">Product Analyzer</h2>
+              <p className="text-body-md text-on-surface-variant mb-6">Enter a product name or paste an eCommerce URL.</p>
+
+              {/* Mode Selectors */}
+              <div className="flex gap-2 p-1 bg-surface-container rounded-xl mb-6 border border-outline-variant/30">
+                <button
+                  type="button"
+                  onClick={() => { setSearchMode('name'); setInputValue(""); setSuggestions([]); }}
+                  className={cn(
+                    "flex-1 flex justify-center items-center gap-2 py-2 rounded-lg text-xs md:text-sm font-semibold transition-all",
+                    searchMode === 'name' ? 'bg-white text-primary shadow-sm' : 'text-on-surface-variant/80 hover:text-on-surface'
+                  )}
+                >
+                  <Type className="w-4 h-4" /> Name
+                </button>
+                <button
+                  type="button"
+                  onClick={() => { setSearchMode('url'); setInputValue(""); setSuggestions([]); }}
+                  className={cn(
+                    "flex-1 flex justify-center items-center gap-2 py-2 rounded-lg text-xs md:text-sm font-semibold transition-all",
+                    searchMode === 'url' ? 'bg-white text-primary shadow-sm' : 'text-on-surface-variant/80 hover:text-on-surface'
+                  )}
+                >
+                  <LinkIcon className="w-4 h-4" /> Paste URL
+                </button>
+              </div>
+
+              {/* Input Form */}
+              <form onSubmit={handleSubmit} className="space-y-4 relative z-20">
+                <div className="relative group">
+                  <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                    <Search className="w-5 h-5 text-on-surface-variant group-focus-within:text-primary transition-colors" />
+                  </div>
+                  <input
+                    type={searchMode === 'url' ? "url" : "text"}
+                    value={inputValue}
+                    onChange={handleInputChange}
+                    disabled={isLoading}
+                    required
+                    placeholder={searchMode === 'name' ? "e.g., iPhone 15, Sony WH-1000XM5" : "https://amazon.in/..."}
+                    className="w-full bg-white/50 border border-outline-variant/40 rounded-xl py-4 pl-12 pr-4 text-on-background outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-all text-sm"
+                  />
+
+                  {/* Suggestion Dropdown */}
+                  {searchMode === 'name' && suggestions.length > 0 && (
+                    <div className="absolute top-[calc(100%+8px)] left-0 w-full bg-white/95 backdrop-blur-xl border border-outline-variant/40 rounded-xl shadow-glass overflow-hidden py-1.5 z-50">
+                      {suggestions.map((prod) => (
+                        <div
+                          key={prod.product_key}
+                          onMouseDown={(e) => { e.preventDefault(); handleSelectProduct(prod); }}
+                          className="px-4 py-2.5 hover:bg-surface-container-low cursor-pointer flex items-center gap-3 transition-colors text-sm text-on-surface-variant hover:text-primary"
+                        >
+                          <Search className="w-4 h-4 text-on-surface-variant/50 flex-shrink-0" />
+                          <span className="truncate font-medium">{prod.product_name}</span>
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                </div>
+
+                {error && (
+                  <div className="text-xs font-semibold text-error bg-error-container/20 border border-error-container/30 rounded-xl p-3">
+                    {error}
                   </div>
                 )}
-              </div>
 
-              {error && <div className="text-sm font-medium text-red-400 bg-red-400/10 border border-red-400/20 rounded-lg p-3">{error}</div>}
-
-              <button 
-                type="submit"
-                disabled={isLoading}
-                className="w-full py-4 rounded-xl bg-gradient-to-r from-cyan-500 to-blue-600 text-white font-bold text-lg hover:shadow-[0_0_30px_rgba(34,211,238,0.4)] transition-all flex items-center justify-center gap-2 disabled:opacity-70 disabled:cursor-not-allowed transform active:scale-[0.98]"
-              >
-                {isLoading ? (
-                  <div className="w-6 h-6 border-3 border-white/30 border-t-white rounded-full animate-spin"></div>
-                ) : (
-                  <>Analyze Now <ArrowRight className="w-5 h-5" /></>
-                )}
-              </button>
-            </form>
-          </div>
+                <button
+                  type="submit"
+                  disabled={isLoading}
+                  className="w-full py-4 rounded-xl bg-gradient-to-r from-primary to-primary-container text-on-primary font-bold text-sm hover:shadow-lg hover:scale-[1.01] transition-all flex items-center justify-center gap-2 disabled:opacity-75"
+                >
+                  {isLoading ? (
+                    <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin"></div>
+                  ) : (
+                    <>Analyze Value <ArrowRight className="w-4 h-4" /></>
+                  )}
+                </button>
+              </form>
+            </div>
+          </motion.div>
         </div>
       </main>
 
-      {/* Trending Deals 3D Carousel */}
-      <section className="relative z-10 max-w-7xl mx-auto px-6 pb-32">
-        <div className="flex items-center gap-3 mb-10">
-          <div className="w-10 h-10 rounded-xl bg-purple-500/20 flex items-center justify-center border border-purple-500/50">
-            <Sparkles className="w-5 h-5 text-purple-400" />
+      {/* Trending Bento Grid Section */}
+      <section className="relative z-10 max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop pb-24">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="flex items-center gap-3 mb-8"
+        >
+          <div className="w-10 h-10 rounded-full bg-primary-fixed flex items-center justify-center border border-primary/10">
+            <Sparkles className="w-5 h-5 text-primary" />
           </div>
-          <h2 className="text-3xl font-extrabold text-white tracking-tight">Trending Drops Today</h2>
-        </div>
+          <h2 className="text-headline-lg font-bold text-primary">Trending Drops Today</h2>
+        </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 perspective-[1000px]">
-          {/* Card 1 */}
-          <div 
-            onClick={() => {
-              setSelectedProductKey('apple-iphone-15-128gb-black');
-              setSelectedProductName('Apple iPhone 15 128GB Black');
-              setTimeout(() => {
-                const e = new Event('submit', { cancelable: true }) as any;
-                handleSubmit(e);
-              }, 100);
-            }}
-            className="group relative h-64 bg-gradient-to-br from-slate-900 to-[#050914] border border-slate-800 rounded-3xl p-6 cursor-pointer hover:border-cyan-500/50 transition-all duration-300 transform hover:rotate-y-[-5deg] hover:rotate-x-[5deg] hover:scale-[1.02] hover:shadow-[0_20px_40px_rgba(34,211,238,0.15)] overflow-hidden"
+        {/* Bento Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-gutter auto-rows-[minmax(240px,auto)]">
+          {/* Card 1: Double Width (iPhone) */}
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            whileHover={{ y: -5 }}
+            onClick={() => router.push('/product/apple-iphone-15-128gb-black')}
+            className="md:col-span-2 group relative glass-panel rounded-2xl p-8 cursor-pointer hover:border-primary/30 transition-all duration-300 overflow-hidden flex flex-col justify-between shadow-glass border border-white/40"
           >
-            <div className="absolute top-0 right-0 w-32 h-32 bg-cyan-500/10 blur-[50px] rounded-full group-hover:bg-cyan-500/20 transition-all"></div>
-            <div className="flex justify-between items-start mb-12">
-              <span className="px-3 py-1 bg-emerald-500/20 text-emerald-400 text-xs font-bold rounded-lg border border-emerald-500/30">15% DROP</span>
-              <div className="w-8 h-8 rounded-full bg-slate-800 flex items-center justify-center group-hover:bg-cyan-500 transition-colors">
-                <ArrowRight className="w-4 h-4 text-white group-hover:-rotate-45 transition-transform" />
+            <div className="absolute -right-10 -top-10 w-48 h-48 bg-primary-fixed/20 blur-3xl rounded-full group-hover:bg-primary-fixed/30 transition-colors"></div>
+            <div className="flex justify-between items-start">
+              <span className="px-3 py-1 bg-primary-fixed text-primary text-xs font-bold rounded-lg border border-primary/20">15% SAVINGS</span>
+              <div className="w-9 h-9 rounded-full bg-background flex items-center justify-center group-hover:bg-primary transition-colors duration-300">
+                <ArrowUpRight className="w-4 h-4 text-primary group-hover:text-on-primary transition-colors" />
               </div>
             </div>
-            <h3 className="text-xl font-bold text-white mb-2">Apple iPhone 15</h3>
-            <div className="flex items-baseline gap-2">
-              <span className="text-3xl font-black text-white">₹65,999</span>
-              <span className="text-sm font-medium text-slate-500 line-through">₹79,900</span>
-            </div>
-          </div>
-
-          {/* Card 2 */}
-          <div 
-            onClick={() => {
-              setSelectedProductKey('sony-wh-1000xm5-black');
-              setSelectedProductName('Sony WH-1000XM5 Black');
-              setTimeout(() => {
-                const e = new Event('submit', { cancelable: true }) as any;
-                handleSubmit(e);
-              }, 100);
-            }}
-            className="group relative h-64 bg-gradient-to-br from-slate-900 to-[#050914] border border-slate-800 rounded-3xl p-6 cursor-pointer hover:border-purple-500/50 transition-all duration-300 transform hover:-translate-y-2 hover:scale-[1.02] hover:shadow-[0_20px_40px_rgba(168,85,247,0.15)] overflow-hidden"
-          >
-            <div className="absolute top-0 right-0 w-32 h-32 bg-purple-500/10 blur-[50px] rounded-full group-hover:bg-purple-500/20 transition-all"></div>
-            <div className="flex justify-between items-start mb-12">
-              <span className="px-3 py-1 bg-emerald-500/20 text-emerald-400 text-xs font-bold rounded-lg border border-emerald-500/30">22% DROP</span>
-              <div className="w-8 h-8 rounded-full bg-slate-800 flex items-center justify-center group-hover:bg-purple-500 transition-colors">
-                <ArrowRight className="w-4 h-4 text-white group-hover:-rotate-45 transition-transform" />
+            <div>
+              <h3 className="text-headline-md font-bold text-primary mb-1">Apple iPhone 15</h3>
+              <div className="flex items-baseline gap-3">
+                <span className="text-3xl font-black text-on-surface">₹65,999</span>
+                <span className="text-sm text-on-surface-variant line-through">₹79,900</span>
               </div>
             </div>
-            <h3 className="text-xl font-bold text-white mb-2">Sony WH-1000XM5</h3>
-            <div className="flex items-baseline gap-2">
-              <span className="text-3xl font-black text-white">₹24,990</span>
-              <span className="text-sm font-medium text-slate-500 line-through">₹31,990</span>
-            </div>
-          </div>
+          </motion.div>
 
-          {/* Card 3 */}
-          <div 
-            onClick={() => {
-              setSelectedProductKey('samsung-galaxy-s24-256gb-onyx-black');
-              setSelectedProductName('Samsung Galaxy S24 256GB Onyx Black');
-              setTimeout(() => {
-                const e = new Event('submit', { cancelable: true }) as any;
-                handleSubmit(e);
-              }, 100);
-            }}
-            className="group relative h-64 bg-gradient-to-br from-slate-900 to-[#050914] border border-slate-800 rounded-3xl p-6 cursor-pointer hover:border-blue-500/50 transition-all duration-300 transform hover:rotate-y-[5deg] hover:rotate-x-[5deg] hover:scale-[1.02] hover:shadow-[0_20px_40px_rgba(59,130,246,0.15)] overflow-hidden"
+          {/* Card 2: Single Width (Sony) */}
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.1 }}
+            whileHover={{ y: -5 }}
+            onClick={() => router.push('/product/sony-wh-1000xm5-black')}
+            className="md:col-span-1 group relative glass-panel rounded-2xl p-8 cursor-pointer hover:border-primary/30 transition-all duration-300 overflow-hidden flex flex-col justify-between shadow-glass border border-white/40"
           >
-            <div className="absolute top-0 right-0 w-32 h-32 bg-blue-500/10 blur-[50px] rounded-full group-hover:bg-blue-500/20 transition-all"></div>
-            <div className="flex justify-between items-start mb-12">
-              <span className="px-3 py-1 bg-amber-500/20 text-amber-400 text-xs font-bold rounded-lg border border-amber-500/30">LOW STOCK</span>
-              <div className="w-8 h-8 rounded-full bg-slate-800 flex items-center justify-center group-hover:bg-blue-500 transition-colors">
-                <ArrowRight className="w-4 h-4 text-white group-hover:-rotate-45 transition-transform" />
+            <div className="absolute -right-10 -top-10 w-32 h-32 bg-secondary-container/20 blur-2xl rounded-full group-hover:bg-secondary-container/30 transition-colors"></div>
+            <div className="flex justify-between items-start">
+              <span className="px-3 py-1 bg-secondary-container/20 text-secondary text-xs font-bold rounded-lg border border-secondary/20">22% SAVINGS</span>
+              <div className="w-9 h-9 rounded-full bg-background flex items-center justify-center group-hover:bg-primary transition-colors duration-300">
+                <ArrowUpRight className="w-4 h-4 text-primary group-hover:text-on-primary transition-colors" />
               </div>
             </div>
-            <h3 className="text-xl font-bold text-white mb-2">Samsung Galaxy S24</h3>
-            <div className="flex items-baseline gap-2">
-              <span className="text-3xl font-black text-white">₹74,999</span>
-              <span className="text-sm font-medium text-slate-500 line-through">₹79,999</span>
+            <div>
+              <h3 className="text-headline-md font-bold text-primary mb-1">Sony WH-1000XM5</h3>
+              <div className="flex items-baseline gap-2">
+                <span className="text-2xl font-black text-on-surface">₹24,990</span>
+              </div>
             </div>
-          </div>
+          </motion.div>
+
+          {/* Card 3: Triple Width (Samsung) */}
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.2 }}
+            whileHover={{ y: -5 }}
+            onClick={() => router.push('/product/samsung-galaxy-s24-256gb-onyx-black')}
+            className="md:col-span-3 group relative glass-panel rounded-2xl p-8 cursor-pointer hover:border-primary/30 transition-all duration-300 overflow-hidden flex flex-col md:flex-row items-start md:items-center justify-between shadow-glass border border-white/40"
+          >
+            <div className="absolute left-1/3 -top-10 w-96 h-24 bg-primary-fixed/10 blur-3xl rounded-full"></div>
+            <div className="mb-6 md:mb-0">
+              <span className="inline-block mb-3 px-3 py-1 bg-secondary-container/20 text-secondary text-xs font-bold rounded-lg border border-secondary/20">LOW STOCK TRIGGER</span>
+              <h3 className="text-headline-md font-bold text-primary mb-1">Samsung Galaxy S24</h3>
+              <div className="flex items-baseline gap-2">
+                <span className="text-2xl font-black text-on-surface">₹74,999</span>
+                <span className="text-sm text-on-surface-variant line-through">₹79,999</span>
+              </div>
+            </div>
+            <div className="w-11 h-11 rounded-full bg-background flex items-center justify-center group-hover:bg-primary transition-colors duration-300">
+              <ArrowRight className="w-5 h-5 text-primary group-hover:text-on-primary group-hover:translate-x-0.5 transition-all" />
+            </div>
+          </motion.div>
         </div>
       </section>
 
+      {/* Brand & Strategy Section (Stitch layout copy) */}
+      <section className="py-24 px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto border-t border-outline-variant/30">
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-gutter items-center">
+          <motion.div
+            initial={{ opacity: 0, scale: 0.95 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true }}
+            className="md:col-span-5"
+          >
+            <div className="glass-panel rounded-3xl p-3 relative overflow-hidden soft-shadow border border-white/40 aspect-[4/5] flex items-center justify-center bg-white/20">
+              {/* Graphic element representing analytics/growth */}
+              <div className="w-[85%] h-[85%] rounded-2xl bg-gradient-to-br from-primary-fixed/20 to-background border border-primary-fixed/30 flex flex-col justify-between p-6">
+                <div className="flex justify-between items-center">
+                  <div className="text-xs uppercase font-bold text-primary/70 tracking-wider">Live Analytics</div>
+                  <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse"></span>
+                </div>
+                {/* SVG Mock Graph */}
+                <svg viewBox="0 0 100 50" className="w-full overflow-visible">
+                  <path d="M0,45 Q25,25 50,35 T100,5" fill="none" stroke="#003527" strokeWidth="2" />
+                  <circle cx="50" cy="35" r="3" fill="#855300" />
+                  <circle cx="100" cy="5" r="3" fill="#003527" />
+                </svg>
+                <div className="flex justify-between text-[10px] text-on-surface-variant font-semibold">
+                  <span>Monitored Categories</span>
+                  <span>99.4% Uptime</span>
+                </div>
+              </div>
+            </div>
+          </motion.div>
+
+          <div className="md:col-span-1"></div>
+
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="md:col-span-6 space-y-6"
+          >
+            <h2 className="text-headline-lg font-bold text-primary">The Human Touch in Digital Finance</h2>
+            <p className="text-body-lg text-on-surface-variant leading-relaxed">
+              We reject the concept of AI slop — systems that make decisions on your behalf and generate generic, thoughtless advice. Budget Mitra pairs intelligent analytics with custom-tuned parameters, allowing you to orchestrate your budget with precision and intuition.
+            </p>
+
+            <ul className="space-y-4 pt-4">
+              <li className="flex items-start space-x-4">
+                <div className="w-10 h-10 rounded-full bg-primary-fixed flex items-center justify-center flex-shrink-0 text-primary">
+                  <CheckCircle className="w-5 h-5" />
+                </div>
+                <div>
+                  <h3 className="text-label-md font-bold text-primary mb-0.5">Value Pacing</h3>
+                  <p className="text-body-md text-on-surface-variant text-sm">Monitor trends softly in the background and purchase during optimal price windows.</p>
+                </div>
+              </li>
+              <li className="flex items-start space-x-4">
+                <div className="w-10 h-10 rounded-full bg-primary-fixed flex items-center justify-center flex-shrink-0 text-primary">
+                  <ShieldCheck className="w-5 h-5" />
+                </div>
+                <div>
+                  <h3 className="text-label-md font-bold text-primary mb-0.5">Confidence Scoring</h3>
+                  <p className="text-body-md text-on-surface-variant text-sm">Every prediction is backed by detailed historical analysis and confidence percentages.</p>
+                </div>
+              </li>
+            </ul>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Footer */}
+      <footer className="glass-panel border-t border-outline-variant/30 w-full py-12 mt-12 relative z-10 bg-white/20">
+        <div className="flex flex-col md:flex-row justify-between items-center px-margin-desktop max-w-container-max mx-auto gap-6">
+          <div className="text-center md:text-left">
+            <div className="text-headline-md font-bold text-primary mb-1">Budget Mitra</div>
+            <p className="text-body-md text-on-surface-variant text-xs md:text-sm">
+              © 2026 Budget Mitra. Elevating financial freedom.
+            </p>
+          </div>
+          <ul className="flex flex-wrap justify-center gap-6 text-label-sm font-semibold">
+            <li><a className="text-on-surface-variant hover:text-primary hover:-translate-y-0.5 inline-block transition-all" href="#">Privacy Policy</a></li>
+            <li><a className="text-on-surface-variant hover:text-primary hover:-translate-y-0.5 inline-block transition-all" href="#">Terms of Service</a></li>
+            <li><a className="text-on-surface-variant hover:text-primary hover:-translate-y-0.5 inline-block transition-all" href="#">Security</a></li>
+            <li><a className="text-on-surface-variant hover:text-primary hover:-translate-y-0.5 inline-block transition-all" href="#">Help Center</a></li>
+          </ul>
+        </div>
+      </footer>
     </div>
   );
 }

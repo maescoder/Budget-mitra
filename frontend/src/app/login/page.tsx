@@ -1,14 +1,13 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-/* eslint-disable @typescript-eslint/no-unused-vars */
 "use client";
 
 import { useState } from "react";
-import { useRouter } from "next/navigation";
+import { useTransitionRouter } from "@/context/TransitionContext";
 import { Mail, Lock, ArrowRight, ShieldCheck, ArrowLeft, Eye, EyeOff } from "lucide-react";
 import { useAuth } from "@/context/AuthContext";
+import ShaderBackground from "@/components/ShaderBackground";
 
 export default function LoginPage() {
-  const router = useRouter();
+  const router = useTransitionRouter();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
@@ -35,107 +34,108 @@ export default function LoginPage() {
       await login(email, password);
       router.push("/");
     } catch (err: any) {
-      setErrorMsg(err.message || "Failed to login.");
+      setErrorMsg(err.message || "Failed to authenticate.");
     } finally {
       setIsLoading(false);
     }
   };
 
   return (
-    <div className="min-h-screen bg-[#050914] text-white overflow-hidden relative flex items-center justify-center selection:bg-cyan-500/30 font-sans">
-      
-      {/* 3D Background Orbs */}
-      <div className="absolute top-[-20%] left-[-10%] w-[60vw] h-[60vw] bg-cyan-900/20 blur-[150px] rounded-full mix-blend-screen pointer-events-none animate-pulse"></div>
-      <div className="absolute bottom-[-20%] right-[-10%] w-[50vw] h-[50vw] bg-purple-900/20 blur-[150px] rounded-full mix-blend-screen pointer-events-none"></div>
+    <div className="min-h-screen relative overflow-hidden flex items-center justify-center bg-background text-on-background">
+      {/* Ambient Shader Background */}
+      <ShaderBackground mode="dashboard" opacity={0.6} />
 
-      {/* Floating 3D Elements */}
-      <div className="absolute w-full h-full overflow-hidden pointer-events-none">
-        <div className="absolute top-[20%] left-[10%] w-32 h-32 bg-gradient-to-br from-cyan-400/20 to-transparent rounded-full blur-2xl animate-float-slow"></div>
-        <div className="absolute top-[60%] right-[15%] w-40 h-40 bg-gradient-to-tl from-blue-600/20 to-transparent rounded-full blur-2xl animate-float"></div>
+      {/* Floating 3D/ambient accents */}
+      <div className="absolute w-full h-full overflow-hidden pointer-events-none z-0">
+        <div className="absolute top-[20%] left-[10%] w-32 h-32 bg-primary-fixed/20 rounded-full blur-3xl"></div>
+        <div className="absolute top-[60%] right-[15%] w-40 h-40 bg-secondary-container/10 rounded-full blur-3xl"></div>
       </div>
 
+      {/* Back button */}
       <button 
         onClick={() => router.push('/')}
-        className="absolute top-8 left-8 flex items-center gap-2 text-slate-400 hover:text-white transition-colors z-50 group"
+        className="absolute top-8 left-8 flex items-center gap-2 text-on-surface-variant/80 hover:text-primary transition-colors z-50 group font-bold text-xs uppercase tracking-wider"
       >
-        <ArrowLeft className="w-5 h-5 group-hover:-translate-x-1 transition-transform" /> Back to Home
+        <ArrowLeft className="w-4 h-4 group-hover:-translate-x-0.5 transition-transform" /> Back to Home
       </button>
 
-      {/* 3D Card Container */}
+      {/* 3D Perspective Form Card */}
       <div 
-        className="relative z-10 w-full max-w-md p-8 perspective-1000"
+        className="relative z-10 w-full max-w-md p-6"
+        style={{ perspective: "1000px" }}
         onMouseMove={handleMouseMove}
         onMouseEnter={() => setIsHovering(true)}
         onMouseLeave={() => { setIsHovering(false); setMousePos({ x: 0, y: 0 }); }}
       >
         <div 
-          className="relative w-full h-full p-8 bg-slate-900/40 backdrop-blur-2xl border border-white/10 rounded-[2.5rem] shadow-2xl transition-all duration-300 ease-out preserve-3d"
+          className="relative w-full h-full p-8 bg-white/45 backdrop-blur-2xl border border-white/50 rounded-[2.5rem] shadow-glass transition-all duration-300 ease-out"
           style={{
             transform: isHovering 
-              ? `rotateY(${mousePos.x * 20}deg) rotateX(${-mousePos.y * 20}deg) translateZ(20px)`
+              ? `rotateY(${mousePos.x * 15}deg) rotateX(${-mousePos.y * 15}deg) translateZ(10px)`
               : 'rotateY(0deg) rotateX(0deg) translateZ(0px)',
             boxShadow: isHovering 
-              ? `${-mousePos.x * 30}px ${-mousePos.y * 30}px 50px rgba(0,0,0,0.5), 0 0 40px rgba(34,211,238,0.2) inset` 
-              : '0 25px 50px -12px rgba(0, 0, 0, 0.5)'
+              ? `0 20px 40px rgba(6,78,59,0.06), 0 0 30px rgba(255,255,255,0.4) inset` 
+              : '0 8px 32px rgba(6, 78, 59, 0.04)'
           }}
         >
-          {/* Card Glow Border */}
-          <div className="absolute inset-0 rounded-[2.5rem] border border-cyan-500/20 shadow-[0_0_20px_rgba(34,211,238,0.1)] pointer-events-none transform translate-z-10"></div>
+          {/* Card Border Glow */}
+          <div className="absolute inset-0 rounded-[2.5rem] border border-primary/10 pointer-events-none"></div>
           
-          <div className="text-center mb-8 transform translate-z-20">
-            <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-gradient-to-br from-cyan-400 to-blue-600 mb-6 shadow-[0_0_30px_rgba(34,211,238,0.4)]">
-              <ShieldCheck className="w-8 h-8 text-white" />
+          <div className="text-center mb-8">
+            <div className="inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-primary-fixed/50 border border-primary/10 mb-6 text-primary shadow-sm">
+              <ShieldCheck className="w-7 h-7" />
             </div>
-            <h1 className="text-3xl font-extrabold tracking-tight mb-2">Welcome Back</h1>
-            <p className="text-slate-400 text-sm font-medium">Securely sign in to your BudgetMitra account</p>
+            <h1 className="text-headline-lg font-bold text-primary mb-1.5">Welcome Back</h1>
+            <p className="text-on-surface-variant text-xs font-semibold">Sign in securely to manage your price monitors</p>
           </div>
 
-          <form onSubmit={handleSubmit} className="space-y-5 transform translate-z-30">
+          <form onSubmit={handleSubmit} className="space-y-5 text-left">
             {errorMsg && (
-              <div className="bg-rose-500/10 border border-rose-500/50 text-rose-400 text-sm font-bold px-4 py-3 rounded-xl text-center animate-pulse">
+              <div className="bg-error-container/20 border border-error-container/40 text-error text-xs font-semibold px-4 py-3 rounded-xl text-center">
                 {errorMsg}
               </div>
             )}
+            
             <div className="space-y-2 relative group">
-              <label className="text-xs font-bold text-slate-400 uppercase tracking-wider ml-1">Email Address</label>
+              <label className="text-[10px] font-bold text-primary/75 uppercase tracking-wider ml-1">Email Address</label>
               <div className="relative">
                 <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
-                  <Mail className="w-5 h-5 text-slate-500 group-focus-within:text-cyan-400 transition-colors" />
+                  <Mail className="w-4.5 h-4.5 text-on-surface-variant/60 group-focus-within:text-primary transition-colors" />
                 </div>
                 <input 
                   type="email" 
                   required
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  className="w-full bg-slate-950/50 border border-slate-700/50 rounded-xl py-4 pl-12 pr-4 text-white placeholder-slate-600 outline-none focus:border-cyan-500/50 focus:ring-1 focus:ring-cyan-500/50 transition-all shadow-inner"
                   placeholder="name@example.com"
+                  className="w-full bg-white/50 border border-outline-variant/40 rounded-xl py-3.5 pl-11 pr-4 text-on-surface outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-all text-sm font-semibold"
                 />
               </div>
             </div>
 
             <div className="space-y-2 relative group">
               <div className="flex justify-between items-center ml-1">
-                <label className="text-xs font-bold text-slate-400 uppercase tracking-wider">Password</label>
-                <a href="#" className="text-xs font-bold text-cyan-400 hover:text-cyan-300">Forgot?</a>
+                <label className="text-[10px] font-bold text-primary/75 uppercase tracking-wider">Password</label>
+                <a href="#" className="text-[10px] font-bold text-surface-tint hover:text-primary">Forgot?</a>
               </div>
               <div className="relative">
                 <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
-                  <Lock className="w-5 h-5 text-slate-500 group-focus-within:text-cyan-400 transition-colors" />
+                  <Lock className="w-4.5 h-4.5 text-on-surface-variant/60 group-focus-within:text-primary transition-colors" />
                 </div>
                 <input 
                   type={showPassword ? "text" : "password"} 
                   required
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  className="w-full bg-slate-950/50 border border-slate-700/50 rounded-xl py-4 pl-12 pr-12 text-white placeholder-slate-600 outline-none focus:border-cyan-500/50 focus:ring-1 focus:ring-cyan-500/50 transition-all shadow-inner font-mono tracking-widest"
                   placeholder="••••••••"
+                  className="w-full bg-white/50 border border-outline-variant/40 rounded-xl py-3.5 pl-11 pr-11 text-on-surface outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-all text-sm font-semibold font-mono"
                 />
                 <button 
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
-                  className="absolute inset-y-0 right-0 pr-4 flex items-center text-slate-500 hover:text-slate-300 transition-colors"
+                  className="absolute inset-y-0 right-0 pr-4 flex items-center text-on-surface-variant/60 hover:text-primary transition-colors"
                 >
-                  {showPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
+                  {showPassword ? <EyeOff className="w-4.5 h-4.5" /> : <Eye className="w-4.5 h-4.5" />}
                 </button>
               </div>
             </div>
@@ -143,22 +143,21 @@ export default function LoginPage() {
             <button 
               type="submit" 
               disabled={isLoading}
-              className="w-full py-4 mt-4 rounded-xl bg-gradient-to-r from-cyan-500 to-blue-600 text-white font-bold text-lg hover:shadow-[0_0_30px_rgba(34,211,238,0.5)] transition-all flex items-center justify-center gap-2 disabled:opacity-70 disabled:cursor-not-allowed transform hover:-translate-y-1 active:translate-y-0"
+              className="w-full py-4 mt-4 rounded-xl btn-primary-glow text-on-primary font-bold text-sm hover:shadow-lg transition-all flex items-center justify-center gap-2 disabled:opacity-75"
             >
               {isLoading ? (
-                <div className="w-6 h-6 border-3 border-white/30 border-t-white rounded-full animate-spin"></div>
+                <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin"></div>
               ) : (
-                <>Sign In <ArrowRight className="w-5 h-5" /></>
+                <>Sign In <ArrowRight className="w-4 h-4" /></>
               )}
             </button>
           </form>
 
-          <div className="mt-8 text-center text-sm text-slate-400 transform translate-z-20">
-            Don't have an account? <button onClick={() => router.push('/signup')} className="font-bold text-cyan-400 hover:text-cyan-300">Sign up</button>
+          <div className="mt-8 text-center text-xs text-on-surface-variant/80">
+            Don&apos;t have an account? <button onClick={() => router.push('/signup')} className="font-bold text-surface-tint hover:text-primary">Sign up</button>
           </div>
         </div>
       </div>
-
     </div>
   );
 }

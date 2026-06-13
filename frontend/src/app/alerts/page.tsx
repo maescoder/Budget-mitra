@@ -1,11 +1,12 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-/* eslint-disable @typescript-eslint/no-unused-vars */
 "use client";
 
 import { useState } from "react";
-import { useRouter } from "next/navigation";
-import { ArrowLeft, Bell, BellRing, Target, Activity, CheckCircle, Smartphone, Tag, Mail, Lock } from "lucide-react";
+import { useTransitionRouter } from "@/context/TransitionContext";
+import { Bell, Target, Activity, CheckCircle, Smartphone, Tag, Mail, Lock } from "lucide-react";
 import { useAuth } from "@/context/AuthContext";
+import { motion, AnimatePresence } from "framer-motion";
+import ShaderBackground from "@/components/ShaderBackground";
+import Navbar from "@/components/Navbar";
 
 const staticProducts = [
   { product_key: "apple-iphone-15-128gb-black", product_name: "Apple iPhone 15 128GB Black", brand: "Apple", category: "mobile" },
@@ -31,7 +32,7 @@ const staticProducts = [
 ];
 
 export default function AlertsPage() {
-  const router = useRouter();
+  const router = useTransitionRouter();
   const [targetPrice, setTargetPrice] = useState("");
   const [email, setEmail] = useState("");
   const [selectedProduct, setSelectedProduct] = useState(staticProducts[0].product_key);
@@ -43,29 +44,6 @@ export default function AlertsPage() {
     { id: 2, name: "Sony WH-1000XM5 Black", target: 22000, current: 24990, status: "Active" }
   ]);
   const { user } = useAuth();
-
-  if (!user) {
-    return (
-      <div className="min-h-screen bg-[#050914] text-white flex items-center justify-center p-6">
-        <div className="max-w-md w-full bg-slate-900/50 backdrop-blur-xl border border-slate-800 rounded-3xl p-8 text-center relative overflow-hidden">
-          <div className="absolute top-0 right-0 w-32 h-32 bg-cyan-500/10 blur-3xl rounded-full"></div>
-          <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-cyan-950/30 border border-cyan-500/30 mb-6">
-            <Lock className="w-8 h-8 text-cyan-400" />
-          </div>
-          <h1 className="text-2xl font-bold mb-2">Members Only Area</h1>
-          <p className="text-slate-400 mb-8">Sign in to your BudgetMitra account to create and manage automated price alerts.</p>
-          <div className="flex gap-4">
-            <button onClick={() => router.push('/')} className="flex-1 py-3 bg-slate-800 hover:bg-slate-700 text-white font-bold rounded-xl transition-colors">
-              Go Back
-            </button>
-            <button onClick={() => router.push('/login')} className="flex-1 py-3 bg-cyan-500 hover:bg-cyan-400 text-[#050914] font-bold rounded-xl transition-colors">
-              Sign In
-            </button>
-          </div>
-        </div>
-      </div>
-    );
-  }
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -94,7 +72,7 @@ export default function AlertsPage() {
           id: Date.now(),
           name: match ? match.product_name : selectedProduct,
           target: parseInt(targetPrice),
-          current: parseInt(targetPrice) + 1500, // Mock current
+          current: parseInt(targetPrice) + 1500,
           status: "Active"
         }
       ]);
@@ -102,7 +80,7 @@ export default function AlertsPage() {
       setTargetPrice("");
       setEmail("");
     } catch (err) {
-      alert("Error setting alert (backend might be down). We'll set a mock alert locally.");
+      // Prototype fallback
       const match = staticProducts.find(p => p.product_key === selectedProduct);
       setActiveAlerts([
         ...activeAlerts,
@@ -110,11 +88,11 @@ export default function AlertsPage() {
           id: Date.now(),
           name: match ? match.product_name : selectedProduct,
           target: parseInt(targetPrice),
-          current: parseInt(targetPrice) + 1500, // Mock current
+          current: parseInt(targetPrice) + 1200,
           status: "Active"
         }
       ]);
-      setSuccessMsg("Price alert successfully activated (Mock Mode)!");
+      setSuccessMsg("Price alert successfully activated (Demo mode)!");
       setTargetPrice("");
       setEmail("");
     } finally {
@@ -122,70 +100,100 @@ export default function AlertsPage() {
     }
   };
 
-  return (
-    <div className="min-h-screen bg-[#050914] text-white selection:bg-cyan-500/30 font-sans">
-      
-      {/* Background Orbs */}
-      <div className="fixed top-[-20%] left-[-10%] w-[50vw] h-[50vw] bg-cyan-900/10 blur-[150px] rounded-full mix-blend-screen pointer-events-none"></div>
-
-      {/* Navbar */}
-      <nav className="fixed w-full top-0 z-50 bg-[#050914]/80 backdrop-blur-xl border-b border-white/5">
-        <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
-          <button onClick={() => router.push('/')} className="flex items-center gap-2 text-slate-400 hover:text-white transition-colors">
-            <ArrowLeft className="w-5 h-5" /> Back to Search
-          </button>
-          <div className="flex items-center gap-2">
-            <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-cyan-400 to-blue-600 flex items-center justify-center">
-              <BellRing className="text-white w-4 h-4" />
-            </div>
-            <span className="text-xl font-black tracking-tight">Price<span className="text-cyan-400">Alerts</span></span>
+  if (!user) {
+    return (
+      <div className="min-h-screen relative overflow-x-hidden bg-background text-on-background flex items-center justify-center p-6">
+        <ShaderBackground mode="dashboard" opacity={0.6} />
+        
+        <div className="max-w-md w-full glass-panel border border-white/40 rounded-3xl p-8 text-center relative overflow-hidden shadow-glass animate-fade-in-up">
+          <div className="absolute top-0 right-0 w-32 h-32 bg-primary-fixed/20 blur-3xl rounded-full"></div>
+          
+          <div className="inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-primary-fixed/40 border border-primary/20 mb-6 text-primary">
+            <Lock className="w-6 h-6" />
+          </div>
+          
+          <h1 className="text-headline-lg font-bold text-primary mb-2">Members Only Area</h1>
+          <p className="text-body-md text-on-surface-variant mb-8 leading-relaxed">
+            Please sign in to your Budget Mitra account to set automated monitors and receive notifications.
+          </p>
+          
+          <div className="flex gap-4">
+            <button 
+              onClick={() => router.push('/')} 
+              className="flex-1 py-3 bg-white/45 border border-outline-variant/40 hover:bg-white/70 text-primary font-bold rounded-xl transition-all text-sm"
+            >
+              Go Back
+            </button>
+            <button 
+              onClick={() => router.push('/login')} 
+              className="flex-1 py-3 btn-primary-glow text-on-primary font-bold rounded-xl transition-all text-sm"
+            >
+              Sign In
+            </button>
           </div>
         </div>
-      </nav>
+      </div>
+    );
+  }
+
+  return (
+    <div className="min-h-screen relative overflow-x-hidden bg-background text-on-background">
+      {/* WebGL Ambient Background */}
+      <ShaderBackground mode="dashboard" opacity={0.6} />
+
+      {/* Navigation */}
+      <Navbar />
 
       {/* Main Content */}
-      <main className="relative z-10 max-w-7xl mx-auto px-6 pt-32 pb-20 grid grid-cols-1 lg:grid-cols-12 gap-12">
+      <main className="relative z-10 max-w-7xl mx-auto px-margin-mobile md:px-margin-desktop pt-32 pb-20 grid grid-cols-1 lg:grid-cols-12 gap-12">
         
-        {/* Left Column: Form */}
+        {/* Left Column: Form Setup */}
         <div className="lg:col-span-5">
           <div className="mb-8">
-            <h1 className="text-4xl font-extrabold tracking-tight mb-4">Set Price Alert</h1>
-            <p className="text-slate-400 leading-relaxed">
-              We monitor prices 24/7. When the product hits your target price, we&apos;ll notify you instantly via email.
+            <h1 className="text-display-lg md:text-[42px] font-bold text-primary mb-4 leading-tight">
+              Budgets that Breathe.
+            </h1>
+            <p className="text-body-md text-on-surface-variant leading-relaxed">
+              We monitor pricing trends 24/7. When the price dips to your desired target, we will send a notification straight to your email.
             </p>
           </div>
 
-          <div className="p-8 bg-slate-900/50 backdrop-blur-xl border border-slate-800 rounded-[2rem] shadow-xl relative overflow-hidden">
-            <div className="absolute top-0 right-0 w-32 h-32 bg-cyan-500/10 blur-3xl rounded-full"></div>
+          <div className="glass-panel p-8 rounded-3xl border border-white/40 shadow-glass relative overflow-hidden">
+            <div className="absolute top-0 right-0 w-32 h-32 bg-primary-fixed/20 blur-3xl rounded-full"></div>
             
             {successMsg && (
-              <div className="mb-6 flex items-start gap-3 p-4 bg-emerald-500/10 border border-emerald-500/20 rounded-xl text-emerald-400 text-sm font-medium">
-                <CheckCircle className="w-5 h-5 flex-shrink-0" />
+              <div className="mb-6 flex items-start gap-3 p-4 bg-primary-fixed border border-primary/20 rounded-xl text-primary text-xs md:text-sm font-semibold">
+                <CheckCircle className="w-5 h-5 flex-shrink-0 text-surface-tint" />
                 <p>{successMsg}</p>
               </div>
             )}
 
-            <form onSubmit={handleSubmit} className="space-y-6 relative z-10">
+            <form onSubmit={handleSubmit} className="space-y-6 relative z-10 text-left">
               <div className="space-y-2">
-                <label className="text-sm font-medium text-slate-300 flex items-center gap-2">
-                  <Smartphone className="w-4 h-4 text-cyan-400" /> Select Product
+                <label className="text-xs font-bold text-primary/70 uppercase tracking-wider ml-1 flex items-center gap-1.5">
+                  <Smartphone className="w-4 h-4 text-surface-tint" /> Select Device
                 </label>
-                <select 
-                  value={selectedProduct}
-                  onChange={(e) => setSelectedProduct(e.target.value)}
-                  className="w-full bg-slate-950/50 border border-slate-700 rounded-xl py-3 px-4 text-white appearance-none outline-none focus:border-cyan-500/50 focus:ring-1 focus:ring-cyan-500/50 transition-all"
-                >
-                  {staticProducts.map(p => (
-                    <option key={p.product_key} value={p.product_key} className="bg-slate-900 text-white">
-                      {p.product_name}
-                    </option>
-                  ))}
-                </select>
+                <div className="relative">
+                  <select 
+                    value={selectedProduct}
+                    onChange={(e) => setSelectedProduct(e.target.value)}
+                    className="w-full bg-white/45 border border-outline-variant/40 rounded-xl py-3.5 px-4 text-on-surface font-semibold text-sm appearance-none outline-none focus:border-primary focus:ring-1 focus:ring-primary cursor-pointer"
+                  >
+                    {staticProducts.map(p => (
+                      <option key={p.product_key} value={p.product_key} className="bg-background text-on-surface">
+                        {p.product_name}
+                      </option>
+                    ))}
+                  </select>
+                  <div className="absolute inset-y-0 right-0 pr-4 flex items-center pointer-events-none text-on-surface-variant/60">
+                    <span className="text-[10px]">▼</span>
+                  </div>
+                </div>
               </div>
 
               <div className="space-y-2">
-                <label className="text-sm font-medium text-slate-300 flex items-center gap-2">
-                  <Target className="w-4 h-4 text-blue-400" /> Target Price (₹)
+                <label className="text-xs font-bold text-primary/70 uppercase tracking-wider ml-1 flex items-center gap-1.5">
+                  <Target className="w-4 h-4 text-secondary" /> Target Price (₹)
                 </label>
                 <input 
                   type="number" 
@@ -193,94 +201,115 @@ export default function AlertsPage() {
                   min="1"
                   value={targetPrice}
                   onChange={(e) => setTargetPrice(e.target.value)}
-                  className="w-full bg-slate-950/50 border border-slate-700 rounded-xl py-3 px-4 text-white placeholder-slate-600 outline-none focus:border-blue-500/50 focus:ring-1 focus:ring-blue-500/50 transition-all font-mono"
                   placeholder="e.g., 65000"
+                  className="w-full bg-white/45 border border-outline-variant/40 rounded-xl py-3.5 px-4 text-on-surface outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-all text-sm font-semibold"
                 />
               </div>
 
               <div className="space-y-2">
-                <label className="text-sm font-medium text-slate-300 flex items-center gap-2">
-                  <Mail className="w-4 h-4 text-purple-400" /> Notify Email
+                <label className="text-xs font-bold text-primary/70 uppercase tracking-wider ml-1 flex items-center gap-1.5">
+                  <Mail className="w-4 h-4 text-primary" /> Notification Email
                 </label>
                 <input 
                   type="email" 
                   required
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  className="w-full bg-slate-950/50 border border-slate-700 rounded-xl py-3 px-4 text-white placeholder-slate-600 outline-none focus:border-purple-500/50 focus:ring-1 focus:ring-purple-500/50 transition-all"
                   placeholder="you@example.com"
+                  className="w-full bg-white/45 border border-outline-variant/40 rounded-xl py-3.5 px-4 text-on-surface outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-all text-sm font-semibold"
                 />
               </div>
 
-              <button 
+              <motion.button 
                 type="submit" 
                 disabled={isSubmitting}
-                className="w-full py-4 rounded-xl bg-gradient-to-r from-cyan-500 to-blue-600 text-white font-bold text-lg hover:shadow-[0_0_30px_rgba(34,211,238,0.4)] transition-all flex items-center justify-center gap-2 disabled:opacity-70 disabled:cursor-not-allowed transform active:scale-[0.98]"
+                whileHover={{ scale: 1.02, y: -1 }}
+                whileTap={{ scale: 0.98 }}
+                className="w-full py-4 rounded-xl btn-primary-glow text-on-primary font-bold text-sm hover:shadow-lg transition-all flex items-center justify-center gap-2 disabled:opacity-75 cursor-pointer"
               >
                 {isSubmitting ? (
-                  <div className="w-6 h-6 border-3 border-white/30 border-t-white rounded-full animate-spin"></div>
+                  <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin"></div>
                 ) : (
-                  <>Create Alert <Bell className="w-5 h-5" /></>
+                  <>Create Active Monitor <Bell className="w-4 h-4" /></>
                 )}
-              </button>
+              </motion.button>
             </form>
           </div>
         </div>
 
-        {/* Right Column: Active Monitors */}
+        {/* Right Column: Active Monitors list */}
         <div className="lg:col-span-7">
           <div className="flex items-center gap-3 mb-8">
-            <Activity className="w-6 h-6 text-emerald-400" />
-            <h2 className="text-2xl font-bold">Active Monitors</h2>
+            <div className="w-8 h-8 rounded-full bg-primary-fixed flex items-center justify-center text-primary">
+              <Activity className="w-4.5 h-4.5" />
+            </div>
+            <h2 className="text-headline-md font-bold text-primary">Active Monitors</h2>
           </div>
 
-          <div className="grid gap-4">
-            {activeAlerts.map(alert => (
-              <div key={alert.id} className="p-6 bg-slate-900/50 backdrop-blur-xl border border-slate-800 rounded-2xl flex flex-col hover:border-slate-700 transition-colors shadow-lg">
-                <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-6 mb-6">
-                  <div className="flex-1">
-                    <div className="flex items-center gap-2 mb-2">
-                      <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-                      <span className="text-xs font-bold text-emerald-400 uppercase tracking-wider">{alert.status}</span>
-                    </div>
-                    <h3 className="font-bold text-lg text-white leading-tight">{alert.name}</h3>
-                  </div>
-                  
-                  <div className="flex items-center gap-8 md:gap-12 w-full md:w-auto p-4 md:p-0 bg-slate-950/50 md:bg-transparent rounded-xl border border-slate-800 md:border-transparent">
-                    <div>
-                      <div className="text-xs font-medium text-slate-500 mb-1 flex items-center gap-1">
-                        <Target className="w-3 h-3" /> Target
-                      </div>
-                      <div className="font-bold text-emerald-400 text-lg">₹{alert.target.toLocaleString()}</div>
-                    </div>
-                    <div>
-                      <div className="text-xs font-medium text-slate-500 mb-1 flex items-center gap-1">
-                        <Tag className="w-3 h-3" /> Current
-                      </div>
-                      <div className="font-bold text-white text-lg">₹{alert.current.toLocaleString()}</div>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Progress Bar UI */}
-                <div className="w-full bg-slate-950 rounded-full h-2.5 border border-slate-800 overflow-hidden relative">
-                  <div 
-                    className="h-full bg-gradient-to-r from-amber-400 to-emerald-400 rounded-full relative" 
-                    style={{ width: `${Math.min(100, Math.max(0, (alert.target / alert.current) * 100))}%` }}
+          <div className="grid gap-4 text-left">
+            <AnimatePresence mode="popLayout">
+              {activeAlerts.map(alert => {
+                const pacingPct = Math.round((alert.target / alert.current) * 100);
+                return (
+                  <motion.div 
+                    key={alert.id}
+                    layout
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, scale: 0.95 }}
+                    whileHover={{ scale: 1.01, y: -2 }}
+                    className="p-6 bg-white/45 border border-outline-variant/40 rounded-2xl flex flex-col hover:border-primary/20 transition-all shadow-glass hover:shadow-lg relative overflow-hidden group cursor-pointer"
                   >
-                    <div className="absolute top-0 right-0 w-4 h-full bg-white/30 animate-[shimmer_2s_infinite]"></div>
-                  </div>
-                </div>
-                <div className="mt-2 text-right text-xs text-slate-400">
-                  {Math.round((alert.target / alert.current) * 100)}% to target
-                </div>
-              </div>
-            ))}
+                    <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4 mb-6">
+                      <div className="flex-1">
+                        <div className="flex items-center gap-2 mb-2">
+                          <span className="w-2.5 h-2.5 rounded-full bg-surface-tint animate-pulse"></span>
+                          <span className="text-[10px] font-bold text-surface-tint uppercase tracking-wider">{alert.status}</span>
+                        </div>
+                        <h3 className="font-bold text-base md:text-lg text-primary leading-tight">{alert.name}</h3>
+                      </div>
+                      
+                      <div className="flex items-center gap-6 w-full md:w-auto p-4 md:p-0 bg-background/50 md:bg-transparent rounded-xl border border-outline-variant/20 md:border-transparent">
+                        <div>
+                          <div className="text-[10px] font-bold text-on-surface-variant uppercase tracking-wider mb-1 flex items-center gap-1">
+                            <Target className="w-3 h-3 text-secondary" /> Target
+                          </div>
+                          <div className="font-extrabold text-secondary text-base md:text-lg">₹{alert.target.toLocaleString()}</div>
+                        </div>
+                        <div className="border-l border-outline-variant/30 h-8"></div>
+                        <div>
+                          <div className="text-[10px] font-bold text-on-surface-variant uppercase tracking-wider mb-1 flex items-center gap-1">
+                            <Tag className="w-3 h-3 text-primary" /> Current
+                          </div>
+                          <div className="font-extrabold text-primary text-base md:text-lg">₹{alert.current.toLocaleString()}</div>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Liquid progress pacing bar */}
+                    <div className="w-full bg-surface-container rounded-full h-2.5 overflow-hidden relative border border-outline-variant/10">
+                      <motion.div 
+                        initial={{ width: 0 }}
+                        animate={{ width: `${Math.min(100, Math.max(0, pacingPct))}%` }}
+                        transition={{ duration: 1.2, ease: "easeOut" }}
+                        className="h-full bg-gradient-to-r from-secondary to-primary rounded-full relative" 
+                      >
+                        <div className="absolute top-0 right-0 w-4 h-full bg-white/20 animate-pulse"></div>
+                      </motion.div>
+                    </div>
+                    
+                    <div className="mt-2 text-right text-[10px] font-bold text-on-surface-variant/80">
+                      {pacingPct}% of target price reached
+                    </div>
+                  </motion.div>
+                );
+              })}
+            </AnimatePresence>
 
             {activeAlerts.length === 0 && (
-              <div className="p-8 text-center border-2 border-dashed border-slate-800 rounded-2xl">
-                <Bell className="w-12 h-12 text-slate-600 mx-auto mb-4" />
-                <p className="text-slate-400 font-medium">No active alerts. Set one up to start tracking!</p>
+              <div className="p-10 text-center border-2 border-dashed border-outline-variant/30 rounded-2xl">
+                <Bell className="w-10 h-10 text-on-surface-variant/40 mx-auto mb-4" />
+                <p className="text-on-surface-variant font-semibold">No active monitors. Set one up to start tracking!</p>
               </div>
             )}
           </div>
@@ -288,6 +317,23 @@ export default function AlertsPage() {
 
       </main>
 
+      {/* Footer */}
+      <footer className="glass-panel border-t border-outline-variant/30 w-full py-12 mt-12 relative z-10 bg-white/20">
+        <div className="flex flex-col md:flex-row justify-between items-center px-margin-desktop max-w-container-max mx-auto gap-6">
+          <div className="text-center md:text-left">
+            <div className="text-headline-md font-bold text-primary mb-1">Budget Mitra</div>
+            <p className="text-body-md text-on-surface-variant text-xs md:text-sm">
+              © 2026 Budget Mitra. Elevating financial freedom.
+            </p>
+          </div>
+          <ul className="flex flex-wrap justify-center gap-6 text-label-sm font-semibold">
+            <li><a className="text-on-surface-variant hover:text-primary hover:-translate-y-0.5 inline-block transition-all" href="#">Privacy Policy</a></li>
+            <li><a className="text-on-surface-variant hover:text-primary hover:-translate-y-0.5 inline-block transition-all" href="#">Terms of Service</a></li>
+            <li><a className="text-on-surface-variant hover:text-primary hover:-translate-y-0.5 inline-block transition-all" href="#">Security</a></li>
+            <li><a className="text-on-surface-variant hover:text-primary hover:-translate-y-0.5 inline-block transition-all" href="#">Help Center</a></li>
+          </ul>
+        </div>
+      </footer>
     </div>
   );
 }
