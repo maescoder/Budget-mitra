@@ -1,0 +1,368 @@
+<!DOCTYPE html><html class="light" lang="en" style=""><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Budget Mitra - Buy Smarter</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "tertiary-fixed-dim": "#65dca4",
+                        "on-primary-fixed-variant": "#364763",
+                        "on-error": "#ffffff",
+                        "on-error-container": "#93000a",
+                        "surface-container": "#efedf0",
+                        "on-tertiary-fixed": "#002113",
+                        "tertiary": "#000301",
+                        "secondary": "#00687b",
+                        "on-surface": "#1b1b1e",
+                        "error": "#ba1a1a",
+                        "surface": "#fbf9fb",
+                        "primary-container": "#0a1d37",
+                        "surface-tint": "#4e5f7c",
+                        "inverse-on-surface": "#f2f0f3",
+                        "on-primary": "#ffffff",
+                        "on-secondary-fixed": "#001f27",
+                        "secondary-container": "#50dcff",
+                        "on-tertiary": "#ffffff",
+                        "inverse-primary": "#b6c7e9",
+                        "surface-bright": "#fbf9fb",
+                        "tertiary-fixed": "#82f9be",
+                        "tertiary-container": "#002213",
+                        "surface-container-low": "#f5f3f5",
+                        "primary": "#00030a",
+                        "secondary-fixed-dim": "#48d7f9",
+                        "error-container": "#ffdad6",
+                        "inverse-surface": "#303032",
+                        "on-tertiary-container": "#009865",
+                        "secondary-fixed": "#afecff",
+                        "on-tertiary-fixed-variant": "#005235",
+                        "primary-fixed-dim": "#b6c7e9",
+                        "outline": "#75777e",
+                        "on-background": "#1b1b1e",
+                        "on-surface-variant": "#44474d",
+                        "primary-fixed": "#d6e3ff",
+                        "on-primary-fixed": "#081c36",
+                        "surface-container-lowest": "#ffffff",
+                        "background": "#fbf9fb",
+                        "on-primary-container": "#7586a5",
+                        "surface-container-high": "#e9e7ea",
+                        "on-secondary": "#ffffff",
+                        "on-secondary-container": "#005f71",
+                        "surface-dim": "#dbd9dc",
+                        "surface-container-highest": "#e4e2e4",
+                        "outline-variant": "#c5c6ce",
+                        "on-secondary-fixed-variant": "#004e5d",
+                        "surface-variant": "#e4e2e4"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "margin-desktop": "40px",
+                        "gutter": "16px",
+                        "container-max": "1200px",
+                        "margin-mobile": "20px",
+                        "unit": "8px"
+                    },
+                    "fontFamily": {
+                        "body-md": ["Plus Jakarta Sans"],
+                        "label-sm": ["Plus Jakarta Sans"],
+                        "label-md": ["Plus Jakarta Sans"],
+                        "headline-sm": ["Plus Jakarta Sans"],
+                        "headline-md": ["Plus Jakarta Sans"],
+                        "body-lg": ["Plus Jakarta Sans"],
+                        "headline-lg": ["Plus Jakarta Sans"],
+                        "headline-lg-mobile": ["Plus Jakarta Sans"]
+                    },
+                    "fontSize": {
+                        "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "label-sm": ["12px", { "lineHeight": "16px", "fontWeight": "500" }],
+                        "label-md": ["14px", { "lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "600" }],
+                        "headline-sm": ["20px", { "lineHeight": "28px", "fontWeight": "600" }],
+                        "headline-md": ["24px", { "lineHeight": "32px", "fontWeight": "600" }],
+                        "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "400" }],
+                        "headline-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "headline-lg-mobile": ["24px", { "lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "700" }]
+                    },
+                    boxShadow: {
+                        'neu-extruded': '8px 8px 16px #B8C2D0, -8px -8px 16px #FFFFFF',
+                        'neu-inset': 'inset 4px 4px 8px #B8C2D0, inset -4px -4px 8px #FFFFFF',
+                        'neu-inset-deep': 'inset 8px 8px 16px #B8C2D0, inset -8px -8px 16px #FFFFFF',
+                        'neu-floating': '16px 16px 32px #A3B1C6, -16px -16px 32px #FFFFFF',
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body {
+            background-color: #fbf9fb; /* bg-surface */
+            color: #1b1b1e; /* text-on-surface */
+        }
+        
+        /* Neumorphic utilities for active states where tailwind config might be limited */
+        .btn-neu {
+            box-shadow: 8px 8px 16px #B8C2D0, -8px -8px 16px #FFFFFF;
+            transition: all 0.2s ease-in-out;
+        }
+        .btn-neu:active {
+            box-shadow: inset 4px 4px 8px #B8C2D0, inset -4px -4px 8px #FFFFFF;
+            transform: scale(0.98);
+        }
+        
+        .input-neu {
+            box-shadow: inset 4px 4px 8px #B8C2D0, inset -4px -4px 8px #FFFFFF;
+            background-color: #fbf9fb;
+            border: none;
+        }
+        .input-neu:focus {
+            outline: none;
+            box-shadow: inset 6px 6px 12px #B8C2D0, inset -6px -6px 12px #FFFFFF;
+        }
+
+        .card-neu {
+            box-shadow: 8px 8px 16px #B8C2D0, -8px -8px 16px #FFFFFF;
+            background-color: #fbf9fb;
+            border-radius: 1rem;
+        }
+    </style>
+</head>
+<body class="antialiased min-h-screen flex flex-col font-body-md text-body-md overflow-x-hidden">
+<!-- TopNavBar Shared Component -->
+<header class="bg-surface dark:bg-surface-dim shadow-[8px_8px_16px_#B8C2D0,-8px_-8px_16px_#FFFFFF] dark:shadow-none w-full sticky top-0 z-50 transition-all duration-300">
+<div class="flex justify-between items-center w-full px-margin-desktop py-4 max-w-container-max mx-auto">
+<!-- Brand -->
+<div class="flex items-center gap-4">
+<a class="text-headline-md font-headline-md font-bold text-on-surface dark:text-surface-bright flex items-center gap-2" href="#">
+<div class="w-10 h-10 rounded-full flex items-center justify-center btn-neu text-primary">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">account_balance_wallet</span>
+</div>
+                    Budget Mitra
+                </a>
+</div>
+<!-- Navigation Links (Desktop) -->
+<nav class="hidden md:flex items-center gap-8">
+<!-- Intent: Home/Explore -> Default to no specific active state based on provided labels, but 'Deals' or 'Compare' might be closest to landing page. Will leave inactive for general landing, or highlight first if forced. Leaving inactive as it's a general landing. -->
+<a class="text-on-surface-variant font-medium hover:text-primary transition-all duration-300 font-label-md text-label-md px-4 py-2 rounded-lg hover:shadow-neu-inset" href="#">Compare</a>
+<a class="text-on-surface-variant font-medium hover:text-primary transition-all duration-300 font-label-md text-label-md px-4 py-2 rounded-lg hover:shadow-neu-inset" href="#">Price Alerts</a>
+<a class="text-on-surface-variant font-medium hover:text-primary transition-all duration-300 font-label-md text-label-md px-4 py-2 rounded-lg hover:shadow-neu-inset" href="#">Deals</a>
+<a class="text-on-surface-variant font-medium hover:text-primary transition-all duration-300 font-label-md text-label-md px-4 py-2 rounded-lg hover:shadow-neu-inset" href="#">Calculators</a>
+</nav>
+<!-- Actions -->
+<div class="flex items-center gap-4">
+<a class="text-on-surface-variant font-medium hover:text-primary transition-all duration-300 font-label-md text-label-md hidden sm:block px-4 py-2 rounded-lg hover:shadow-neu-inset" href="#">Log In</a>
+<a class="bg-primary text-on-primary font-label-md text-label-md px-6 py-2.5 rounded-full btn-neu shadow-neu-extruded hover:shadow-neu-floating transition-shadow" href="#">Get Started</a>
+</div>
+</div>
+</header>
+<main class="flex-grow">
+<!-- Hero Section -->
+<section class="relative pt-24 pb-32 px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto flex flex-col items-center justify-center text-center overflow-hidden">
+<!-- Subtle motion background could be a shader, but using CSS gradients for pure HTML structural request, or assuming placeholder if needed. Will use structural subtle blobs for neumorphic feel -->
+<div class="absolute inset-0 z-[-1] overflow-hidden opacity-30 pointer-events-none">
+<div class="absolute top-10 left-1/4 w-96 h-96 bg-secondary/20 rounded-full mix-blend-multiply filter blur-3xl opacity-70 animate-blob"></div>
+<div class="absolute top-10 right-1/4 w-96 h-96 bg-tertiary-fixed-dim/20 rounded-full mix-blend-multiply filter blur-3xl opacity-70 animate-blob animation-delay-2000"></div>
+<div class="absolute -bottom-8 left-1/3 w-96 h-96 bg-primary-fixed-dim/20 rounded-full mix-blend-multiply filter blur-3xl opacity-70 animate-blob animation-delay-4000"></div>
+</div>
+<h1 class="font-headline-lg-mobile text-headline-lg-mobile md:font-headline-lg md:text-headline-lg text-primary mb-6 max-w-3xl">
+                Compare prices. Track trends. <br><span class="text-secondary">Buy smarter.</span>
+</h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant mb-12 max-w-2xl">
+                Your ultimate financial tool for smart shopping. We monitor millions of products so you never overpay again.
+            </p>
+<!-- Neumorphic Search Bar -->
+<div class="w-full max-w-2xl relative">
+<div class="input-neu rounded-full flex items-center p-2 pl-6 pr-2 h-16 w-full group transition-all duration-300">
+<span class="material-symbols-outlined text-outline group-focus-within:text-primary transition-colors">search</span>
+<input class="bg-transparent border-none w-full h-full text-body-lg font-body-lg text-on-surface placeholder:text-outline-variant focus:ring-0 px-4" placeholder="Paste product URL or search..." type="text">
+<button class="btn-neu bg-secondary text-on-secondary w-12 h-12 rounded-full flex items-center justify-center flex-shrink-0 transition-transform hover:scale-105 active:scale-95">
+<span class="material-symbols-outlined">arrow_forward</span>
+</button>
+</div>
+</div>
+</section>
+<!-- Trusted Platforms (Extruded Cards) -->
+<section class="py-16 bg-surface px-margin-mobile md:px-margin-desktop">
+<div class="max-w-container-max mx-auto text-center">
+<p class="font-label-md text-label-md text-outline mb-8 uppercase tracking-widest">Tracking prices across</p>
+<div class="flex flex-wrap justify-center gap-6 md:gap-12">
+<!-- Placeholder logos represented by neumorphic blocks -->
+<div class="card-neu w-32 h-16 flex items-center justify-center text-primary-container font-label-md font-bold grayscale hover:grayscale-0 transition-all duration-300 hover:-translate-y-1">
+                        Amazon
+                    </div>
+<div class="card-neu w-32 h-16 flex items-center justify-center text-secondary font-label-md font-bold grayscale hover:grayscale-0 transition-all duration-300 hover:-translate-y-1">
+                        Flipkart
+                    </div>
+<div class="card-neu w-32 h-16 flex items-center justify-center text-tertiary-container font-label-md font-bold grayscale hover:grayscale-0 transition-all duration-300 hover:-translate-y-1">
+                        Myntra
+                    </div>
+<div class="card-neu w-32 h-16 flex items-center justify-center text-on-primary-fixed-variant font-label-md font-bold grayscale hover:grayscale-0 transition-all duration-300 hover:-translate-y-1">
+                        Chroma
+                    </div>
+</div>
+</div>
+</section>
+<!-- Trending Price Drops (Grid) -->
+<section class="py-24 px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto">
+<div class="flex justify-between items-end mb-12">
+<div>
+<h2 class="font-headline-md text-headline-md text-primary mb-2">Trending Price Drops</h2>
+<p class="font-body-md text-body-md text-on-surface-variant">Real-time steals you shouldn't miss.</p>
+</div>
+<button class="btn-neu px-6 py-2 rounded-full font-label-md text-label-md text-secondary bg-surface hidden sm:block">View All</button>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+<!-- Product Card 1 -->
+<div class="card-neu p-6 flex flex-col h-full hover:shadow-neu-floating transition-shadow duration-300 cursor-pointer group">
+<div class="w-full aspect-square rounded-xl shadow-neu-inset bg-surface flex items-center justify-center mb-6 relative overflow-hidden">
+<span class="material-symbols-outlined text-6xl text-outline-variant group-hover:scale-110 transition-transform duration-500">smartphone</span>
+<div class="absolute top-3 left-3 bg-tertiary-fixed-dim text-on-tertiary-fixed text-xs font-bold px-2 py-1 rounded-full shadow-sm">
+                            -24%
+                        </div>
+</div>
+<div class="flex-grow">
+<p class="font-label-sm text-label-sm text-outline mb-1">Electronics</p>
+<h3 class="font-label-md text-label-md text-primary mb-2 line-clamp-2">Premium Noise-Cancelling Headphones Pro</h3>
+<div class="flex items-center gap-2 mb-4">
+<span class="font-headline-sm text-headline-sm text-secondary">₹14,999</span>
+<span class="font-body-md text-body-md text-outline line-through">₹19,999</span>
+</div>
+</div>
+<button class="w-full py-3 rounded-xl font-label-md text-label-md text-primary bg-surface shadow-neu-extruded group-hover:bg-primary group-hover:text-on-primary transition-colors active:shadow-neu-inset mt-auto">View Deal</button>
+</div>
+<!-- Product Card 2 -->
+<div class="card-neu p-6 flex flex-col h-full hover:shadow-neu-floating transition-shadow duration-300 cursor-pointer group">
+<div class="w-full aspect-square rounded-xl shadow-neu-inset bg-surface flex items-center justify-center mb-6 relative overflow-hidden">
+<span class="material-symbols-outlined text-6xl text-outline-variant group-hover:scale-110 transition-transform duration-500">watch</span>
+<div class="absolute top-3 left-3 bg-tertiary-fixed-dim text-on-tertiary-fixed text-xs font-bold px-2 py-1 rounded-full shadow-sm">
+                            -15%
+                        </div>
+</div>
+<div class="flex-grow">
+<p class="font-label-sm text-label-sm text-outline mb-1">Wearables</p>
+<h3 class="font-label-md text-label-md text-primary mb-2 line-clamp-2">Smart Fitness Watch Series 5</h3>
+<div class="flex items-center gap-2 mb-4">
+<span class="font-headline-sm text-headline-sm text-secondary">₹3,499</span>
+<span class="font-body-md text-body-md text-outline line-through">₹4,199</span>
+</div>
+</div>
+<button class="w-full py-3 rounded-xl font-label-md text-label-md text-primary bg-surface shadow-neu-extruded group-hover:bg-primary group-hover:text-on-primary transition-colors active:shadow-neu-inset mt-auto">View Deal</button>
+</div>
+<!-- Product Card 3 -->
+<div class="card-neu p-6 flex flex-col h-full hover:shadow-neu-floating transition-shadow duration-300 cursor-pointer group">
+<div class="w-full aspect-square rounded-xl shadow-neu-inset bg-surface flex items-center justify-center mb-6 relative overflow-hidden">
+<span class="material-symbols-outlined text-6xl text-outline-variant group-hover:scale-110 transition-transform duration-500">laptop_mac</span>
+<div class="absolute top-3 left-3 bg-tertiary-fixed-dim text-on-tertiary-fixed text-xs font-bold px-2 py-1 rounded-full shadow-sm">
+                            -10%
+                        </div>
+</div>
+<div class="flex-grow">
+<p class="font-label-sm text-label-sm text-outline mb-1">Computers</p>
+<h3 class="font-label-md text-label-md text-primary mb-2 line-clamp-2">Ultra-Thin Work Laptop M2</h3>
+<div class="flex items-center gap-2 mb-4">
+<span class="font-headline-sm text-headline-sm text-secondary">₹89,999</span>
+<span class="font-body-md text-body-md text-outline line-through">₹99,999</span>
+</div>
+</div>
+<button class="w-full py-3 rounded-xl font-label-md text-label-md text-primary bg-surface shadow-neu-extruded group-hover:bg-primary group-hover:text-on-primary transition-colors active:shadow-neu-inset mt-auto">View Deal</button>
+</div>
+<!-- Product Card 4 -->
+<div class="card-neu p-6 flex flex-col h-full hover:shadow-neu-floating transition-shadow duration-300 cursor-pointer group">
+<div class="w-full aspect-square rounded-xl shadow-neu-inset bg-surface flex items-center justify-center mb-6 relative overflow-hidden">
+<span class="material-symbols-outlined text-6xl text-outline-variant group-hover:scale-110 transition-transform duration-500">blender</span>
+<div class="absolute top-3 left-3 bg-tertiary-fixed-dim text-on-tertiary-fixed text-xs font-bold px-2 py-1 rounded-full shadow-sm">
+                            -32%
+                        </div>
+</div>
+<div class="flex-grow">
+<p class="font-label-sm text-label-sm text-outline mb-1">Home Appliances</p>
+<h3 class="font-label-md text-label-md text-primary mb-2 line-clamp-2">Smart High-Speed Blender Pro Max</h3>
+<div class="flex items-center gap-2 mb-4">
+<span class="font-headline-sm text-headline-sm text-secondary">₹4,299</span>
+<span class="font-body-md text-body-md text-outline line-through">₹6,499</span>
+</div>
+</div>
+<button class="w-full py-3 rounded-xl font-label-md text-label-md text-primary bg-surface shadow-neu-extruded group-hover:bg-primary group-hover:text-on-primary transition-colors active:shadow-neu-inset mt-auto">View Deal</button>
+</div>
+</div>
+<button class="btn-neu w-full mt-8 py-3 rounded-full font-label-md text-label-md text-secondary bg-surface sm:hidden">View All Deals</button>
+</section>
+<!-- Feature Grid (Bento Style Neumorphism) -->
+<section class="py-24 bg-surface-container-low px-margin-mobile md:px-margin-desktop">
+<div class="max-w-container-max mx-auto">
+<div class="text-center mb-16">
+<h2 class="font-headline-md text-headline-md text-primary mb-4">Smart Shopping Arsenal</h2>
+<p class="font-body-lg text-body-lg text-on-surface-variant max-w-2xl mx-auto">Equip yourself with data. Our tools are designed to give you the advantage in every purchase.</p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+<!-- Feature 1: Alerts -->
+<div class="card-neu p-8 flex flex-col items-center text-center">
+<div class="w-20 h-20 rounded-2xl shadow-neu-inset flex items-center justify-center mb-6">
+<div class="w-12 h-12 rounded-full shadow-neu-extruded flex items-center justify-center bg-surface text-secondary">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">notifications_active</span>
+</div>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-primary mb-3">Real-time Price Alerts</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">Set your target price and we'll notify you the second it drops. Never miss a deal.</p>
+</div>
+<!-- Feature 2: History -->
+<div class="card-neu p-8 flex flex-col items-center text-center md:-translate-y-8">
+<div class="w-20 h-20 rounded-2xl shadow-neu-inset flex items-center justify-center mb-6">
+<div class="w-12 h-12 rounded-full shadow-neu-extruded flex items-center justify-center bg-surface text-tertiary-fixed-dim">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">monitoring</span>
+</div>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-primary mb-3">Historical Data</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">View up to 12 months of price history charts to know if it's genuinely a good time to buy.</p>
+<!-- Mini visual representation of a chart -->
+<div class="w-full mt-6 h-16 shadow-neu-inset rounded-lg p-2 flex items-end justify-between px-4">
+<div class="w-2 bg-secondary rounded-t-sm h-1/4"></div>
+<div class="w-2 bg-secondary rounded-t-sm h-2/4"></div>
+<div class="w-2 bg-secondary rounded-t-sm h-1/3"></div>
+<div class="w-2 bg-secondary rounded-t-sm h-3/4"></div>
+<div class="w-2 bg-tertiary-fixed-dim rounded-t-sm h-full"></div>
+</div>
+</div>
+<!-- Feature 3: Compare -->
+<div class="card-neu p-8 flex flex-col items-center text-center">
+<div class="w-20 h-20 rounded-2xl shadow-neu-inset flex items-center justify-center mb-6">
+<div class="w-12 h-12 rounded-full shadow-neu-extruded flex items-center justify-center bg-surface text-primary-fixed-dim">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">compare_arrows</span>
+</div>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-primary mb-3">Smart Comparison</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">We instantly check multiple retailers to find you the lowest price including shipping.</p>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer Shared Component -->
+<footer class="bg-surface-container dark:bg-surface-container-high shadow-[inset_8px_8px_16px_#B8C2D0,inset_-8px_-8px_16px_#FFFFFF] mt-auto">
+<div class="w-full px-margin-desktop py-12 flex flex-col items-center gap-8 max-w-container-max mx-auto">
+<a class="text-headline-sm font-headline-sm font-bold text-on-surface flex items-center gap-4 hover:-translate-y-1 transition-transform" href="#"><div class="w-12 h-12 rounded-full flex items-center justify-center btn-neu overflow-hidden p-2">https://lh3.googleusercontent.com/aida-public/AB6AXuAgEBrROhlEkV2N_dl0JoYOng3qxi0zpj_2mt30AvtUuGTQy_diFrMkCuSiqgCnZW5kBRqoxM6YNgcpV7A4tvECPIDxjJBgOmikU74WVW3SD5YT1IhtFJBhcuQs5oDWx-EKDbA2rIJQBWmyLcuS6dRoo71llZQA9LLemfGXo3R6oz7eHnlBTlm3FcdCvZjMS59y7l1zAOfY0r6RbbiZz3rXzex3wyfDsfhrbrsFG2lCH9dRiX3FXokQGxLYU5uCLJDeXfg2x-qJD0</div><span class="">Budget Mitra</span></a>
+<div class="flex flex-wrap justify-center gap-6">
+<a class="text-on-surface-variant hover:text-secondary transition-colors font-label-sm text-label-sm px-4 py-2 rounded-lg hover:shadow-neu-inset" href="#">Terms</a>
+<a class="text-on-surface-variant hover:text-secondary transition-colors font-label-sm text-label-sm px-4 py-2 rounded-lg hover:shadow-neu-inset" href="#">Privacy</a>
+<a class="text-on-surface-variant hover:text-secondary transition-colors font-label-sm text-label-sm px-4 py-2 rounded-lg hover:shadow-neu-inset" href="#">Support</a>
+<a class="text-on-surface-variant hover:text-secondary transition-colors font-label-sm text-label-sm px-4 py-2 rounded-lg hover:shadow-neu-inset" href="#">Contact</a>
+</div>
+<p class="text-body-md font-body-md text-on-surface-variant text-center">
+                © 2026 Budget Mitra. All rights reserved.
+            </p><div class="">The GC Coders.</div><p></p>
+</div>
+</footer>
+
+
+
+
+</body></html>

@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Budget Mitra - Authentication</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "tertiary-fixed-dim": "#65dca4",
+                        "on-primary-fixed-variant": "#364763",
+                        "on-error": "#ffffff",
+                        "on-error-container": "#93000a",
+                        "surface-container": "#efedf0",
+                        "on-tertiary-fixed": "#002113",
+                        "tertiary": "#000301",
+                        "secondary": "#00687b",
+                        "on-surface": "#1b1b1e",
+                        "error": "#ba1a1a",
+                        "surface": "#fbf9fb",
+                        "primary-container": "#0a1d37",
+                        "surface-tint": "#4e5f7c",
+                        "inverse-on-surface": "#f2f0f3",
+                        "on-primary": "#ffffff",
+                        "on-secondary-fixed": "#001f27",
+                        "secondary-container": "#50dcff",
+                        "on-tertiary": "#ffffff",
+                        "inverse-primary": "#b6c7e9",
+                        "surface-bright": "#fbf9fb",
+                        "tertiary-fixed": "#82f9be",
+                        "tertiary-container": "#002213",
+                        "surface-container-low": "#f5f3f5",
+                        "primary": "#00030a",
+                        "secondary-fixed-dim": "#48d7f9",
+                        "error-container": "#ffdad6",
+                        "inverse-surface": "#303032",
+                        "on-tertiary-container": "#009865",
+                        "secondary-fixed": "#afecff",
+                        "on-tertiary-fixed-variant": "#005235",
+                        "primary-fixed-dim": "#b6c7e9",
+                        "outline": "#75777e",
+                        "on-background": "#1b1b1e",
+                        "on-surface-variant": "#44474d",
+                        "primary-fixed": "#d6e3ff",
+                        "on-primary-fixed": "#081c36",
+                        "surface-container-lowest": "#ffffff",
+                        "background": "#fbf9fb",
+                        "on-primary-container": "#7586a5",
+                        "surface-container-high": "#e9e7ea",
+                        "on-secondary": "#ffffff",
+                        "on-secondary-container": "#005f71",
+                        "surface-dim": "#dbd9dc",
+                        "surface-container-highest": "#e4e2e4",
+                        "outline-variant": "#c5c6ce",
+                        "on-secondary-fixed-variant": "#004e5d",
+                        "surface-variant": "#e4e2e4"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px",
+                        "neumorphic": "24px"
+                    },
+                    "spacing": {
+                        "margin-desktop": "40px",
+                        "gutter": "16px",
+                        "container-max": "1200px",
+                        "margin-mobile": "20px",
+                        "unit": "8px"
+                    },
+                    "fontFamily": {
+                        "body-md": ["Plus Jakarta Sans"],
+                        "label-sm": ["Plus Jakarta Sans"],
+                        "label-md": ["Plus Jakarta Sans"],
+                        "headline-sm": ["Plus Jakarta Sans"],
+                        "headline-md": ["Plus Jakarta Sans"],
+                        "body-lg": ["Plus Jakarta Sans"],
+                        "headline-lg": ["Plus Jakarta Sans"],
+                        "headline-lg-mobile": ["Plus Jakarta Sans"]
+                    },
+                    "fontSize": {
+                        "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "label-sm": ["12px", { "lineHeight": "16px", "fontWeight": "500" }],
+                        "label-md": ["14px", { "lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "600" }],
+                        "headline-sm": ["20px", { "lineHeight": "28px", "fontWeight": "600" }],
+                        "headline-md": ["24px", { "lineHeight": "32px", "fontWeight": "600" }],
+                        "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "400" }],
+                        "headline-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "headline-lg-mobile": ["24px", { "lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "700" }]
+                    },
+                    "boxShadow": {
+                        'neumorphic-extruded': '8px 8px 16px #B8C2D0, -8px -8px 16px #FFFFFF',
+                        'neumorphic-inset': 'inset 4px 4px 8px #B8C2D0, inset -4px -4px 8px #FFFFFF',
+                        'neumorphic-floating': '12px 12px 24px #B8C2D0, -12px -12px 24px #FFFFFF',
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .icon-fill {
+            font-variation-settings: 'FILL' 1;
+        }
+    </style>
+</head>
+<body class="bg-surface font-body-md text-on-surface min-h-screen flex items-center justify-center p-margin-mobile md:p-margin-desktop">
+<main class="w-full max-w-5xl mx-auto flex flex-col md:flex-row gap-12 items-center justify-center">
+<!-- Left Side: Branding / Intro -->
+<div class="hidden md:flex flex-col items-start w-1/2 p-8 space-y-6">
+<div class="flex items-center gap-3">
+<div class="w-12 h-12 rounded-full shadow-neumorphic-extruded flex items-center justify-center bg-surface">
+<span class="material-symbols-outlined text-primary text-3xl">account_balance_wallet</span>
+</div>
+<h1 class="text-headline-lg font-headline-lg text-primary">Budget Mitra</h1>
+</div>
+<p class="text-body-lg font-body-lg text-on-surface-variant max-w-md mt-4">
+                Experience the next generation of personal finance management. Secure, intuitive, and designed to help you achieve your financial goals with precision.
+            </p>
+<div class="mt-12 flex gap-4">
+<div class="w-16 h-16 rounded-full shadow-neumorphic-extruded flex items-center justify-center bg-surface text-secondary">
+<span class="material-symbols-outlined text-2xl icon-fill">shield</span>
+</div>
+<div class="w-16 h-16 rounded-full shadow-neumorphic-extruded flex items-center justify-center bg-surface text-secondary">
+<span class="material-symbols-outlined text-2xl icon-fill">monitoring</span>
+</div>
+<div class="w-16 h-16 rounded-full shadow-neumorphic-extruded flex items-center justify-center bg-surface text-secondary">
+<span class="material-symbols-outlined text-2xl icon-fill">pie_chart</span>
+</div>
+</div>
+</div>
+<!-- Right Side: Login Form -->
+<div class="w-full md:w-[480px] bg-surface rounded-[32px] shadow-neumorphic-extruded p-8 md:p-12 relative overflow-hidden">
+<!-- Mobile Logo -->
+<div class="flex md:hidden items-center justify-center gap-3 mb-8">
+<div class="w-10 h-10 rounded-full shadow-neumorphic-extruded flex items-center justify-center bg-surface">
+<span class="material-symbols-outlined text-primary text-2xl">account_balance_wallet</span>
+</div>
+<h1 class="text-headline-md font-headline-md text-primary">Budget Mitra</h1>
+</div>
+<div class="mb-8 text-center md:text-left">
+<h2 class="text-headline-md font-headline-md text-on-surface mb-2">Welcome Back</h2>
+<p class="text-body-md font-body-md text-on-surface-variant">Please enter your details to sign in.</p>
+</div>
+<form class="space-y-6">
+<!-- Email Input -->
+<div class="space-y-2">
+<label class="text-label-md font-label-md text-on-surface-variant ml-2 block">Email Address</label>
+<div class="relative">
+<span class="material-symbols-outlined absolute left-4 top-1/2 transform -translate-y-1/2 text-outline">mail</span>
+<input class="w-full h-14 pl-12 pr-4 bg-surface rounded-xl shadow-neumorphic-inset border-none text-body-md font-body-md focus:ring-0 focus:outline-none placeholder-outline-variant text-on-surface" placeholder="name@example.com" type="email"/>
+</div>
+</div>
+<!-- Password Input -->
+<div class="space-y-2">
+<label class="text-label-md font-label-md text-on-surface-variant ml-2 block">Password</label>
+<div class="relative">
+<span class="material-symbols-outlined absolute left-4 top-1/2 transform -translate-y-1/2 text-outline">lock</span>
+<input class="w-full h-14 pl-12 pr-12 bg-surface rounded-xl shadow-neumorphic-inset border-none text-body-md font-body-md focus:ring-0 focus:outline-none placeholder-outline-variant text-on-surface" placeholder="••••••••" type="password"/>
+<button class="absolute right-4 top-1/2 transform -translate-y-1/2 text-outline hover:text-primary transition-colors" type="button">
+<span class="material-symbols-outlined">visibility_off</span>
+</button>
+</div>
+</div>
+<!-- Options -->
+<div class="flex items-center justify-between pt-2">
+<label class="flex items-center gap-2 cursor-pointer group">
+<div class="w-5 h-5 rounded shadow-neumorphic-inset flex items-center justify-center bg-surface group-hover:shadow-neumorphic-extruded transition-shadow">
+<!-- Checkmark SVG would go here for checked state -->
+</div>
+<span class="text-label-md font-label-md text-on-surface-variant group-hover:text-primary transition-colors">Remember me</span>
+</label>
+<a class="text-label-md font-label-md text-secondary hover:text-primary transition-colors" href="#">Forgot password?</a>
+</div>
+<!-- Primary Button -->
+<button class="w-full h-14 mt-4 bg-primary text-on-primary rounded-xl text-label-md font-label-md shadow-neumorphic-extruded hover:shadow-neumorphic-inset active:shadow-neumorphic-inset transition-all duration-200 flex items-center justify-center gap-2" type="button">
+<span>Sign In</span>
+<span class="material-symbols-outlined text-sm">arrow_forward</span>
+</button>
+</form>
+<div class="my-8 flex items-center gap-4">
+<div class="flex-1 h-[1px] bg-surface-dim shadow-neumorphic-inset"></div>
+<span class="text-label-sm font-label-sm text-outline uppercase tracking-wider">Or continue with</span>
+<div class="flex-1 h-[1px] bg-surface-dim shadow-neumorphic-inset"></div>
+</div>
+<!-- Social Logins -->
+<div class="grid grid-cols-2 gap-4">
+<button class="h-12 rounded-xl bg-surface shadow-neumorphic-extruded hover:shadow-neumorphic-inset active:shadow-neumorphic-inset transition-all duration-200 flex items-center justify-center gap-2 text-label-md font-label-md text-on-surface" type="button">
+<svg class="w-5 h-5" fill="currentColor" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"></path><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"></path><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"></path><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"></path><path d="M1 1h22v22H1z" fill="none"></path></svg>
+                    Google
+                </button>
+<button class="h-12 rounded-xl bg-surface shadow-neumorphic-extruded hover:shadow-neumorphic-inset active:shadow-neumorphic-inset transition-all duration-200 flex items-center justify-center gap-2 text-label-md font-label-md text-on-surface" type="button">
+<span class="material-symbols-outlined icon-fill">apps</span>
+                    Apple
+                </button>
+</div>
+<p class="text-center mt-8 text-body-md font-body-md text-on-surface-variant">
+                Don't have an account? <a class="text-secondary font-semibold hover:text-primary transition-colors" href="#">Sign up</a>
+</p>
+</div>
+</main>
+</body></html>

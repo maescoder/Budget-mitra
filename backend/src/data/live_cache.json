@@ -1,0 +1,814 @@
+{
+  "https://www.amazon.in/iPhone-16-Plus-256-Ultrmarine/dp/B0DGJGRDDS": {
+    "sourceProduct": {
+      "platform": "Amazon",
+      "title": "Apple iPhone 16 Plus 256 GB: 5G Mobile Phone with Camera Control, A18 Chip and a Big Boost in Battery Life. Works with AirPods; Ultrmarine",
+      "brand": "Visit the Apple Store",
+      "price": 89900,
+      "mrp": 107880,
+      "image": "https://m.media-amazon.com/images/I/3110zKZoMGL._SX342_SY445_QL70_FMwebp_.jpg",
+      "url": "https://www.amazon.in/iPhone-16-Plus-256-Ultrmarine/dp/B0DGJGRDDS",
+      "availability": "In Stock",
+      "rating": 4.6,
+      "extractedAt": "2026-06-08T21:00:33.979Z",
+      "_parsed": {
+        "brand": "apple",
+        "model": "iphone 16",
+        "variants": [
+          "plus"
+        ],
+        "ram": null,
+        "storage": "256gb",
+        "color": null,
+        "category": "smartphone",
+        "condition": "new",
+        "packQuantity": 1
+      }
+    },
+    "exactMatches": [
+      {
+        "platform": "Flipkart",
+        "title": "Apple iPhone 16 Plus (Ultramarine, 256 GB)",
+        "brand": "Apple",
+        "price": 89900,
+        "mrp": 107880,
+        "image": "https://rukminim2.flixcart.com/image/312/312/xif0q/mobile/o/d/1/-original-imahggetmzzanrty.jpeg?q=70",
+        "url": "https://www.flipkart.com/apple-iphone-16-plus-ultramarine-256-gb/p/itm1a7499437978a?pid=MOBH4DQFZXQGRWHH&lid=LSTMOBH4DQFZXQGRWHH4DYTPT&marketplace=FLIPKART&q=apple+iphone+16+plus+256gb+5g+ultramarine&store=tyy%2F4io&srno=s_1_1&otracker=search&fm=organic&iid=decbb25b-64dd-4be0-b1ca-8dc074c0b050.MOBH4DQFZXQGRWHH.SEARCH&ppt=None&ppn=None&ssid=5qlr4rxgjk0000001780952464051&qH=9782034a598ed1c3&ov_redirect=true",
+        "availability": "In Stock",
+        "sameProduct": true,
+        "confidence": 98,
+        "matchLevel": "exact",
+        "reason": "Same brand, model, RAM (both unspecified), storage and color.",
+        "missingFields": [],
+        "mismatchFields": [],
+        "lastUpdated": "2026-06-08T21:01:13.766Z"
+      }
+    ],
+    "similarProducts": [],
+    "rejectedCandidates": [
+      {
+        "platform": "Flipkart",
+        "title": "Apple iPhone 16 (Ultramarine, 128 GB)",
+        "brand": "Apple",
+        "price": 67900,
+        "mrp": 81480,
+        "image": "https://rukminim2.flixcart.com/image/312/312/xif0q/mobile/g/l/q/-original-imahgfmzdbnzzjjg.jpeg?q=70",
+        "url": "https://www.flipkart.com/apple-iphone-16-ultramarine-128-gb/p/itmcc210cae43fba?pid=MOBH4DQFYZT6EH2F&lid=LSTMOBH4DQFYZT6EH2FXM70WU&marketplace=FLIPKART&q=apple+iphone+16+plus+256gb+5g+ultramarine&store=tyy%2F4io&srno=s_1_5&otracker=search&fm=organic&iid=decbb25b-64dd-4be0-b1ca-8dc074c0b050.MOBH4DQFYZT6EH2F.SEARCH&ppt=None&ppn=None&ssid=5qlr4rxgjk0000001780952464051&qH=9782034a598ed1c3&ov_redirect=true",
+        "availability": "In Stock",
+        "_parsed": {
+          "brand": "apple",
+          "model": "iphone 16",
+          "variants": [],
+          "ram": null,
+          "storage": "128gb",
+          "color": "ultramarine",
+          "category": "smartphone",
+          "condition": "new",
+          "packQuantity": 1
+        },
+        "reason": "Variant missing (plus)"
+      },
+      {
+        "platform": "Flipkart",
+        "title": "Apple iPhone 16 Plus (Black, 256 GB)",
+        "brand": "Apple",
+        "price": 89900,
+        "mrp": 107880,
+        "image": "https://rukminim2.flixcart.com/image/312/312/xif0q/mobile/f/4/x/-original-imahggeu8hebsuhd.jpeg?q=70",
+        "url": "https://www.flipkart.com/apple-iphone-16-plus-black-256-gb/p/itma302a45837ec4?pid=MOBH4DQF7JGHH7QZ&lid=LSTMOBH4DQF7JGHH7QZXSCWPV&marketplace=FLIPKART&q=apple+iphone+16+plus+256gb+5g+ultramarine&store=tyy%2F4io&srno=s_1_2&otracker=search&fm=organic&iid=decbb25b-64dd-4be0-b1ca-8dc074c0b050.MOBH4DQF7JGHH7QZ.SEARCH&ppt=None&ppn=None&ssid=5qlr4rxgjk0000001780952464051&qH=9782034a598ed1c3&ov_redirect=true",
+        "availability": "In Stock",
+        "sameProduct": false,
+        "confidence": 90,
+        "matchLevel": "similar",
+        "reason": "Different color.",
+        "missingFields": [],
+        "mismatchFields": [
+          "color"
+        ],
+        "lastUpdated": "2026-06-08T21:01:13.766Z"
+      },
+      {
+        "platform": "Flipkart",
+        "title": "Apple iPhone 16 Plus (White, 256 GB)",
+        "brand": "Apple",
+        "price": 89900,
+        "mrp": 107880,
+        "image": "https://rukminim2.flixcart.com/image/312/312/xif0q/mobile/z/c/g/-original-imahggexnxjungj5.jpeg?q=70",
+        "url": "https://www.flipkart.com/apple-iphone-16-plus-white-256-gb/p/itmc63bd0635f400?pid=MOBH4DQFJBVD9HXR&lid=LSTMOBH4DQFJBVD9HXRID41K3&marketplace=FLIPKART&q=apple+iphone+16+plus+256gb+5g+ultramarine&store=tyy%2F4io&srno=s_1_3&otracker=search&fm=organic&iid=decbb25b-64dd-4be0-b1ca-8dc074c0b050.MOBH4DQFJBVD9HXR.SEARCH&ppt=None&ppn=None&ssid=5qlr4rxgjk0000001780952464051&qH=9782034a598ed1c3&ov_redirect=true",
+        "availability": "In Stock",
+        "sameProduct": false,
+        "confidence": 90,
+        "matchLevel": "similar",
+        "reason": "Different color.",
+        "missingFields": [],
+        "mismatchFields": [
+          "color"
+        ],
+        "lastUpdated": "2026-06-08T21:01:13.766Z"
+      },
+      {
+        "platform": "Flipkart",
+        "title": "Apple iPhone 16 Plus (Teal, 256 GB)",
+        "brand": "Apple",
+        "price": 89900,
+        "mrp": 107880,
+        "image": "https://rukminim2.flixcart.com/image/312/312/xif0q/mobile/r/q/y/-original-imahggetjqfp9fwv.jpeg?q=70",
+        "url": "https://www.flipkart.com/apple-iphone-16-plus-teal-256-gb/p/itmc838d56fd8d50?pid=MOBH4DQFASMZ3YKT&lid=LSTMOBH4DQFASMZ3YKT62NU5X&marketplace=FLIPKART&q=apple+iphone+16+plus+256gb+5g+ultramarine&store=tyy%2F4io&srno=s_1_4&otracker=search&fm=organic&iid=decbb25b-64dd-4be0-b1ca-8dc074c0b050.MOBH4DQFASMZ3YKT.SEARCH&ppt=None&ppn=None&ssid=5qlr4rxgjk0000001780952464051&qH=9782034a598ed1c3&ov_redirect=true",
+        "availability": "In Stock",
+        "sameProduct": false,
+        "confidence": 90,
+        "matchLevel": "similar",
+        "reason": "Different color.",
+        "missingFields": [],
+        "mismatchFields": [
+          "color"
+        ],
+        "lastUpdated": "2026-06-08T21:01:13.766Z"
+      }
+    ],
+    "fetchedAt": "2026-06-08T21:01:13.767Z"
+  },
+  "https://www.amazon.in/iPhone-16-Plus-256-GB/dp/B0DGHT4K6Q": {
+    "sourceProduct": {
+      "platform": "Amazon",
+      "title": "Apple iPhone 16 Plus 256 GB: 5G Mobile Phone with Camera Control, A18 Chip and a Big Boost in Battery Life. Works with AirPods; Black",
+      "brand": "Visit the Apple Store",
+      "price": 89900,
+      "mrp": 107880,
+      "image": "https://m.media-amazon.com/images/I/31sGli+IpFL._SX342_SY445_QL70_FMwebp_.jpg",
+      "url": "https://www.amazon.in/iPhone-16-Plus-256-GB/dp/B0DGHT4K6Q",
+      "availability": "In Stock",
+      "rating": 4.6,
+      "extractedAt": "2026-06-08T21:02:39.803Z",
+      "_parsed": {
+        "brand": "apple",
+        "model": "iphone 16",
+        "variants": [
+          "plus"
+        ],
+        "ram": null,
+        "storage": "256gb",
+        "color": "black",
+        "category": "smartphone",
+        "condition": "new",
+        "packQuantity": 1
+      }
+    },
+    "exactMatches": [
+      {
+        "platform": "Flipkart",
+        "title": "Apple iPhone 16 Plus (Black, 256 GB)",
+        "brand": "Apple",
+        "price": 89900,
+        "mrp": 107880,
+        "image": "https://rukminim2.flixcart.com/image/312/312/xif0q/mobile/f/4/x/-original-imahggeu8hebsuhd.jpeg?q=70",
+        "url": "https://www.flipkart.com/apple-iphone-16-plus-black-256-gb/p/itma302a45837ec4?pid=MOBH4DQF7JGHH7QZ&lid=LSTMOBH4DQF7JGHH7QZXSCWPV&marketplace=FLIPKART&q=apple+iphone+16+plus+256+gb&store=tyy%2F4io&srno=s_1_1&otracker=search&fm=organic&iid=8d8803bc-c566-418d-a8d1-a8d5d32ecf36.MOBH4DQF7JGHH7QZ.SEARCH&ppt=None&ppn=None&ssid=0rdlekg7e80000001780952576787&qH=ded2207917c06aa8&ov_redirect=true",
+        "availability": "In Stock",
+        "sameProduct": true,
+        "confidence": 98,
+        "matchLevel": "exact",
+        "reason": "Same brand, model (iPhone 16 Plus), storage (256 GB), and color (black). RAM is consistently unspecified for both.",
+        "missingFields": [],
+        "mismatchFields": [],
+        "lastUpdated": "2026-06-08T21:03:03.790Z"
+      }
+    ],
+    "similarProducts": [],
+    "rejectedCandidates": [
+      {
+        "platform": "Flipkart",
+        "title": "Apple iPhone 16 Plus (White, 256 GB)",
+        "brand": "Apple",
+        "price": 89900,
+        "mrp": 107880,
+        "image": "https://rukminim2.flixcart.com/image/312/312/xif0q/mobile/z/c/g/-original-imahggexnxjungj5.jpeg?q=70",
+        "url": "https://www.flipkart.com/apple-iphone-16-plus-white-256-gb/p/itmc63bd0635f400?pid=MOBH4DQFJBVD9HXR&lid=LSTMOBH4DQFJBVD9HXRID41K3&marketplace=FLIPKART&q=apple+iphone+16+plus+256+gb&store=tyy%2F4io&srno=s_1_2&otracker=search&fm=organic&iid=8d8803bc-c566-418d-a8d1-a8d5d32ecf36.MOBH4DQFJBVD9HXR.SEARCH&ppt=None&ppn=None&ssid=0rdlekg7e80000001780952576787&qH=ded2207917c06aa8&ov_redirect=true",
+        "availability": "In Stock",
+        "_parsed": {
+          "brand": "apple",
+          "model": "iphone 16",
+          "variants": [
+            "plus"
+          ],
+          "ram": null,
+          "storage": "256gb",
+          "color": "white",
+          "category": "smartphone",
+          "condition": "new",
+          "packQuantity": 1
+        },
+        "reason": "Color mismatch (black vs white)"
+      },
+      {
+        "platform": "Flipkart",
+        "title": "Apple iPhone 16 Plus (Ultramarine, 256 GB)",
+        "brand": "Apple",
+        "price": 89900,
+        "mrp": 107880,
+        "image": "https://rukminim2.flixcart.com/image/312/312/xif0q/mobile/o/d/1/-original-imahggetmzzanrty.jpeg?q=70",
+        "url": "https://www.flipkart.com/apple-iphone-16-plus-ultramarine-256-gb/p/itm1a7499437978a?pid=MOBH4DQFZXQGRWHH&lid=LSTMOBH4DQFZXQGRWHH4DYTPT&marketplace=FLIPKART&q=apple+iphone+16+plus+256+gb&store=tyy%2F4io&srno=s_1_3&otracker=search&fm=organic&iid=8d8803bc-c566-418d-a8d1-a8d5d32ecf36.MOBH4DQFZXQGRWHH.SEARCH&ppt=None&ppn=None&ssid=0rdlekg7e80000001780952576787&qH=ded2207917c06aa8&ov_redirect=true",
+        "availability": "In Stock",
+        "_parsed": {
+          "brand": "apple",
+          "model": "iphone 16",
+          "variants": [
+            "plus"
+          ],
+          "ram": null,
+          "storage": "256gb",
+          "color": "ultramarine",
+          "category": "smartphone",
+          "condition": "new",
+          "packQuantity": 1
+        },
+        "reason": "Color mismatch (black vs ultramarine)"
+      },
+      {
+        "platform": "Flipkart",
+        "title": "Apple iPhone 16 Plus (Pink, 256 GB)",
+        "brand": "Apple",
+        "price": 89900,
+        "mrp": 107880,
+        "image": "https://rukminim2.flixcart.com/image/312/312/xif0q/mobile/h/d/s/-original-imahggetndrxrqvs.jpeg?q=70",
+        "url": "https://www.flipkart.com/apple-iphone-16-plus-pink-256-gb/p/itm2e8da1548666b?pid=MOBH4DQFMHVMB3FH&lid=LSTMOBH4DQFMHVMB3FHXNC2US&marketplace=FLIPKART&q=apple+iphone+16+plus+256+gb&store=tyy%2F4io&srno=s_1_4&otracker=search&fm=organic&iid=8d8803bc-c566-418d-a8d1-a8d5d32ecf36.MOBH4DQFMHVMB3FH.SEARCH&ppt=None&ppn=None&ssid=0rdlekg7e80000001780952576787&qH=ded2207917c06aa8&ov_redirect=true",
+        "availability": "In Stock",
+        "_parsed": {
+          "brand": "apple",
+          "model": "iphone 16",
+          "variants": [
+            "plus"
+          ],
+          "ram": null,
+          "storage": "256gb",
+          "color": "pink",
+          "category": "smartphone",
+          "condition": "new",
+          "packQuantity": 1
+        },
+        "reason": "Color mismatch (black vs pink)"
+      },
+      {
+        "platform": "Flipkart",
+        "title": "Apple iPhone 16 Plus (Teal, 256 GB)",
+        "brand": "Apple",
+        "price": 89900,
+        "mrp": 107880,
+        "image": "https://rukminim2.flixcart.com/image/312/312/xif0q/mobile/r/q/y/-original-imahggetjqfp9fwv.jpeg?q=70",
+        "url": "https://www.flipkart.com/apple-iphone-16-plus-teal-256-gb/p/itmc838d56fd8d50?pid=MOBH4DQFASMZ3YKT&lid=LSTMOBH4DQFASMZ3YKT62NU5X&marketplace=FLIPKART&q=apple+iphone+16+plus+256+gb&store=tyy%2F4io&srno=s_1_5&otracker=search&fm=organic&iid=8d8803bc-c566-418d-a8d1-a8d5d32ecf36.MOBH4DQFASMZ3YKT.SEARCH&ppt=None&ppn=None&ssid=0rdlekg7e80000001780952576787&qH=ded2207917c06aa8&ov_redirect=true",
+        "availability": "In Stock",
+        "_parsed": {
+          "brand": "apple",
+          "model": "iphone 16",
+          "variants": [
+            "plus"
+          ],
+          "ram": null,
+          "storage": "256gb",
+          "color": "teal",
+          "category": "smartphone",
+          "condition": "new",
+          "packQuantity": 1
+        },
+        "reason": "Color mismatch (black vs teal)"
+      }
+    ],
+    "fetchedAt": "2026-06-08T21:03:03.792Z"
+  },
+  "https://www.amazon.in/Samsung-Creative-ProVisual-Customized-Processor/dp/B0GL87VP7N": {
+    "sourceProduct": {
+      "platform": "Amazon",
+      "title": "Samsung Galaxy S26 5G (Cobalt Violet, 12GB RAM, 256GB Storage), AI Phone, Photo Assist, Creative Studio, 50MP Camera with ProVisual Engine, Powerful Customized Processor and 4300mAh Battery",
+      "brand": "Visit the Samsung Store",
+      "price": 79999,
+      "mrp": 87999,
+      "image": "https://m.media-amazon.com/images/I/41d61ghsY7L._SY300_SX300_QL70_FMwebp_.jpg",
+      "url": "https://www.amazon.in/Samsung-Creative-ProVisual-Customized-Processor/dp/B0GL87VP7N",
+      "availability": "In Stock",
+      "rating": 4.3,
+      "extractedAt": "2026-06-08T21:05:19.480Z",
+      "_parsed": {
+        "brand": "samsung",
+        "model": "galaxy s26",
+        "variants": [],
+        "ram": "12gb",
+        "storage": "12gb",
+        "color": null,
+        "category": "smartphone",
+        "condition": "new",
+        "packQuantity": 1
+      }
+    },
+    "exactMatches": [],
+    "similarProducts": [],
+    "rejectedCandidates": [
+      {
+        "platform": "Flipkart",
+        "title": "Samsung Galaxy S26 5G (Cobalt Violet, 256 GB)",
+        "brand": "Samsung",
+        "price": 79999,
+        "mrp": 95999,
+        "image": "https://rukminim2.flixcart.com/image/312/312/xif0q/mobile/c/g/h/-original-imahhyzhyvbzpptb.jpeg?q=70",
+        "url": "https://www.flipkart.com/samsung-galaxy-s26-5g-cobalt-violet-256-gb/p/itm0ca5d0430e1c1?pid=MOBHKGAPFVDATGBR&lid=LSTMOBHKGAPFVDATGBRYKAKL6&marketplace=FLIPKART&q=samsung+galaxy+s26+5g+cobalt+violet&store=tyy%2F4io&srno=s_1_1&otracker=search&fm=organic&iid=42a8c3c7-ccf8-43ca-9e6a-7b6e563dcd84.MOBHKGAPFVDATGBR.SEARCH&ppt=None&ppn=None&ssid=tlrk96oy0w0000001780952735780&qH=a2959e9a770229be&ov_redirect=true",
+        "availability": "In Stock",
+        "_parsed": {
+          "brand": "samsung",
+          "model": "galaxy s26",
+          "variants": [],
+          "ram": null,
+          "storage": "256gb",
+          "color": null,
+          "category": "smartphone",
+          "condition": "new",
+          "packQuantity": 1
+        },
+        "reason": "Storage mismatch (12gb vs 256gb)"
+      },
+      {
+        "platform": "Flipkart",
+        "title": "Samsung Galaxy S26+ 5G (Cobalt Violet, 512 GB)",
+        "brand": "Samsung",
+        "price": 114999,
+        "mrp": 137999,
+        "image": "https://rukminim2.flixcart.com/image/312/312/xif0q/mobile/u/m/x/-original-imahhyzzcwcy8xyc.jpeg?q=70",
+        "url": "https://www.flipkart.com/samsung-galaxy-s26-5g-cobalt-violet-512-gb/p/itm2db9dbf5966af?pid=MOBHKGAPB2BGWTGR&lid=LSTMOBHKGAPB2BGWTGRUGTAFZ&marketplace=FLIPKART&q=samsung+galaxy+s26+5g+cobalt+violet&store=tyy%2F4io&srno=s_1_2&otracker=search&fm=organic&iid=42a8c3c7-ccf8-43ca-9e6a-7b6e563dcd84.MOBHKGAPB2BGWTGR.SEARCH&ppt=None&ppn=None&ssid=tlrk96oy0w0000001780952735780&qH=a2959e9a770229be&ov_redirect=true",
+        "availability": "In Stock",
+        "_parsed": {
+          "brand": "samsung",
+          "model": "galaxy s26",
+          "variants": [],
+          "ram": null,
+          "storage": "512gb",
+          "color": null,
+          "category": "smartphone",
+          "condition": "new",
+          "packQuantity": 1
+        },
+        "reason": "Storage mismatch (12gb vs 512gb)"
+      },
+      {
+        "platform": "Flipkart",
+        "title": "Currently unavailableAdd to CompareSamsung Galaxy S26 5G (Cobalt Violet, 512 GB)",
+        "brand": "Currently",
+        "price": 99999,
+        "mrp": 119999,
+        "image": "https://rukminim2.flixcart.com/image/312/312/xif0q/mobile/c/g/h/-original-imahhyzhyvbzpptb.jpeg?q=70",
+        "url": "https://www.flipkart.com/samsung-galaxy-s26-5g-cobalt-violet-512-gb/p/itm0ca5d0430e1c1?pid=MOBHKGAP89XKG7BB&lid=LSTMOBHKGAP89XKG7BBPZ7TPQ&marketplace=FLIPKART&q=samsung+galaxy+s26+5g+cobalt+violet&store=tyy%2F4io&srno=s_1_3&otracker=search&fm=organic&iid=42a8c3c7-ccf8-43ca-9e6a-7b6e563dcd84.MOBHKGAP89XKG7BB.SEARCH&ppt=None&ppn=None&ssid=tlrk96oy0w0000001780952735780&qH=a2959e9a770229be&ov_redirect=true",
+        "availability": "In Stock",
+        "_parsed": {
+          "brand": "currently",
+          "model": "unavailableadd to comparesamsung galaxy s26",
+          "variants": [],
+          "ram": null,
+          "storage": "512gb",
+          "color": null,
+          "category": "smartphone",
+          "condition": "new",
+          "packQuantity": 1
+        },
+        "reason": "Brand mismatch (samsung vs currently)"
+      },
+      {
+        "platform": "Flipkart",
+        "title": "Currently unavailableAdd to CompareSamsung Galaxy S26+ 5G (Cobalt Violet, 256 GB)",
+        "brand": "Currently",
+        "price": 94999,
+        "mrp": 113999,
+        "image": "https://rukminim2.flixcart.com/image/312/312/xif0q/mobile/u/m/x/-original-imahhyzzcwcy8xyc.jpeg?q=70",
+        "url": "https://www.flipkart.com/samsung-galaxy-s26-5g-cobalt-violet-256-gb/p/itm2db9dbf5966af?pid=MOBHKGAPB8KGXFUW&lid=LSTMOBHKGAPB8KGXFUWHDTBZZ&marketplace=FLIPKART&q=samsung+galaxy+s26+5g+cobalt+violet&store=tyy%2F4io&srno=s_1_4&otracker=search&fm=organic&iid=42a8c3c7-ccf8-43ca-9e6a-7b6e563dcd84.MOBHKGAPB8KGXFUW.SEARCH&ppt=None&ppn=None&ssid=tlrk96oy0w0000001780952735780&qH=a2959e9a770229be&ov_redirect=true",
+        "availability": "In Stock",
+        "_parsed": {
+          "brand": "currently",
+          "model": "unavailableadd to comparesamsung galaxy s26",
+          "variants": [],
+          "ram": null,
+          "storage": "256gb",
+          "color": null,
+          "category": "smartphone",
+          "condition": "new",
+          "packQuantity": 1
+        },
+        "reason": "Brand mismatch (samsung vs currently)"
+      },
+      {
+        "platform": "Flipkart",
+        "title": "Flipkart SmartBuy Back Cover for Samsung Galaxy A26 5G",
+        "brand": "Flipkart",
+        "price": 195,
+        "mrp": 234,
+        "image": "https://rukminim2.flixcart.com/image/312/312/xif0q/cases-covers/back-cover/j/h/r/fsb-tp-mgf-sgxa26-5g-flipkart-smartbuy-original-imahg2kxzapte2r2.jpeg?q=70",
+        "url": "https://www.flipkart.com/flipkart-smartbuy-back-cover-samsung-galaxy-a26-5g/p/itmfcadfbef91649?pid=ACCHDUEVQRSGP9EE&lid=LSTACCHDUEVQRSGP9EELYVDG4&marketplace=FLIPKART&q=samsung+galaxy+s26+5g+cobalt+violet&store=tyy%2F4io&srno=s_1_5&otracker=search&fm=organic&iid=en_65ks6iapmm14EhrQGfpGeLMn2ocRG3xyVIStx0U7fqoLMT57CwMuTTV7xCc-0onjeRMRUqqYjDmSmelazrnJEPUFjCTyOHoHZs-Z5_PS_w0%3D&ppt=None&ppn=None&ssid=tlrk96oy0w0000001780952735780&qH=a2959e9a770229be&ov_redirect=true",
+        "availability": "In Stock",
+        "_parsed": {
+          "brand": "flipkart",
+          "model": "smartbuy back cover for samsung galaxy a26",
+          "variants": [],
+          "ram": null,
+          "storage": null,
+          "color": null,
+          "category": "smartphone",
+          "condition": "new",
+          "packQuantity": 1
+        },
+        "reason": "Brand mismatch (samsung vs flipkart)"
+      }
+    ],
+    "fetchedAt": "2026-06-08T21:05:37.244Z"
+  },
+  "https://www.amazon.in/boAt-Airdopes-Bluetooth-Wireless-Earphones/dp/B0FC2YFSN4": {
+    "sourceProduct": {
+      "platform": "Amazon",
+      "title": "Boat Airdopes 219, 4Mics ENx, 40H Battery, Best in Segment for Calling, Stream Ad Free Music via App Support, Bluetooth Earbuds, TWS Ear Buds Wireless Earphones with mic (Forest Sage)",
+      "brand": "Visit the boAt Store",
+      "price": 1119,
+      "mrp": 3990,
+      "image": "https://m.media-amazon.com/images/I/41Ft7b2Wq6L._SY300_SX300_QL70_FMwebp_.jpg",
+      "url": "https://www.amazon.in/boAt-Airdopes-Bluetooth-Wireless-Earphones/dp/B0FC2YFSN4",
+      "availability": "In Stock",
+      "rating": 3.9,
+      "extractedAt": "2026-06-08T21:06:50.347Z",
+      "_parsed": {
+        "brand": "boat",
+        "model": "airdopes 219 4mics enx 40h battery best in segment for calling stream ad free music via app support bluetooth earbuds tws ear buds wireless earphones with mic forest sage",
+        "variants": [],
+        "ram": null,
+        "storage": null,
+        "color": null,
+        "category": "smartphone",
+        "condition": "new",
+        "packQuantity": 1
+      }
+    },
+    "exactMatches": [],
+    "similarProducts": [],
+    "rejectedCandidates": [
+      {
+        "platform": "Flipkart",
+        "title": "BjOrk BT-110 in The Ear Upto 48 Hours Playtime,with AI ENC for calls&Deep Bass-64 Bluetooth Gaming",
+        "brand": "BjOrk",
+        "price": 486,
+        "mrp": 583,
+        "image": "https://rukminim2.flixcart.com/image/612/612/xif0q/headphone/9/t/p/bt-110-in-the-ear-upto-48-hours-playtime-with-ai-enc-for-calls-original-imahg6yxvda9ecxx.jpeg?q=70",
+        "url": "https://www.flipkart.com/bjork-bt-110-ear-upto-48-hours-playtime-with-ai-enc-calls-deep-bass-64-bluetooth-gaming/p/itm28c68e038fc2d?pid=ACCHGGZ3R7HFJGFA&lid=LSTACCHGGZ3R7HFJGFABZHAVM&marketplace=FLIPKART&q=boat+airdopes+219+4mics+enx+40h+battery+forest+sage&store=0pm%2Ffcn%2F821&srno=s_1_1&otracker=search&fm=organic&iid=en_VRXO9yM_3ePGR3LsCkNS3320r8rBniWQ7jVzFbXBOTb5QbpESNJr8dzuV7H_NL4jvP-C72jRqRvVyT0Nr4zLnw%3D%3D&ppt=None&ppn=None&ssid=yxk3qc82fk0000001780952824074&qH=0c735bbeaa31a52b&ov_redirect=true&ov_redirect=true",
+        "availability": "In Stock",
+        "_parsed": {
+          "brand": "bjork",
+          "model": "bt 110 in the ear upto 48 hours playtime with ai enc for calls deep bass 64 bluetooth gaming",
+          "variants": [],
+          "ram": null,
+          "storage": null,
+          "color": null,
+          "category": "unknown",
+          "condition": "new",
+          "packQuantity": 1
+        },
+        "reason": "Brand mismatch (boat vs bjork)"
+      },
+      {
+        "platform": "Flipkart",
+        "title": "BiBon NordPods Immersio Dolby Audio, 3D Soundstage, Wireless Earbuds with Deep Bass-2 Bluetooth",
+        "brand": "BiBon",
+        "price": 477,
+        "mrp": 572,
+        "image": "https://rukminim2.flixcart.com/image/612/612/xif0q/headphone/o/4/i/nord-buds-3-pro-in-ear-earbuds-with-dual-mic-ai-crystal-clear-original-imahfcydwx6vfyh6.jpeg?q=70",
+        "url": "https://www.flipkart.com/bibon-nordpods-immersio-dolby-audio-3d-soundstage-wireless-earbuds-deep-bass-2-bluetooth/p/itme7e660112549e?pid=ACCHHEQJYWMSVJGH&lid=LSTACCHHEQJYWMSVJGHVXNG5S&marketplace=FLIPKART&q=boat+airdopes+219+4mics+enx+40h+battery+forest+sage&store=0pm%2Ffcn%2F821&srno=s_1_2&otracker=search&fm=organic&iid=en_VRXO9yM_3ePGR3LsCkNS3320r8rBniWQ7jVzFbXBOTZ1Iqc6dktSGbx1ilIPXY0BKKU06hJfjL023G4EkNzO6A%3D%3D&ppt=None&ppn=None&ssid=yxk3qc82fk0000001780952824074&qH=0c735bbeaa31a52b&ov_redirect=true&ov_redirect=true",
+        "availability": "In Stock",
+        "_parsed": {
+          "brand": "bibon",
+          "model": "nordpods immersio dolby audio 3d soundstage wireless earbuds with deep bass bluetooth",
+          "variants": [],
+          "ram": null,
+          "storage": null,
+          "color": null,
+          "category": "audio",
+          "condition": "new",
+          "packQuantity": 1
+        },
+        "reason": "Category mismatch (smartphone vs audio)"
+      },
+      {
+        "platform": "Flipkart",
+        "title": "Qvee YO-141 Earbuds 4 Mics AI ENx Tech, 50 HRS Playback,Multi Point Connectivit Bluetooth",
+        "brand": "Qvee",
+        "price": 419,
+        "mrp": 503,
+        "image": "https://rukminim2.flixcart.com/image/612/612/xif0q/headphone/i/e/f/yo-tws-hd-mic-calling-gaming-mode-with-50ms-low-latency-ipx5-original-imahag9b2hudv4bh.jpeg?q=70",
+        "url": "https://www.flipkart.com/qvee-yo-141-earbuds-4-mics-ai-enx-tech-50-hrs-playback-multi-point-connectivit-bluetooth/p/itm5baf0358797e0?pid=ACCHAKGSJMBGFQGB&lid=LSTACCHAKGSJMBGFQGBPVANLD&marketplace=FLIPKART&q=boat+airdopes+219+4mics+enx+40h+battery+forest+sage&store=0pm%2Ffcn%2F821&srno=s_1_3&otracker=search&fm=organic&iid=5192458a-015e-458c-a70d-83fe2bf9c3d9.ACCHAKGSJMBGFQGB.SEARCH&ppt=None&ppn=None&ssid=yxk3qc82fk0000001780952824074&qH=0c735bbeaa31a52b&ov_redirect=true&ov_redirect=true",
+        "availability": "In Stock",
+        "_parsed": {
+          "brand": "qvee",
+          "model": "yo 141 earbuds mics ai enx tech 50 hrs playback multi point connectivit bluetooth",
+          "variants": [],
+          "ram": null,
+          "storage": null,
+          "color": null,
+          "category": "audio",
+          "condition": "new",
+          "packQuantity": 1
+        },
+        "reason": "Category mismatch (smartphone vs audio)"
+      },
+      {
+        "platform": "Flipkart",
+        "title": "boAt Airdopes 71 Gen 2 TWS, 45H Battery, 2 Mics ENx, BTv6.0,Hearables App,ASAP Charge Bluetooth",
+        "brand": "boAt",
+        "price": 899,
+        "mrp": 1079,
+        "image": "https://rukminim2.flixcart.com/image/612/612/xif0q/headphone/c/w/n/-original-imahnq7hzdxsm7fx.jpeg?q=70",
+        "url": "https://www.flipkart.com/boat-airdopes-71-gen-2-tws-45h-battery-mics-enx-btv6-0-hearables-app-asap-charge-bluetooth/p/itmdf56d06b238a7?pid=ACCHMDBFB5BMQTC5&lid=LSTACCHMDBFB5BMQTC5CZLAQB&marketplace=FLIPKART&q=boat+airdopes+219+4mics+enx+40h+battery+forest+sage&store=0pm%2Ffcn%2F821&srno=s_1_4&otracker=search&fm=organic&iid=5192458a-015e-458c-a70d-83fe2bf9c3d9.ACCHMDBFB5BMQTC5.SEARCH&ppt=None&ppn=None&ssid=yxk3qc82fk0000001780952824074&qH=0c735bbeaa31a52b&ov_redirect=true&ov_redirect=true",
+        "availability": "In Stock",
+        "_parsed": {
+          "brand": "boat",
+          "model": "airdopes 71 gen tws 45h battery mics enx btv6 hearables app asap charge bluetooth",
+          "variants": [],
+          "ram": null,
+          "storage": null,
+          "color": null,
+          "category": "tv",
+          "condition": "new",
+          "packQuantity": 1
+        },
+        "reason": "Category mismatch (smartphone vs tv)"
+      },
+      {
+        "platform": "Flipkart",
+        "title": "OMY NEW ANC TWS, Ear buds with 48HRS Battery, Fast Charge, Bluetooth & Mic.FKH_170 Bluetooth",
+        "brand": "OMY",
+        "price": 298,
+        "mrp": 358,
+        "image": "https://rukminim2.flixcart.com/image/612/612/xif0q/headphone/c/l/w/new-anc-tws-ear-buds-with-48hrs-battery-fast-charge-blutooth-mic-original-imahgnwhzmpyrftb.jpeg?q=70",
+        "url": "https://www.flipkart.com/omy-new-anc-tws-ear-buds-48hrs-battery-fast-charge-bluetooth-mic-fkh-170/p/itmd0f8ee7a9fea4?pid=ACCHMJTZNPPBJSGT&lid=LSTACCHMJTZNPPBJSGTO9BSTK&marketplace=FLIPKART&q=boat+airdopes+219+4mics+enx+40h+battery+forest+sage&store=0pm%2Ffcn%2F821&srno=s_1_5&otracker=search&fm=organic&iid=5192458a-015e-458c-a70d-83fe2bf9c3d9.ACCHMJTZNPPBJSGT.SEARCH&ppt=None&ppn=None&ssid=yxk3qc82fk0000001780952824074&qH=0c735bbeaa31a52b&ov_redirect=true&ov_redirect=true",
+        "availability": "In Stock",
+        "_parsed": {
+          "brand": "omy",
+          "model": "new anc tws ear buds with 48hrs battery fast charge bluetooth mic fkh 170 bluetooth",
+          "variants": [],
+          "ram": null,
+          "storage": null,
+          "color": null,
+          "category": "unknown",
+          "condition": "new",
+          "packQuantity": 1
+        },
+        "reason": "Brand mismatch (boat vs omy)"
+      }
+    ],
+    "fetchedAt": "2026-06-08T21:07:05.035Z"
+  },
+  "https://www.flipkart.com/baot-premium-earbud-60-hours-playtime-fast-charging-pure-audio-deep-bass-bluetooth/p/itm83a3179d765a4": {
+    "sourceProduct": {
+      "platform": "Flipkart",
+      "title": "bAot Premium EarBud with 60 Hours Playtime & Fast Charging with Pure Audio &Deep Bass Bluetooth",
+      "brand": "bAot",
+      "price": 654,
+      "mrp": 785,
+      "image": "https://rukmini1.flixcart.com/image/1500/1500/xif0q/headphone/f/s/n/premium-earbud-with-60-hours-playtime-fast-charging-with-deep-original-imahhfm7byectgve.jpeg?q=70",
+      "url": "https://www.flipkart.com/baot-premium-earbud-60-hours-playtime-fast-charging-pure-audio-deep-bass-bluetooth/p/itm83a3179d765a4",
+      "availability": "In Stock",
+      "rating": 3.6,
+      "extractedAt": "2026-06-08T21:07:59.058Z",
+      "_parsed": {
+        "brand": "baot",
+        "model": "premium earbud with 60 hours playtime fast charging with pure audio deep bass bluetooth",
+        "variants": [],
+        "ram": null,
+        "storage": null,
+        "color": null,
+        "category": "unknown",
+        "condition": "new",
+        "packQuantity": 1
+      }
+    },
+    "exactMatches": [],
+    "similarProducts": [],
+    "rejectedCandidates": [],
+    "fetchedAt": "2026-06-08T21:08:15.598Z"
+  },
+  "https://www.flipkart.com/oneplus-buds-2r-nord-wireless-bluetooth-earbuds-up-38h-music-playback/p/itm04a4d87867d51": {
+    "sourceProduct": {
+      "platform": "Flipkart",
+      "title": "OnePlus Buds 2R (Nord) Wireless Bluetooth in Earbuds With Up to 38H Music Playback. Bluetooth",
+      "brand": "OnePlus",
+      "price": 3222,
+      "mrp": 3866,
+      "image": "https://rukmini1.flixcart.com/image/1500/1500/xif0q/headphone/g/a/4/buds-2r-nord-wireless-bluetooth-in-earbuds-with-up-to-38h-music-original-imahafgx4sgsghhq.jpeg?q=70",
+      "url": "https://www.flipkart.com/oneplus-buds-2r-nord-wireless-bluetooth-earbuds-up-38h-music-playback/p/itm04a4d87867d51",
+      "availability": "In Stock",
+      "rating": 3.8,
+      "extractedAt": "2026-06-08T21:09:20.976Z",
+      "_parsed": {
+        "brand": "oneplus",
+        "model": "buds 2r nord wireless bluetooth in earbuds with up to 38h music playback bluetooth",
+        "variants": [],
+        "ram": null,
+        "storage": null,
+        "color": null,
+        "category": "audio",
+        "condition": "new",
+        "packQuantity": 1
+      }
+    },
+    "exactMatches": [],
+    "similarProducts": [],
+    "rejectedCandidates": [],
+    "fetchedAt": "2026-06-08T21:09:29.667Z"
+  },
+  "https://www.flipkart.com/samsung-m36-5g-velvet-black-black-128-gb/p/itm1e7be51802033": {
+    "sourceProduct": {
+      "platform": "Flipkart",
+      "title": "Samsung M36 5G (Velvet Black / Black, 128 GB)",
+      "brand": "Samsung",
+      "price": 17730,
+      "mrp": 21276,
+      "image": "https://rukmini1.flixcart.com/image/1500/1500/xif0q/mobile/q/l/2/m36-5g-sm-m366b-samsung-original-imaheyy2geey2sjf.jpeg?q=70",
+      "url": "https://www.flipkart.com/samsung-m36-5g-velvet-black-black-128-gb/p/itm1e7be51802033",
+      "availability": "In Stock",
+      "rating": 4.3,
+      "extractedAt": "2026-06-08T21:10:42.154Z",
+      "_parsed": {
+        "brand": "samsung",
+        "model": "m36",
+        "variants": [],
+        "ram": null,
+        "storage": "128gb",
+        "color": "black",
+        "category": "unknown",
+        "condition": "new",
+        "packQuantity": 1
+      }
+    },
+    "exactMatches": [],
+    "similarProducts": [],
+    "rejectedCandidates": [],
+    "fetchedAt": "2026-06-08T21:10:56.092Z"
+  },
+  "https://www.amazon.in/Samsung-Storage-Enhanced-Unmatched-Nightography/dp/B0FDB9H277": {
+    "sourceProduct": {
+      "platform": "Amazon",
+      "title": "Samsung Galaxy M36 5G Mobile (Serene Green, 6GB RAM, 128GB Storage) | Google Gemini| Gorilla Glass Victus+ | 7.7mm | AI Enhanced 50MP OIS Triple Camera| Nightography| Lag-free Gaming | Without Charger",
+      "brand": "Visit the Samsung Store",
+      "price": 21999,
+      "mrp": 25499,
+      "image": "https://m.media-amazon.com/images/I/41HBL8omaIL._SY300_SX300_QL70_FMwebp_.jpg",
+      "url": "https://www.amazon.in/Samsung-Storage-Enhanced-Unmatched-Nightography/dp/B0FDB9H277",
+      "availability": "In Stock",
+      "rating": 4.1,
+      "extractedAt": "2026-06-08T21:11:25.182Z",
+      "_parsed": {
+        "brand": "samsung",
+        "model": "galaxy m36",
+        "variants": [],
+        "ram": "6gb",
+        "storage": "6gb",
+        "color": "green",
+        "category": "smartphone",
+        "condition": "new",
+        "packQuantity": 1
+      }
+    },
+    "exactMatches": [],
+    "similarProducts": [],
+    "rejectedCandidates": [
+      {
+        "platform": "Flipkart",
+        "title": "Maxboost Tempered Glass Guard for Samsung Galaxy M36 5G Premium Screen Protector Guard with Easy Ins",
+        "brand": "Maxboost",
+        "price": 245,
+        "mrp": 294,
+        "image": "https://rukminim2.flixcart.com/image/312/312/xif0q/screen-guard/tempered-glass/f/i/8/159771-maxboost-original-imahdzy7zykrpakw.jpeg?q=70",
+        "url": "https://www.flipkart.com/maxboost-tempered-glass-guard-samsung-galaxy-m36-5g-premium-screen-protector-easy-installation-kit/p/itm3fe871ee77d27?pid=ACCHDZY7NBPFAHH6&lid=LSTACCHDZY7NBPFAHH60HZ5XU&marketplace=FLIPKART&q=samsung+galaxy+m36+5g+mobile+serene&store=tyy%2F4io&srno=s_1_1&otracker=search&fm=organic&iid=en_Z4yVfIrLgBWdavdYVafVoSogQ6KDHYVjXlDJi4xvXTOyn5aN9WrRd54tj8EeyMqEvvG_qe5QfdnI7mU7ztyBV1tIcx6glp5Y_Wf8Yi3TfKZlVhimRPf1vrBBA8r_2LEa&ppt=None&ppn=None&ssid=vbdhdm53rk0000001780953115058&qH=a2529e812c2ed84a&ov_redirect=true",
+        "availability": "In Stock",
+        "_parsed": {
+          "brand": "maxboost",
+          "model": "tempered glass guard for samsung galaxy m36",
+          "variants": [],
+          "ram": null,
+          "storage": null,
+          "color": null,
+          "category": "smartphone",
+          "condition": "new",
+          "packQuantity": 1
+        },
+        "reason": "Brand mismatch (samsung vs maxboost)"
+      },
+      {
+        "platform": "Flipkart",
+        "title": "ArmourPro Edge To Edge Tempered Glass for Samsung Galaxy M36 5G, Samsung M36, M3611D Tempered Glass,",
+        "brand": "ArmourPro",
+        "price": 245,
+        "mrp": 294,
+        "image": "https://rukminim2.flixcart.com/image/312/312/xif0q/screen-guard/edge-to-edge-tempered-glass/u/h/v/sams-m36-ggogblack-armourpro-original-imahjzk6a4t3yefz.jpeg?q=70",
+        "url": "https://www.flipkart.com/armourpro-edge-tempered-glass-samsung-galaxy-m36-5g-m36/p/itm466e190fce3ce?pid=ACCHDT9SJ4TAFFQW&lid=LSTACCHDT9SJ4TAFFQWTQ9TTI&marketplace=FLIPKART&q=samsung+galaxy+m36+5g+mobile+serene&store=tyy%2F4io&srno=s_1_2&otracker=search&fm=organic&iid=en_Z4yVfIrLgBWdavdYVafVoSogQ6KDHYVjXlDJi4xvXTOFqeTF7Q1PT3-bEGQM9cBIZOiJxZVa7sR7lAQLFT8kpbKLVzpvDieY0T356kOFz7WBCqr0eXnYdAaGYqoc7xYw&ppt=None&ppn=None&ssid=vbdhdm53rk0000001780953115058&qH=a2529e812c2ed84a&ov_redirect=true",
+        "availability": "In Stock",
+        "_parsed": {
+          "brand": "armourpro",
+          "model": "edge to edge tempered glass for samsung galaxy m36",
+          "variants": [],
+          "ram": null,
+          "storage": null,
+          "color": null,
+          "category": "smartphone",
+          "condition": "new",
+          "packQuantity": 1
+        },
+        "reason": "Brand mismatch (samsung vs armourpro)"
+      },
+      {
+        "platform": "Flipkart",
+        "title": "TopTrends Edge To Edge Tempered Glass for Samsung Galaxy M36 5G /Samsung M36 5G, with Easy Self Inst",
+        "brand": "TopTrends",
+        "price": 128,
+        "mrp": 154,
+        "image": "https://rukminim2.flixcart.com/image/312/312/xif0q/screen-guard/edge-to-edge-tempered-glass/w/y/j/top-sa-m-36-top-trends-original-imahdwwufaqgbkyz.jpeg?q=70",
+        "url": "https://www.flipkart.com/toptrends-edge-tempered-glass-samsung-galaxy-m36-5g-samsung-5g-easy-self-installation-kit/p/itm369c104246ddd?pid=ACCHDWWUS5WGFEYZ&lid=LSTACCHDWWUS5WGFEYZCSKNJD&marketplace=FLIPKART&q=samsung+galaxy+m36+5g+mobile+serene&store=tyy%2F4io&srno=s_1_3&otracker=search&fm=organic&iid=41df20cc-9454-4130-8645-5b580e555704.ACCHDWWUS5WGFEYZ.SEARCH&ppt=None&ppn=None&ssid=vbdhdm53rk0000001780953115058&qH=a2529e812c2ed84a&ov_redirect=true",
+        "availability": "In Stock",
+        "_parsed": {
+          "brand": "toptrends",
+          "model": "edge edge tempered glass for samsung galaxy m36",
+          "variants": [],
+          "ram": null,
+          "storage": null,
+          "color": null,
+          "category": "smartphone",
+          "condition": "new",
+          "packQuantity": 1
+        },
+        "reason": "Brand mismatch (samsung vs toptrends)"
+      },
+      {
+        "platform": "Flipkart",
+        "title": "COVER CAPITAL Edge To Edge Tempered Glass for Samsung Galaxy M36 5GScratch ResistantMobileEdge To Ed",
+        "brand": "COVER",
+        "price": 376,
+        "mrp": 451,
+        "image": "https://rukminim2.flixcart.com/image/312/312/xif0q/screen-guard/edge-to-edge-tempered-glass/c/d/o/baba1-cover-capital-original-imahek9sfqaezf7n.jpeg?q=70",
+        "url": "https://www.flipkart.com/cover-capital-edge-tempered-glass-samsung-galaxy-m36-5g/p/itmf3028de3f2f3b?pid=ACCHEK9SDGUWDCSY&lid=LSTACCHEK9SDGUWDCSY5VAYIE&marketplace=FLIPKART&q=samsung+galaxy+m36+5g+mobile+serene&store=tyy%2F4io&srno=s_1_4&otracker=search&fm=organic&iid=41df20cc-9454-4130-8645-5b580e555704.ACCHEK9SDGUWDCSY.SEARCH&ppt=None&ppn=None&ssid=vbdhdm53rk0000001780953115058&qH=a2529e812c2ed84a&ov_redirect=true",
+        "availability": "In Stock",
+        "_parsed": {
+          "brand": "cover",
+          "model": "capital edge to edge tempered glass for samsung galaxy m36 5gscratch resistantmobileedge to ed",
+          "variants": [],
+          "ram": null,
+          "storage": null,
+          "color": null,
+          "category": "smartphone",
+          "condition": "new",
+          "packQuantity": 1
+        },
+        "reason": "Brand mismatch (samsung vs cover)"
+      },
+      {
+        "platform": "Flipkart",
+        "title": "Mobilebies Tempered Glass Guard for Samsung M36 5G Premium Screen Protector Guard with Easy Installa",
+        "brand": "Mobilebies",
+        "price": 245,
+        "mrp": 294,
+        "image": "https://rukminim2.flixcart.com/image/312/312/xif0q/screen-guard/tempered-glass/q/m/m/mbsm36o1-mobilebies-original-imahm48cg95zyfph.jpeg?q=70",
+        "url": "https://www.flipkart.com/mobilebies-tempered-glass-guard-samsung-m36-5g-premium-screen-protector-easy-installation-kit/p/itm388a5032c3e91?pid=ACCHE5F5A4KZXHWA&lid=LSTACCHE5F5A4KZXHWAKCWZH2&marketplace=FLIPKART&q=samsung+galaxy+m36+5g+mobile+serene&store=tyy%2F4io&srno=s_1_5&otracker=search&fm=organic&iid=en_Z4yVfIrLgBWdavdYVafVoSogQ6KDHYVjXlDJi4xvXTP_Ni6BtsB4DSaW7SAoCRLbnXjzF-ysKm7CgfMS_gpYxR-1tkqsan2R7SUqPt3PKOJTKkGzjKlJvOHD5ZvbGau4&ppt=None&ppn=None&ssid=vbdhdm53rk0000001780953115058&qH=a2529e812c2ed84a&ov_redirect=true",
+        "availability": "In Stock",
+        "_parsed": {
+          "brand": "mobilebies",
+          "model": "tempered glass guard for samsung m36",
+          "variants": [],
+          "ram": null,
+          "storage": null,
+          "color": null,
+          "category": "smartphone",
+          "condition": "new",
+          "packQuantity": 1
+        },
+        "reason": "Brand mismatch (samsung vs mobilebies)"
+      }
+    ],
+    "fetchedAt": "2026-06-08T21:11:55.804Z"
+  },
+  "https://www.amazon.in/Samsung-Storage-Enhanced-Unmatched-Nightography/dp/B0FDBB2VRC": {
+    "sourceProduct": {
+      "platform": "Amazon",
+      "title": "Samsung Galaxy M36 5G Mobile (Velvet Black, 6GB RAM, 128GB Storage) | Google Gemini| Gorilla Glass Victus+ | 7.7mm | AI Enhanced 50MP OIS Triple Camera| Nightography| Lag-free Gaming | Without Charger",
+      "brand": "Visit the Samsung Store",
+      "price": 21999,
+      "mrp": 25499,
+      "image": "https://m.media-amazon.com/images/I/417dd-Bb+AL._SY300_SX300_QL70_FMwebp_.jpg",
+      "url": "https://www.amazon.in/Samsung-Storage-Enhanced-Unmatched-Nightography/dp/B0FDBB2VRC",
+      "availability": "In Stock",
+      "rating": 4.1,
+      "extractedAt": "2026-06-08T21:23:44.480Z",
+      "_parsed": {
+        "brand": "samsung",
+        "model": "galaxy m36",
+        "variants": [],
+        "ram": "6gb",
+        "storage": "6gb",
+        "color": "black",
+        "category": "smartphone",
+        "condition": "new",
+        "packQuantity": 1,
+        "modelNumber": null
+      }
+    },
+    "exactMatches": [],
+    "similarProducts": [],
+    "rejectedCandidates": [],
+    "fetchedAt": "2026-06-08T21:24:34.991Z"
+  }
+}

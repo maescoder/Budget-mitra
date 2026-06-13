@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Budget Mitra - Dashboard</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "tertiary-fixed-dim": "#65dca4",
+                      "on-primary-fixed-variant": "#364763",
+                      "on-error": "#ffffff",
+                      "on-error-container": "#93000a",
+                      "surface-container": "#efedf0",
+                      "on-tertiary-fixed": "#002113",
+                      "tertiary": "#000301",
+                      "secondary": "#00687b",
+                      "on-surface": "#1b1b1e",
+                      "error": "#ba1a1a",
+                      "surface": "#fbf9fb",
+                      "primary-container": "#0a1d37",
+                      "surface-tint": "#4e5f7c",
+                      "inverse-on-surface": "#f2f0f3",
+                      "on-primary": "#ffffff",
+                      "on-secondary-fixed": "#001f27",
+                      "secondary-container": "#50dcff",
+                      "on-tertiary": "#ffffff",
+                      "inverse-primary": "#b6c7e9",
+                      "surface-bright": "#fbf9fb",
+                      "tertiary-fixed": "#82f9be",
+                      "tertiary-container": "#002213",
+                      "surface-container-low": "#f5f3f5",
+                      "primary": "#00030a",
+                      "secondary-fixed-dim": "#48d7f9",
+                      "error-container": "#ffdad6",
+                      "inverse-surface": "#303032",
+                      "on-tertiary-container": "#009865",
+                      "secondary-fixed": "#afecff",
+                      "on-tertiary-fixed-variant": "#005235",
+                      "primary-fixed-dim": "#b6c7e9",
+                      "outline": "#75777e",
+                      "on-background": "#1b1b1e",
+                      "on-surface-variant": "#44474d",
+                      "primary-fixed": "#d6e3ff",
+                      "on-primary-fixed": "#081c36",
+                      "surface-container-lowest": "#ffffff",
+                      "background": "#fbf9fb",
+                      "on-primary-container": "#7586a5",
+                      "surface-container-high": "#e9e7ea",
+                      "on-secondary": "#ffffff",
+                      "on-secondary-container": "#005f71",
+                      "surface-dim": "#dbd9dc",
+                      "surface-container-highest": "#e4e2e4",
+                      "outline-variant": "#c5c6ce",
+                      "on-secondary-fixed-variant": "#004e5d",
+                      "surface-variant": "#e4e2e4"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "margin-desktop": "40px",
+                      "gutter": "16px",
+                      "container-max": "1200px",
+                      "margin-mobile": "20px",
+                      "unit": "8px"
+              },
+              "fontFamily": {
+                      "body-md": [
+                              "Plus Jakarta Sans"
+                      ],
+                      "label-sm": [
+                              "Plus Jakarta Sans"
+                      ],
+                      "label-md": [
+                              "Plus Jakarta Sans"
+                      ],
+                      "headline-sm": [
+                              "Plus Jakarta Sans"
+                      ],
+                      "headline-md": [
+                              "Plus Jakarta Sans"
+                      ],
+                      "body-lg": [
+                              "Plus Jakarta Sans"
+                      ],
+                      "headline-lg": [
+                              "Plus Jakarta Sans"
+                      ],
+                      "headline-lg-mobile": [
+                              "Plus Jakarta Sans"
+                      ]
+              },
+              "fontSize": {
+                      "body-md": [
+                              "16px",
+                              {
+                                      "lineHeight": "24px",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "label-sm": [
+                              "12px",
+                              {
+                                      "lineHeight": "16px",
+                                      "fontWeight": "500"
+                              }
+                      ],
+                      "label-md": [
+                              "14px",
+                              {
+                                      "lineHeight": "20px",
+                                      "letterSpacing": "0.01em",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "headline-sm": [
+                              "20px",
+                              {
+                                      "lineHeight": "28px",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "headline-md": [
+                              "24px",
+                              {
+                                      "lineHeight": "32px",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "body-lg": [
+                              "18px",
+                              {
+                                      "lineHeight": "28px",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "headline-lg": [
+                              "32px",
+                              {
+                                      "lineHeight": "40px",
+                                      "letterSpacing": "-0.02em",
+                                      "fontWeight": "700"
+                              }
+                      ],
+                      "headline-lg-mobile": [
+                              "24px",
+                              {
+                                      "lineHeight": "32px",
+                                      "letterSpacing": "-0.01em",
+                                      "fontWeight": "700"
+                              }
+                      ]
+              }
+      },
+          },
+        }
+    </script>
+<style>
+        body {
+            background-color: #fbf9fb; /* surface */
+        }
+        
+        /* Neumorphic Utilities */
+        .neu-extruded {
+            background: #fbf9fb;
+            box-shadow: 8px 8px 16px #B8C2D0, -8px -8px 16px #FFFFFF;
+        }
+        
+        .neu-inset {
+            background: #fbf9fb;
+            box-shadow: inset 8px 8px 16px #B8C2D0, inset -8px -8px 16px #FFFFFF;
+        }
+
+        .neu-inset-sm {
+             background: #fbf9fb;
+             box-shadow: inset 4px 4px 8px #B8C2D0, inset -4px -4px 8px #FFFFFF;
+        }
+
+        .neu-button {
+            transition: all 0.2s ease-in-out;
+        }
+        
+        .neu-button:active {
+            box-shadow: inset 4px 4px 8px rgba(0,0,0,0.2), inset -4px -4px 8px rgba(255,255,255,0.1);
+            transform: scale(0.98);
+        }
+
+        .neu-icon {
+            color: #00030a; /* primary */
+        }
+
+        /* Hide scrollbar for clean horizontal scrolling */
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;  /* IE and Edge */
+            scrollbar-width: none;  /* Firefox */
+        }
+    </style>
+</head>
+<body class="text-on-surface font-body-md antialiased min-h-screen flex flex-col md:flex-row overflow-x-hidden">
+<!-- TopNavBar (Mobile Only) & TopAppBar (Desktop integration handled via layout) -->
+<header class="md:hidden w-full bg-surface shadow-[8px_8px_16px_#B8C2D0,-8px_-8px_16px_#FFFFFF] sticky top-0 z-50">
+<div class="flex justify-between items-center w-full px-margin-mobile py-4">
+<div class="text-headline-md font-headline-md font-bold text-on-surface">Budget Mitra</div>
+<button class="neu-extruded p-2 rounded-full neu-button flex items-center justify-center">
+<span class="material-symbols-outlined neu-icon">menu</span>
+</button>
+</div>
+</header>
+<!-- Side Navigation (Desktop) -->
+<nav class="hidden md:flex flex-col w-64 min-h-screen bg-surface px-6 py-8 flex-shrink-0 relative z-10" style="box-shadow: 8px 0px 16px #B8C2D0;">
+<div class="text-headline-md font-headline-md font-bold text-on-surface mb-12 px-2">Budget Mitra</div>
+<div class="flex flex-col gap-4 flex-grow">
+<!-- Active State -->
+<a class="neu-inset rounded-xl px-4 py-3 flex items-center gap-3 text-secondary font-bold" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">dashboard</span>
+<span class="text-label-md font-label-md">Overview</span>
+</a>
+<!-- Inactive States -->
+<a class="neu-extruded rounded-xl px-4 py-3 flex items-center gap-3 text-on-surface-variant font-medium hover:text-primary transition-all duration-300 neu-button" href="#">
+<span class="material-symbols-outlined">notifications</span>
+<span class="text-label-md font-label-md">Price Alerts</span>
+</a>
+<a class="neu-extruded rounded-xl px-4 py-3 flex items-center gap-3 text-on-surface-variant font-medium hover:text-primary transition-all duration-300 neu-button" href="#">
+<span class="material-symbols-outlined">bookmark</span>
+<span class="text-label-md font-label-md">Saved Products</span>
+</a>
+<a class="neu-extruded rounded-xl px-4 py-3 flex items-center gap-3 text-on-surface-variant font-medium hover:text-primary transition-all duration-300 neu-button" href="#">
+<span class="material-symbols-outlined">trending_up</span>
+<span class="text-label-md font-label-md">Trends</span>
+</a>
+</div>
+<div class="mt-auto pt-8">
+<a class="neu-extruded rounded-xl px-4 py-3 flex items-center gap-3 text-on-surface-variant font-medium hover:text-primary transition-all duration-300 neu-button" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span class="text-label-md font-label-md">Settings</span>
+</a>
+<div class="mt-4 flex items-center gap-3 px-2">
+<div class="w-10 h-10 rounded-full neu-inset flex items-center justify-center overflow-hidden">
+<img alt="User Profile" class="w-8 h-8 rounded-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCcQv0lbLasVjJi8vrxEwifSeKwJeI7BQD1Zn38p8OjbsNwpUPAyMhWwIKGbCvR9o8sKt-3SEJ5JgyL6BSzVyZF65Pht00YhdT_YMGZdU2SaOpO88dyvqR-vU7bTw1otYVoXfRuSxKRYdz_iaV71O2Ulvt3JZGh6ARjNbXr3QQDF6OUk_0rglcIWIeh_5b4ei2GL5Yuv-LGXEcaWkLtMb-F3n36FixiK6_ishUFPkECcpFxP3EE4ycYFJdfhSjvt99FwiCV2MvPQXI"/>
+</div>
+<div>
+<div class="text-label-md font-label-md text-on-surface">Alex Mercer</div>
+<div class="text-label-sm font-label-sm text-on-surface-variant">Pro Member</div>
+</div>
+</div>
+</div>
+</nav>
+<!-- Main Content Canvas -->
+<main class="flex-1 w-full p-margin-mobile md:p-margin-desktop overflow-y-auto">
+<div class="max-w-container-max mx-auto space-y-8">
+<!-- Top Actions / Header (Desktop) -->
+<div class="hidden md:flex justify-between items-center w-full mb-8">
+<div class="flex-1"></div> <!-- Spacer -->
+<div class="flex items-center gap-4">
+<div class="neu-inset rounded-full flex items-center px-4 py-2 w-64">
+<span class="material-symbols-outlined text-on-surface-variant mr-2">search</span>
+<input class="bg-transparent border-none focus:ring-0 p-0 text-body-md font-body-md w-full text-on-surface placeholder:text-on-surface-variant/50" placeholder="Search products..." type="text"/>
+</div>
+<button class="neu-extruded w-10 h-10 rounded-full flex items-center justify-center neu-button text-primary">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+</div>
+</div>
+<!-- Welcome & Quick Stats Tray -->
+<section class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+<!-- Welcome Card -->
+<div class="neu-extruded rounded-[32px] p-8 lg:col-span-2 flex flex-col justify-between relative overflow-hidden">
+<!-- Decorative element -->
+<div class="absolute -right-12 -top-12 w-48 h-48 rounded-full bg-secondary/10 blur-2xl pointer-events-none"></div>
+<div>
+<h1 class="text-headline-lg-mobile md:text-headline-lg font-headline-lg text-on-surface mb-2">Welcome back, Alex!</h1>
+<p class="text-body-lg font-body-lg text-on-surface-variant max-w-md">You're currently tracking 24 items. 3 items have reached your target price today.</p>
+</div>
+<div class="mt-8 flex gap-4">
+<button class="bg-primary text-on-primary rounded-xl px-6 py-3 text-label-md font-label-md font-bold neu-button shadow-[4px_4px_8px_#B8C2D0]">
+                            View Deals
+                        </button>
+<button class="neu-extruded rounded-xl px-6 py-3 text-label-md font-label-md font-bold text-primary neu-button flex items-center gap-2">
+<span class="material-symbols-outlined">add</span> New Alert
+                        </button>
+</div>
+</div>
+<!-- Savings Potential Widget -->
+<div class="neu-extruded rounded-[32px] p-8 flex flex-col justify-between">
+<div class="flex justify-between items-start mb-6">
+<h3 class="text-headline-sm font-headline-sm text-on-surface">Savings Potential</h3>
+<span class="material-symbols-outlined text-secondary">monitoring</span>
+</div>
+<div class="text-headline-lg font-headline-lg text-primary mb-1">$482.50</div>
+<p class="text-label-sm font-label-sm text-on-surface-variant mb-6">If all targets hit</p>
+<!-- Neumorphic Bar Chart -->
+<div class="flex items-end gap-3 h-24 mt-auto">
+<div class="w-1/4 neu-inset rounded-t-lg relative h-full flex items-end">
+<div class="w-full bg-primary-fixed-dim rounded-t-lg opacity-80" style="height: 40%;"></div>
+</div>
+<div class="w-1/4 neu-inset rounded-t-lg relative h-full flex items-end">
+<div class="w-full bg-primary-fixed-dim rounded-t-lg opacity-80" style="height: 60%;"></div>
+</div>
+<div class="w-1/4 neu-inset rounded-t-lg relative h-full flex items-end">
+<div class="w-full bg-primary-fixed-dim rounded-t-lg opacity-80" style="height: 30%;"></div>
+</div>
+<div class="w-1/4 neu-inset rounded-t-lg relative h-full flex items-end">
+<div class="w-full bg-secondary rounded-t-lg shadow-[0_-4px_8px_rgba(0,104,123,0.3)]" style="height: 85%;"></div>
+</div>
+</div>
+</div>
+</section>
+<!-- Key Metrics Grid -->
+<section class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+<!-- Widget 1 -->
+<div class="neu-extruded rounded-2xl p-6 flex items-center gap-4">
+<div class="w-12 h-12 rounded-full neu-inset flex items-center justify-center text-secondary">
+<span class="material-symbols-outlined">savings</span>
+</div>
+<div>
+<div class="text-label-sm font-label-sm text-on-surface-variant">Total Saved</div>
+<div class="text-headline-sm font-headline-sm text-on-surface">$1,204.00</div>
+</div>
+</div>
+<!-- Widget 2 -->
+<div class="neu-extruded rounded-2xl p-6 flex items-center gap-4">
+<div class="w-12 h-12 rounded-full neu-inset flex items-center justify-center text-primary">
+<span class="material-symbols-outlined">notifications_active</span>
+</div>
+<div>
+<div class="text-label-sm font-label-sm text-on-surface-variant">Active Alerts</div>
+<div class="text-headline-sm font-headline-sm text-on-surface">18 Items</div>
+</div>
+</div>
+<!-- Widget 3 -->
+<div class="neu-extruded rounded-2xl p-6 flex items-center gap-4">
+<div class="w-12 h-12 rounded-full neu-inset flex items-center justify-center text-tertiary-fixed-dim" style="color: #009865;">
+<span class="material-symbols-outlined">trending_down</span>
+</div>
+<div>
+<div class="text-label-sm font-label-sm text-on-surface-variant">Avg. Drop</div>
+<div class="text-headline-sm font-headline-sm text-on-surface">14.5%</div>
+</div>
+</div>
+<!-- Widget 4 -->
+<div class="neu-extruded rounded-2xl p-6 flex items-center gap-4">
+<div class="w-12 h-12 rounded-full neu-inset flex items-center justify-center text-outline">
+<span class="material-symbols-outlined">history</span>
+</div>
+<div>
+<div class="text-label-sm font-label-sm text-on-surface-variant">Tracked Last 30d</div>
+<div class="text-headline-sm font-headline-sm text-on-surface">42 Items</div>
+</div>
+</div>
+</section>
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+<!-- Active Price Alerts List -->
+<section class="lg:col-span-2 space-y-6">
+<div class="flex justify-between items-end">
+<h2 class="text-headline-md font-headline-md text-on-surface">Active Alerts</h2>
+<a class="text-label-md font-label-md text-secondary hover:underline" href="#">View All</a>
+</div>
+<div class="space-y-4">
+<!-- List Item 1 -->
+<div class="neu-extruded rounded-2xl p-4 flex flex-col md:flex-row items-center gap-6">
+<div class="w-16 h-16 rounded-xl neu-inset p-2 flex-shrink-0">
+<img alt="Tech Product" class="w-full h-full object-cover rounded-lg" data-alt="A sleek, modern laptop computer resting on a minimalist white desk. The lighting is bright and even, highlighting the silver metallic finish of the device. The composition is clean and professional, fitting for a high-end tech product display." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCraoQYfP5UxJwOAJ24MYVXJsKpJPuYJFvefzlFMn5-x8yzgT8CbDFOhSX4JtZ3aF5mLX6Y9jPETjXIS0jLQWJOaQI3Bz9DFvKl4KBFSlayBOd6TU-pMAVVywE4MpY7J_P6v80bqCfFNBJYciQApPkSo3q1RHzCBW6iF2HiWxEp32GGkKZZqCuWZ9b4yCOTZbskmOhLSfchwvcGhZw1XKjraa3SGRpi2VEDHs_xhF_mC-b6Tmqe_h-UH9yK-TOt9guVIlSvv3LvzAE"/>
+</div>
+<div class="flex-1 w-full">
+<div class="flex justify-between items-start mb-1">
+<h4 class="text-body-md font-body-md font-bold text-on-surface">MacBook Pro 14"</h4>
+<span class="text-label-sm font-label-sm px-2 py-1 bg-surface-container-high rounded-md text-on-surface-variant">Tech</span>
+</div>
+<div class="flex justify-between text-label-sm font-label-sm mb-2">
+<span class="text-on-surface-variant">Current: $1,899</span>
+<span class="text-secondary font-bold">Target: $1,750</span>
+</div>
+<!-- Progress Bar -->
+<div class="h-3 w-full neu-inset rounded-full overflow-hidden relative">
+<div class="absolute top-0 left-0 h-full bg-gradient-to-r from-secondary-fixed to-secondary rounded-full" style="width: 70%;"></div>
+</div>
+</div>
+<button class="w-10 h-10 rounded-full neu-extruded flex items-center justify-center text-outline hover:text-error transition-colors neu-button flex-shrink-0">
+<span class="material-symbols-outlined">delete</span>
+</button>
+</div>
+<!-- List Item 2 -->
+<div class="neu-extruded rounded-2xl p-4 flex flex-col md:flex-row items-center gap-6">
+<div class="w-16 h-16 rounded-xl neu-inset p-2 flex-shrink-0">
+<img alt="Headphones" class="w-full h-full object-cover rounded-lg" data-alt="Premium over-ear wireless headphones in matte black, placed on a light gray surface. Soft, diffused lighting emphasizes the smooth texture of the earcups and headband. The image exudes a modern, high-fidelity audio aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBIAz3R_NxKDw7qN9VYGy5Sko3DjNB8zW_8f8qXdh3G5v78GHLW6AyU8WLxg0sliAK94lgqDBEZRSws_xo_f5RT1Ah2R9K2yTIG1y8T5yRNgajWmAiTJ2_2bjqYCTlytIhtesa_TYhTwASOeO69LnJsCSwM5xBPZUaWRTfXOMOQ6bgYlSlYufnXsNwffbMqM2Fql400-5PNs6B3dGq0VVNjohkPHqg5nexEg52KQ9HxUGUxz8KhDO2ckAeiZa1kOOpjdLFTvNPsD7c"/>
+</div>
+<div class="flex-1 w-full">
+<div class="flex justify-between items-start mb-1">
+<h4 class="text-body-md font-body-md font-bold text-on-surface">Sony WH-1000XM5</h4>
+<span class="text-label-sm font-label-sm px-2 py-1 bg-surface-container-high rounded-md text-on-surface-variant">Audio</span>
+</div>
+<div class="flex justify-between text-label-sm font-label-sm mb-2">
+<span class="text-on-surface-variant">Current: $348</span>
+<span class="text-secondary font-bold">Target: $299</span>
+</div>
+<!-- Progress Bar -->
+<div class="h-3 w-full neu-inset rounded-full overflow-hidden relative">
+<div class="absolute top-0 left-0 h-full bg-gradient-to-r from-secondary-fixed to-secondary rounded-full" style="width: 45%;"></div>
+</div>
+</div>
+<button class="w-10 h-10 rounded-full neu-extruded flex items-center justify-center text-outline hover:text-error transition-colors neu-button flex-shrink-0">
+<span class="material-symbols-outlined">delete</span>
+</button>
+</div>
+</div>
+</section>
+<!-- Recent Drops (Vertical on Desktop, Horizontal scroll on mobile) -->
+<section class="space-y-6">
+<div class="flex justify-between items-end">
+<h2 class="text-headline-md font-headline-md text-on-surface">Recent Drops</h2>
+</div>
+<div class="flex flex-row lg:flex-col gap-4 overflow-x-auto lg:overflow-visible no-scrollbar pb-4 lg:pb-0">
+<!-- Deal Card 1 -->
+<div class="neu-extruded rounded-2xl p-4 min-w-[240px] lg:min-w-0 flex flex-col gap-4">
+<div class="h-32 rounded-xl neu-inset overflow-hidden">
+<img alt="Shoes" class="w-full h-full object-cover" data-alt="A pair of vibrant red athletic running shoes isolated against a very light, almost white background. The lighting is crisp, highlighting the fabric texture and aerodynamic shape of the sneakers. It conveys a sense of energy and modern sportswear design." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBloCbixay33unMzSlwn9Vuv_HQZw3Jlzc4GjxZuoP0pP36NBGl665xgcu3mJK7Ccv0-q3iZqh3v9EA_hC9Ozo8r767i8my83GpYy26G4m0Oaoo3GHNsZ2Vc33U6N8fhGfrho7BpNvF96dhVkhf9xVoidT6HMlFCXXxEVe_wfYERE2IYh1WDSygo5evAeSos8jr6tfndpvw5XhWQ-WmSstAagzGsQ99tLSXsZ6yJuRnmnxS1iQtZu7R0mH8BGavBGZp8bDekWhig4s"/>
+</div>
+<div>
+<h4 class="text-label-md font-label-md font-bold text-on-surface truncate">Nike Air Zoom Pegasus</h4>
+<div class="flex items-center gap-2 mt-1">
+<span class="text-headline-sm font-headline-sm text-on-surface">$89</span>
+<span class="text-label-sm font-label-sm text-outline line-through">$120</span>
+<span class="text-label-sm font-label-sm text-on-tertiary-container bg-tertiary-fixed px-1.5 py-0.5 rounded">-25%</span>
+</div>
+</div>
+<button class="w-full py-2 neu-inset-sm rounded-lg text-label-md font-label-md text-primary hover:text-secondary transition-colors text-center">
+                                View Deal
+                            </button>
+</div>
+<!-- Deal Card 2 -->
+<div class="neu-extruded rounded-2xl p-4 min-w-[240px] lg:min-w-0 flex flex-col gap-4">
+<div class="h-32 rounded-xl neu-inset overflow-hidden">
+<img alt="Watch" class="w-full h-full object-cover" data-alt="A modern smartwatch with a dark screen and a minimalist silicone band, displayed on a clean, light-colored surface. The soft, directional lighting creates subtle shadows that emphasize the watch's sleek, high-tech form factor." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDo2XbuKwSDI4vY_AEtz4-PKPv73J2z6CyB2Jmh2lyY7iovyKmyi6jwCLl4OBqBlwhxd4WRSVTkl82JpzWVefMP7eWvOEDaFtmc7soIDAl7bdTPNLdsfkmpnaqYfSwXJ32s0HFenaNdkN0m-BKY7pniKl9aEQ0OKMUABi6k0VweJoVlguqTontIWCL_5JKi8PfCb-ejdyxE6xvb6i4InXa-rY44-2bmz7jva0O3SaIUPhRcuUwfOcr-k_QggsMV4eY-VXfTsPQFtv4"/>
+</div>
+<div>
+<h4 class="text-label-md font-label-md font-bold text-on-surface truncate">Garmin Forerunner 245</h4>
+<div class="flex items-center gap-2 mt-1">
+<span class="text-headline-sm font-headline-sm text-on-surface">$199</span>
+<span class="text-label-sm font-label-sm text-outline line-through">$249</span>
+<span class="text-label-sm font-label-sm text-on-tertiary-container bg-tertiary-fixed px-1.5 py-0.5 rounded">-20%</span>
+</div>
+</div>
+<button class="w-full py-2 neu-inset-sm rounded-lg text-label-md font-label-md text-primary hover:text-secondary transition-colors text-center">
+                                View Deal
+                            </button>
+</div>
+</div>
+</section>
+</div>
+</div>
+</main>
+</body></html>

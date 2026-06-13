@@ -10,7 +10,8 @@ const pool = mysql.createPool(process.env.DATABASE_URL || {
   database: 'antigravity',
   waitForConnections: true,
   connectionLimit: 10,
-  queueLimit: 0
+  queueLimit: 0,
+  connectTimeout: 2000
 });
 
 module.exports = pool;
