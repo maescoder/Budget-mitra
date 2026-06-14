@@ -1,6 +1,6 @@
 "use client";
 
-import { motion, useInView } from "framer-motion";
+import { motion, useInView, Variants } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 import { TrendingDown, TrendingUp, Zap, ShoppingCart, DollarSign } from "lucide-react";
 import { PriceAnalyticsCard } from "./PriceAnalyticsCard";
@@ -92,7 +92,7 @@ export function BudgetMitraVisualPanel() {
     return path;
   };
 
-  const containerVariants = {
+  const containerVariants: Variants = {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
@@ -103,7 +103,7 @@ export function BudgetMitraVisualPanel() {
     },
   };
 
-  const itemVariants = {
+  const itemVariants: Variants = {
     hidden: { y: 20, opacity: 0 },
     visible: {
       y: 0,
