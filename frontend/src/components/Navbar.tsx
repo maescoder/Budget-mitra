@@ -14,7 +14,7 @@ export default function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const navItems = [
-    { label: "Dashboard", href: "/compare" },
+    { label: "Compare", href: "/compare" },
     { label: "Price Alerts", href: "/alerts" },
   ];
 
@@ -24,8 +24,11 @@ export default function Navbar() {
         {/* Brand Logo */}
         <div 
           onClick={() => router.push("/")} 
-          className="text-xl md:text-2xl font-display font-extrabold text-primary cursor-pointer tracking-tight select-none"
+          className="text-xl md:text-2xl font-display font-extrabold text-primary cursor-pointer tracking-tight select-none flex items-center gap-3"
         >
+          <div className="h-10 md:h-12 flex items-center justify-center">
+            <img src="/images/logo.png" alt="Budget Mitra Logo" className="h-full w-auto object-contain pointer-events-none drop-shadow-sm" />
+          </div>
           Budget Mitra
         </div>
 

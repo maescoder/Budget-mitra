@@ -1,5 +1,5 @@
 import { BudgetMitraLoader } from "@/components/ui/BudgetMitraLoader";
 
 export default function Loading() {
-  return <BudgetMitraLoader />;
+  return <BudgetMitraLoader text="Comparing Prices..." />;
 }

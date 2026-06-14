@@ -1,27 +1,24 @@
 import type { Metadata } from "next";
-import { Newsreader, Sora } from "next/font/google";
+import { Plus_Jakarta_Sans } from "next/font/google";
 import "./globals.css";
 import { AuthProvider } from "@/context/AuthContext";
 import { TransitionProvider } from "@/context/TransitionContext";
 import InteractiveAccents from "@/components/InteractiveAccents";
 import CursorFollower from "@/components/CursorFollower";
 
-const sora = Sora({ 
+const plusJakartaSans = Plus_Jakarta_Sans({ 
   subsets: ["latin"], 
-  variable: "--font-sora",
-  weight: ["100", "200", "300", "400", "500", "600", "700", "800"]
-});
-
-const newsreader = Newsreader({ 
-  subsets: ["latin"], 
-  variable: "--font-newsreader",
-  weight: ["200", "300", "400", "500", "600", "700", "800"],
-  style: ["normal", "italic"]
+  variable: "--font-plus-jakarta-sans",
+  weight: ["400", "500", "600", "700", "800"]
 });
 
 export const metadata: Metadata = {
-  title: "BudgetMitra – Wealth, Refined.",
-  description: "Experience financial clarity through an organic blend of human wisdom and technological precision.",
+  title: "BudgetMitra – Smart Shopping & Price Comparison",
+  description: "Compare prices across Amazon, Flipkart, and more. Track price history and set alerts.",
+  icons: {
+    icon: "/images/logo.png",
+    apple: "/images/logo.png",
+  },
 };
 
 export default function RootLayout({
@@ -31,7 +28,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="scroll-smooth">
-      <body className={`${sora.variable} ${newsreader.variable} font-sans bg-background text-on-background min-h-screen antialiased`}>
+      <body className={`${plusJakartaSans.variable} font-sans bg-background text-on-background min-h-screen antialiased`}>
         <AuthProvider>
           <TransitionProvider>
             <InteractiveAccents />

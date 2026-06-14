@@ -54,8 +54,8 @@ const config: Config = {
         "on-tertiary-fixed-variant": "#6e372f",
       },
       fontFamily: {
-        sans: ["var(--font-sora)", "sans-serif"],
-        display: ["var(--font-newsreader)", "serif"],
+        sans: ["var(--font-plus-jakarta-sans)", "sans-serif"],
+        display: ["var(--font-plus-jakarta-sans)", "sans-serif"],
       },
       borderRadius: {
         DEFAULT: "0.25rem",

@@ -287,19 +287,19 @@ export default function ComparePage() {
 
       {/* Footer */}
       <footer className="glass-panel border-t border-outline-variant/30 w-full py-12 mt-12 relative z-10 bg-white/20">
-        <div className="flex flex-col md:flex-row justify-between items-center px-margin-desktop max-w-container-max mx-auto gap-6">
-          <div className="text-center md:text-left">
-            <div className="text-headline-md font-bold text-primary mb-1">Budget Mitra</div>
-            <p className="text-body-md text-on-surface-variant text-xs md:text-sm">
-              © 2026 Budget Mitra. Elevating financial freedom.
+        <div className="flex flex-col items-start px-margin-desktop max-w-container-max mx-auto gap-1">
+          <div className="text-left">
+            <div className="text-headline-md font-display font-bold text-primary flex items-center justify-start gap-3">
+              <div className="h-10 md:h-12 flex items-center justify-center">
+                <img src="/images/logo.png" alt="Budget Mitra Logo" className="h-full w-auto object-contain pointer-events-none drop-shadow-sm" />
+              </div>
+              Budget Mitra
+            </div>
+            <p className="text-body-md text-on-surface-variant text-xs md:text-sm mt-2 leading-tight">
+              © 2026 Budget Mitra. Made for smarter online shoppers.<br />
+              Project by The GC Coders
             </p>
           </div>
-          <ul className="flex flex-wrap justify-center gap-6 text-label-sm font-semibold">
-            <li><a className="text-on-surface-variant hover:text-primary hover:-translate-y-0.5 inline-block transition-all" href="#">Privacy Policy</a></li>
-            <li><a className="text-on-surface-variant hover:text-primary hover:-translate-y-0.5 inline-block transition-all" href="#">Terms of Service</a></li>
-            <li><a className="text-on-surface-variant hover:text-primary hover:-translate-y-0.5 inline-block transition-all" href="#">Security</a></li>
-            <li><a className="text-on-surface-variant hover:text-primary hover:-translate-y-0.5 inline-block transition-all" href="#">Help Center</a></li>
-          </ul>
         </div>
       </footer>
     </div>

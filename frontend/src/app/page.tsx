@@ -2,11 +2,15 @@
 
 import { useState, useEffect } from "react";
 import { useTransitionRouter } from "@/context/TransitionContext";
-import { Search, Link as LinkIcon, Type, ArrowRight, TrendingUp, ShieldCheck, Sparkles, LogOut, CheckCircle, Tag, ShoppingCart, Percent, BarChart3, ArrowUpRight } from "lucide-react";
+import { Search, Link as LinkIcon, Type, ArrowRight, TrendingUp, ShieldCheck, Sparkles, LogOut, CheckCircle, Tag, ShoppingCart, Percent, BarChart3, ArrowUpRight, Bell } from "lucide-react";
 import { useAuth } from "@/context/AuthContext";
 import { motion } from "framer-motion";
 import ShaderBackground from "@/components/ShaderBackground";
 import Navbar from "@/components/Navbar";
+import { ProductAnalyzerIllustration } from "@/components/ui/ProductAnalyzerIllustration";
+import { BudgetMitraVisualPanel } from "@/components/ui/BudgetMitraVisualPanel";
+import { BudgetMitraHeroBackground } from "@/components/ui/BudgetMitraHeroBackground";
+import { TrendingDeals } from "@/components/ui/TrendingDeals";
 import { cn } from "@/lib/utils";
 
 const staticProducts = [
@@ -179,14 +183,16 @@ export default function Home() {
 
   return (
     <div className="min-h-screen relative overflow-x-hidden bg-background text-on-background">
-      {/* Ambient Shader Background */}
-      <ShaderBackground mode="home" opacity={0.65} />
-
       {/* Navigation */}
       <Navbar />
 
-      {/* Hero Section */}
-      <main className="relative pt-36 pb-20 md:pt-48 md:pb-28 px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto flex flex-col items-center justify-center text-center">
+      {/* Hero Section Wrapper with constrained background */}
+      <div className="relative w-full overflow-hidden">
+        {/* Ambient Animated Background */}
+        <BudgetMitraHeroBackground />
+
+        {/* Hero Section */}
+        <main className="relative z-10 pt-36 pb-20 md:pt-48 md:pb-28 px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto flex flex-col items-center justify-center text-center">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
@@ -194,78 +200,38 @@ export default function Home() {
           className="max-w-4xl"
         >
           {/* Subtle Tagline Badge */}
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-primary-fixed border border-primary/10 text-primary text-xs md:text-sm font-semibold mb-8">
-            <Sparkles className="w-4 h-4 text-surface-tint" /> AI Price Intelligence
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-emerald-100/50 border border-emerald-200 mb-4 backdrop-blur-sm">
+            <span className="w-2 h-2 bg-emerald-500 rounded-full animate-pulse" />
+            <span className="text-sm font-medium text-emerald-800">Smart Price Intelligence</span>
           </div>
 
-          <h1 className="text-display-lg md:text-[76px] text-primary mb-6 leading-[1.15] font-black tracking-tight">
-            Wealth, Refined.
+          <h1 className="text-5xl md:text-7xl font-bold text-primary leading-tight font-display tracking-tight">
+            Never Overpay Again with{" "}
+            <span className="bg-gradient-to-r from-emerald-600 to-emerald-800 bg-clip-text text-transparent">
+              Budget Mitra
+            </span>
           </h1>
 
-          <p className="text-body-lg text-on-surface-variant mb-12 max-w-2xl mx-auto leading-relaxed">
-            Experience financial clarity through an organic blend of human wisdom and technological precision. Manage your future with quiet luxury.
+          <p className="text-xl md:text-2xl text-on-surface-variant max-w-2xl mx-auto leading-relaxed mt-6">
+            Track prices across platforms, compare deals in real-time, and get notified when your favorite products hit their lowest price.
           </p>
 
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-20">
-            <button
-              onMouseMove={handleBtnMouseMove}
-              onMouseLeave={handleBtnMouseLeave}
-              onClick={() => {
-                const target = document.getElementById("search-analyzer");
-                if (target) target.scrollIntoView({ behavior: "smooth" });
-              }}
-              style={{ transform: `translate(${btnOffset.x}px, ${btnOffset.y}px)` }}
-              className="btn-primary-glow text-on-primary text-sm font-semibold px-8 py-4 rounded-full w-full sm:w-auto transition-transform"
-            >
-              Start Your Journey
-            </button>
-            <button 
-              onClick={() => router.push("/compare")}
-              className="glass-panel text-primary text-sm font-semibold px-8 py-4 rounded-full w-full sm:w-auto hover:bg-white/60 transition-colors soft-shadow border border-white/40"
-            >
-              Explore Dashboard
-            </button>
-          </div>
+
         </motion.div>
 
         {/* Abstract Sphere Graphics & Interactive Search Box */}
         <div id="search-analyzer" className="relative w-full max-w-5xl mt-8 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
-          {/* Left Column: Sphere & Stats (Visual Goals) */}
+          {/* Left Column: Product Analyzer Illustration */}
           <motion.div
             initial={{ opacity: 0, scale: 0.95 }}
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
-            className="lg:col-span-6 flex flex-col items-center justify-center relative min-h-[300px]"
+            className="lg:col-span-6 flex flex-col items-center justify-center relative min-h-[400px]"
           >
             {/* Soft lighting SVG/CSS background decoration */}
             <div className="absolute w-72 h-72 rounded-full bg-gradient-to-tr from-primary/10 to-secondary-container/10 blur-3xl pointer-events-none"></div>
             
-            {/* Circular Abstract Graphics mimicking Stitch public representation */}
-            <div className="relative w-64 h-64 md:w-80 md:h-80 flex items-center justify-center">
-              <svg viewBox="0 0 200 200" className="w-full h-full animate-float-slow opacity-60">
-                <defs>
-                  <linearGradient id="glassGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-                    <stop offset="0%" stopColor="#ffffff" stopOpacity="0.8" />
-                    <stop offset="100%" stopColor="#064e3b" stopOpacity="0.1" />
-                  </linearGradient>
-                </defs>
-                <circle cx="100" cy="100" r="70" fill="url(#glassGrad)" stroke="#ffffff" strokeWidth="0.5" />
-                <path d="M 30,100 Q 100,20 170,100" fill="none" stroke="#003527" strokeWidth="1" strokeDasharray="3 3" />
-                <path d="M 30,100 Q 100,180 170,100" fill="none" stroke="#855300" strokeWidth="1" />
-              </svg>
-
-              {/* Floating Data Card Overlay */}
-              <div className="absolute top-10 right-0 glass-panel soft-shadow p-5 rounded-2xl w-48 text-left border border-white/40">
-                <div className="flex items-center space-x-2.5 mb-1">
-                  <div className="w-7 h-7 rounded-full bg-primary-fixed flex items-center justify-center">
-                    <TrendingUp className="text-primary w-3.5 h-3.5" />
-                  </div>
-                  <span className="text-[10px] font-semibold text-on-surface-variant uppercase tracking-wider">Growth</span>
-                </div>
-                <div className="text-xl font-bold text-primary">+24.8%</div>
-                <p className="text-[10px] text-on-surface-variant mt-0.5">Automated savings target reached</p>
-              </div>
-            </div>
+            <ProductAnalyzerIllustration className="w-full max-w-lg z-10" />
           </motion.div>
 
           {/* Right Column: Next.js Search Engine Form */}
@@ -278,7 +244,7 @@ export default function Home() {
             <div className="glass-panel p-8 rounded-[2.5rem] shadow-glass border border-white/40 relative overflow-hidden">
               <div className="absolute top-0 right-0 w-32 h-32 bg-primary/5 blur-2xl rounded-full"></div>
               
-              <h2 className="text-headline-lg font-bold text-primary mb-2">Product Analyzer</h2>
+              <h2 className="text-headline-lg font-bold font-display text-primary mb-2">Product Analyzer</h2>
               <p className="text-body-md text-on-surface-variant mb-6">Enter a product name or paste an eCommerce URL.</p>
 
               {/* Mode Selectors */}
@@ -360,181 +326,29 @@ export default function Home() {
           </motion.div>
         </div>
       </main>
+      </div>
 
-      {/* Trending Bento Grid Section */}
-      <section className="relative z-10 max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop pb-24">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="flex items-center gap-3 mb-8"
-        >
-          <div className="w-10 h-10 rounded-full bg-primary-fixed flex items-center justify-center border border-primary/10">
-            <Sparkles className="w-5 h-5 text-primary" />
-          </div>
-          <h2 className="text-headline-lg font-bold text-primary">Trending Drops Today</h2>
-        </motion.div>
+      {/* Trending Deals Section */}
+      <TrendingDeals />
 
-        {/* Bento Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-gutter auto-rows-[minmax(240px,auto)]">
-          {/* Card 1: Double Width (iPhone) */}
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            whileHover={{ y: -5 }}
-            onClick={() => router.push('/product/apple-iphone-15-128gb-black')}
-            className="md:col-span-2 group relative glass-panel rounded-2xl p-8 cursor-pointer hover:border-primary/30 transition-all duration-300 overflow-hidden flex flex-col justify-between shadow-glass border border-white/40"
-          >
-            <div className="absolute -right-10 -top-10 w-48 h-48 bg-primary-fixed/20 blur-3xl rounded-full group-hover:bg-primary-fixed/30 transition-colors"></div>
-            <div className="flex justify-between items-start">
-              <span className="px-3 py-1 bg-primary-fixed text-primary text-xs font-bold rounded-lg border border-primary/20">15% SAVINGS</span>
-              <div className="w-9 h-9 rounded-full bg-background flex items-center justify-center group-hover:bg-primary transition-colors duration-300">
-                <ArrowUpRight className="w-4 h-4 text-primary group-hover:text-on-primary transition-colors" />
-              </div>
-            </div>
-            <div>
-              <h3 className="text-headline-md font-bold text-primary mb-1">Apple iPhone 15</h3>
-              <div className="flex items-baseline gap-3">
-                <span className="text-3xl font-black text-on-surface">₹65,999</span>
-                <span className="text-sm text-on-surface-variant line-through">₹79,900</span>
-              </div>
-            </div>
-          </motion.div>
-
-          {/* Card 2: Single Width (Sony) */}
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.1 }}
-            whileHover={{ y: -5 }}
-            onClick={() => router.push('/product/sony-wh-1000xm5-black')}
-            className="md:col-span-1 group relative glass-panel rounded-2xl p-8 cursor-pointer hover:border-primary/30 transition-all duration-300 overflow-hidden flex flex-col justify-between shadow-glass border border-white/40"
-          >
-            <div className="absolute -right-10 -top-10 w-32 h-32 bg-secondary-container/20 blur-2xl rounded-full group-hover:bg-secondary-container/30 transition-colors"></div>
-            <div className="flex justify-between items-start">
-              <span className="px-3 py-1 bg-secondary-container/20 text-secondary text-xs font-bold rounded-lg border border-secondary/20">22% SAVINGS</span>
-              <div className="w-9 h-9 rounded-full bg-background flex items-center justify-center group-hover:bg-primary transition-colors duration-300">
-                <ArrowUpRight className="w-4 h-4 text-primary group-hover:text-on-primary transition-colors" />
-              </div>
-            </div>
-            <div>
-              <h3 className="text-headline-md font-bold text-primary mb-1">Sony WH-1000XM5</h3>
-              <div className="flex items-baseline gap-2">
-                <span className="text-2xl font-black text-on-surface">₹24,990</span>
-              </div>
-            </div>
-          </motion.div>
-
-          {/* Card 3: Triple Width (Samsung) */}
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.2 }}
-            whileHover={{ y: -5 }}
-            onClick={() => router.push('/product/samsung-galaxy-s24-256gb-onyx-black')}
-            className="md:col-span-3 group relative glass-panel rounded-2xl p-8 cursor-pointer hover:border-primary/30 transition-all duration-300 overflow-hidden flex flex-col md:flex-row items-start md:items-center justify-between shadow-glass border border-white/40"
-          >
-            <div className="absolute left-1/3 -top-10 w-96 h-24 bg-primary-fixed/10 blur-3xl rounded-full"></div>
-            <div className="mb-6 md:mb-0">
-              <span className="inline-block mb-3 px-3 py-1 bg-secondary-container/20 text-secondary text-xs font-bold rounded-lg border border-secondary/20">LOW STOCK TRIGGER</span>
-              <h3 className="text-headline-md font-bold text-primary mb-1">Samsung Galaxy S24</h3>
-              <div className="flex items-baseline gap-2">
-                <span className="text-2xl font-black text-on-surface">₹74,999</span>
-                <span className="text-sm text-on-surface-variant line-through">₹79,999</span>
-              </div>
-            </div>
-            <div className="w-11 h-11 rounded-full bg-background flex items-center justify-center group-hover:bg-primary transition-colors duration-300">
-              <ArrowRight className="w-5 h-5 text-primary group-hover:text-on-primary group-hover:translate-x-0.5 transition-all" />
-            </div>
-          </motion.div>
-        </div>
-      </section>
-
-      {/* Brand & Strategy Section (Stitch layout copy) */}
-      <section className="py-24 px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto border-t border-outline-variant/30">
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-gutter items-center">
-          <motion.div
-            initial={{ opacity: 0, scale: 0.95 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            viewport={{ once: true }}
-            className="md:col-span-5"
-          >
-            <div className="glass-panel rounded-3xl p-3 relative overflow-hidden soft-shadow border border-white/40 aspect-[4/5] flex items-center justify-center bg-white/20">
-              {/* Graphic element representing analytics/growth */}
-              <div className="w-[85%] h-[85%] rounded-2xl bg-gradient-to-br from-primary-fixed/20 to-background border border-primary-fixed/30 flex flex-col justify-between p-6">
-                <div className="flex justify-between items-center">
-                  <div className="text-xs uppercase font-bold text-primary/70 tracking-wider">Live Analytics</div>
-                  <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse"></span>
-                </div>
-                {/* SVG Mock Graph */}
-                <svg viewBox="0 0 100 50" className="w-full overflow-visible">
-                  <path d="M0,45 Q25,25 50,35 T100,5" fill="none" stroke="#003527" strokeWidth="2" />
-                  <circle cx="50" cy="35" r="3" fill="#855300" />
-                  <circle cx="100" cy="5" r="3" fill="#003527" />
-                </svg>
-                <div className="flex justify-between text-[10px] text-on-surface-variant font-semibold">
-                  <span>Monitored Categories</span>
-                  <span>99.4% Uptime</span>
-                </div>
-              </div>
-            </div>
-          </motion.div>
-
-          <div className="md:col-span-1"></div>
-
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="md:col-span-6 space-y-6"
-          >
-            <h2 className="text-headline-lg font-bold text-primary">The Human Touch in Digital Finance</h2>
-            <p className="text-body-lg text-on-surface-variant leading-relaxed">
-              We reject the concept of AI slop — systems that make decisions on your behalf and generate generic, thoughtless advice. Budget Mitra pairs intelligent analytics with custom-tuned parameters, allowing you to orchestrate your budget with precision and intuition.
-            </p>
-
-            <ul className="space-y-4 pt-4">
-              <li className="flex items-start space-x-4">
-                <div className="w-10 h-10 rounded-full bg-primary-fixed flex items-center justify-center flex-shrink-0 text-primary">
-                  <CheckCircle className="w-5 h-5" />
-                </div>
-                <div>
-                  <h3 className="text-label-md font-bold text-primary mb-0.5">Value Pacing</h3>
-                  <p className="text-body-md text-on-surface-variant text-sm">Monitor trends softly in the background and purchase during optimal price windows.</p>
-                </div>
-              </li>
-              <li className="flex items-start space-x-4">
-                <div className="w-10 h-10 rounded-full bg-primary-fixed flex items-center justify-center flex-shrink-0 text-primary">
-                  <ShieldCheck className="w-5 h-5" />
-                </div>
-                <div>
-                  <h3 className="text-label-md font-bold text-primary mb-0.5">Confidence Scoring</h3>
-                  <p className="text-body-md text-on-surface-variant text-sm">Every prediction is backed by detailed historical analysis and confidence percentages.</p>
-                </div>
-              </li>
-            </ul>
-          </motion.div>
-        </div>
-      </section>
+      {/* Visual Panel Section */}
+      <BudgetMitraVisualPanel />
 
       {/* Footer */}
       <footer className="glass-panel border-t border-outline-variant/30 w-full py-12 mt-12 relative z-10 bg-white/20">
-        <div className="flex flex-col md:flex-row justify-between items-center px-margin-desktop max-w-container-max mx-auto gap-6">
-          <div className="text-center md:text-left">
-            <div className="text-headline-md font-bold text-primary mb-1">Budget Mitra</div>
-            <p className="text-body-md text-on-surface-variant text-xs md:text-sm">
-              © 2026 Budget Mitra. Elevating financial freedom.
+        <div className="flex flex-col items-start px-margin-desktop max-w-container-max mx-auto gap-1">
+          <div className="text-left">
+            <div className="text-headline-md font-display font-bold text-primary flex items-center justify-start gap-3">
+              <div className="h-10 md:h-12 flex items-center justify-center">
+                <img src="/images/logo.png" alt="Budget Mitra Logo" className="h-full w-auto object-contain pointer-events-none drop-shadow-sm" />
+              </div>
+              Budget Mitra
+            </div>
+            <p className="text-body-md text-on-surface-variant text-xs md:text-sm mt-2 leading-tight">
+              © 2026 Budget Mitra. Made for smarter online shoppers.<br />
+              Project by The GC Coders
             </p>
           </div>
-          <ul className="flex flex-wrap justify-center gap-6 text-label-sm font-semibold">
-            <li><a className="text-on-surface-variant hover:text-primary hover:-translate-y-0.5 inline-block transition-all" href="#">Privacy Policy</a></li>
-            <li><a className="text-on-surface-variant hover:text-primary hover:-translate-y-0.5 inline-block transition-all" href="#">Terms of Service</a></li>
-            <li><a className="text-on-surface-variant hover:text-primary hover:-translate-y-0.5 inline-block transition-all" href="#">Security</a></li>
-            <li><a className="text-on-surface-variant hover:text-primary hover:-translate-y-0.5 inline-block transition-all" href="#">Help Center</a></li>
-          </ul>
         </div>
       </footer>
     </div>

@@ -1,12 +1,21 @@
 "use client";
 
-import { useState } from "react";
+import React, { useState } from 'react';
 import { useTransitionRouter } from "@/context/TransitionContext";
-import { Bell, Target, Activity, CheckCircle, Smartphone, Tag, Mail, Lock } from "lucide-react";
 import { useAuth } from "@/context/AuthContext";
+import { Bell, TrendingDown, Target, Plus, Edit2, Pause, Play, Trash2, AlertCircle, Lock, Check } from 'lucide-react';
 import { motion, AnimatePresence } from "framer-motion";
+
+// Components
 import ShaderBackground from "@/components/ShaderBackground";
 import Navbar from "@/components/Navbar";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { Badge } from '@/components/ui/badge';
+import { Progress } from '@/components/ui/progress';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 
 const staticProducts = [
   { product_key: "apple-iphone-15-128gb-black", product_name: "Apple iPhone 15 128GB Black", brand: "Apple", category: "mobile" },
@@ -14,90 +23,144 @@ const staticProducts = [
   { product_key: "oneplus-12-256gb-flowy-emerald", product_name: "OnePlus 12 256GB Flowy Emerald", brand: "OnePlus", category: "mobile" },
   { product_key: "xiaomi-redmi-note-13-pro-256gb", product_name: "Xiaomi Redmi Note 13 Pro+ 256GB", brand: "Xiaomi", category: "mobile" },
   { product_key: "google-pixel-8-128gb-hazel", product_name: "Google Pixel 8 128GB Hazel", brand: "Google", category: "mobile" },
-  { product_key: "nothing-phone-2-256gb-dark-grey", product_name: "Nothing Phone (2) 256GB Dark Grey", brand: "Nothing", category: "mobile" },
-  { product_key: "apple-airpods-pro-2nd-gen", product_name: "Apple AirPods Pro (2nd Gen)", brand: "Apple", category: "headphones" },
   { product_key: "sony-wh-1000xm5-black", product_name: "Sony WH-1000XM5 Black", brand: "Sony", category: "headphones" },
-  { product_key: "jbl-tune-770nc-blue", product_name: "JBL Tune 770NC Blue", brand: "JBL", category: "headphones" },
-  { product_key: "boat-airdopes-141-black", product_name: "boAt Airdopes 141 Black", brand: "boAt", category: "headphones" },
-  { product_key: "oneplus-buds-3-splendid-blue", product_name: "OnePlus Buds 3 Splendid Blue", brand: "OnePlus", category: "headphones" },
-  { product_key: "apple-watch-se-gps-44mm", product_name: "Apple Watch SE GPS 44mm", brand: "Apple", category: "electronics" },
-  { product_key: "samsung-galaxy-watch-6-44mm", product_name: "Samsung Galaxy Watch 6 44mm", brand: "Samsung", category: "electronics" },
-  { product_key: "jbl-flip-6-portable-speaker", product_name: "JBL Flip 6 Portable Speaker", brand: "JBL", category: "electronics" },
-  { product_key: "lenovo-ideapad-slim-5-16gb-512gb", product_name: "Lenovo IdeaPad Slim 5 16GB 512GB", brand: "Lenovo", category: "electronics" },
-  { product_key: "hp-victus-gaming-laptop-i5-16gb-512gb", product_name: "HP Victus Gaming Laptop i5 16GB 512GB", brand: "HP", category: "electronics" },
-  { product_key: "nike-club-men-hoodie-black", product_name: "Nike Club Men Hoodie Black", brand: "Nike", category: "clothes" },
-  { product_key: "adidas-men-running-shoes-duramo-sl", product_name: "Adidas Men Running Shoes Duramo SL", brand: "Adidas", category: "clothes" },
-  { product_key: "levi-s-men-511-slim-jeans-blue", product_name: "Levi's Men 511 Slim Jeans Blue", brand: "Levi's", category: "clothes" },
-  { product_key: "puma-unisex-essential-logo-tee", product_name: "Puma Unisex Essential Logo Tee", brand: "Puma", category: "clothes" }
+  { product_key: "lenovo-ideapad-slim-5-16gb-512gb", product_name: "Lenovo IdeaPad Slim 5 16GB 512GB", brand: "Lenovo", category: "electronics" }
 ];
 
-export default function AlertsPage() {
+interface Alert {
+  id: string;
+  productName: string;
+  targetPrice: number;
+  currentPrice: number;
+  status: 'active' | 'paused';
+}
+
+const AlertsPage = () => {
   const router = useTransitionRouter();
-  const [targetPrice, setTargetPrice] = useState("");
-  const [email, setEmail] = useState("");
-  const [selectedProduct, setSelectedProduct] = useState(staticProducts[0].product_key);
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [successMsg, setSuccessMsg] = useState("");
-
-  const [activeAlerts, setActiveAlerts] = useState([
-    { id: 1, name: "Apple iPhone 15 128GB Black", target: 65000, current: 69999, status: "Active" },
-    { id: 2, name: "Sony WH-1000XM5 Black", target: 22000, current: 24990, status: "Active" }
-  ]);
   const { user } = useAuth();
+  
+  const [alerts, setAlerts] = useState<Alert[]>([
+    {
+      id: '1',
+      productName: 'Apple iPhone 15 128GB Black',
+      targetPrice: 65000,
+      currentPrice: 69999,
+      status: 'active',
+    },
+    {
+      id: '2',
+      productName: 'Sony WH-1000XM5 Black',
+      targetPrice: 22000,
+      currentPrice: 24990,
+      status: 'active',
+    },
+  ]);
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const [formData, setFormData] = useState({
+    product: '',
+    targetPrice: '',
+    email: '',
+  });
+
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  
+  // Edit State
+  const [editingAlertId, setEditingAlertId] = useState<string | null>(null);
+  const [editTargetPrice, setEditTargetPrice] = useState<string>("");
+
+  const calculateProgress = (target: number, current: number) => {
+    return Math.min(100, Math.round((target / current) * 100));
+  };
+
+  const calculateGap = (target: number, current: number) => {
+    return current - target;
+  };
+
+  const totalSavings = alerts.reduce((sum, alert) => sum + calculateGap(alert.targetPrice, alert.currentPrice), 0);
+  const activeAlertsCount = alerts.filter(a => a.status === 'active').length;
+
+  const handleCreateAlert = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (!formData.product || !formData.targetPrice || !formData.email) return;
+    
     setIsSubmitting(true);
-    setSuccessMsg("");
-
     try {
       const baseUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000';
       const res = await fetch(`${baseUrl}/api/set-alert`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          productId: selectedProduct,
-          targetPrice: parseInt(targetPrice),
-          email: email
+          productId: formData.product,
+          targetPrice: parseInt(formData.targetPrice),
+          email: formData.email
         })
       });
 
       if (!res.ok) throw new Error("Failed to set alert");
 
-      const match = staticProducts.find(p => p.product_key === selectedProduct);
+      const match = staticProducts.find(p => p.product_key === formData.product);
       
-      setActiveAlerts([
-        ...activeAlerts,
+      setAlerts([
+        ...alerts,
         {
-          id: Date.now(),
-          name: match ? match.product_name : selectedProduct,
-          target: parseInt(targetPrice),
-          current: parseInt(targetPrice) + 1500,
-          status: "Active"
+          id: Date.now().toString(),
+          productName: match ? match.product_name : formData.product,
+          targetPrice: parseInt(formData.targetPrice),
+          currentPrice: parseInt(formData.targetPrice) + 1500, // Dummy simulated current price for the UI
+          status: 'active'
         }
       ]);
-      setSuccessMsg("Price alert successfully activated!");
-      setTargetPrice("");
-      setEmail("");
+      setFormData({ product: '', targetPrice: '', email: '' });
     } catch (err) {
       // Prototype fallback
-      const match = staticProducts.find(p => p.product_key === selectedProduct);
-      setActiveAlerts([
-        ...activeAlerts,
+      const match = staticProducts.find(p => p.product_key === formData.product);
+      setAlerts([
+        ...alerts,
         {
-          id: Date.now(),
-          name: match ? match.product_name : selectedProduct,
-          target: parseInt(targetPrice),
-          current: parseInt(targetPrice) + 1200,
-          status: "Active"
+          id: Date.now().toString(),
+          productName: match ? match.product_name : formData.product,
+          targetPrice: parseInt(formData.targetPrice),
+          currentPrice: parseInt(formData.targetPrice) + 1200,
+          status: 'active'
         }
       ]);
-      setSuccessMsg("Price alert successfully activated (Demo mode)!");
-      setTargetPrice("");
-      setEmail("");
+      setFormData({ product: '', targetPrice: '', email: '' });
     } finally {
       setIsSubmitting(false);
     }
+  };
+
+  const handleRemoveAlert = (id: string) => {
+    setAlerts(alerts.filter(a => a.id !== id));
+  };
+
+  const handleTogglePause = (id: string) => {
+    setAlerts(alerts.map(a => {
+      if (a.id === id) {
+        return { ...a, status: a.status === 'active' ? 'paused' : 'active' };
+      }
+      return a;
+    }));
+  };
+
+  const startEditing = (alert: Alert) => {
+    setEditingAlertId(alert.id);
+    setEditTargetPrice(alert.targetPrice.toString());
+  };
+
+  const saveEdit = (id: string) => {
+    if (!editTargetPrice || isNaN(Number(editTargetPrice))) {
+      setEditingAlertId(null);
+      return;
+    }
+
+    setAlerts(alerts.map(a => {
+      if (a.id === id) {
+        return { ...a, targetPrice: parseInt(editTargetPrice) };
+      }
+      return a;
+    }));
+    setEditingAlertId(null);
   };
 
   if (!user) {
@@ -105,7 +168,7 @@ export default function AlertsPage() {
       <div className="min-h-screen relative overflow-x-hidden bg-background text-on-background flex items-center justify-center p-6">
         <ShaderBackground mode="dashboard" opacity={0.6} />
         
-        <div className="max-w-md w-full glass-panel border border-white/40 rounded-3xl p-8 text-center relative overflow-hidden shadow-glass animate-fade-in-up">
+        <div className="max-w-md w-full glass-panel border border-white/40 rounded-3xl p-8 text-center relative overflow-hidden shadow-glass">
           <div className="absolute top-0 right-0 w-32 h-32 bg-primary-fixed/20 blur-3xl rounded-full"></div>
           
           <div className="inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-primary-fixed/40 border border-primary/20 mb-6 text-primary">
@@ -118,18 +181,12 @@ export default function AlertsPage() {
           </p>
           
           <div className="flex gap-4">
-            <button 
-              onClick={() => router.push('/')} 
-              className="flex-1 py-3 bg-white/45 border border-outline-variant/40 hover:bg-white/70 text-primary font-bold rounded-xl transition-all text-sm"
-            >
+            <Button variant="outline" className="flex-1" onClick={() => router.push('/')}>
               Go Back
-            </button>
-            <button 
-              onClick={() => router.push('/login')} 
-              className="flex-1 py-3 btn-primary-glow text-on-primary font-bold rounded-xl transition-all text-sm"
-            >
+            </Button>
+            <Button className="flex-1" onClick={() => router.push('/login')}>
               Sign In
-            </button>
+            </Button>
           </div>
         </div>
       </div>
@@ -137,203 +194,281 @@ export default function AlertsPage() {
   }
 
   return (
-    <div className="min-h-screen relative overflow-x-hidden bg-background text-on-background">
-      {/* WebGL Ambient Background */}
+    <div className="min-h-screen relative overflow-x-hidden bg-background text-on-background pb-20">
       <ShaderBackground mode="dashboard" opacity={0.6} />
-
-      {/* Navigation */}
       <Navbar />
+      
+      <div className="relative z-10 max-w-7xl mx-auto px-margin-mobile md:px-margin-desktop pt-32">
+        {/* Header */}
+        <div className="text-center mb-12">
+          <Badge variant="default" className="mb-4">
+            Smart Price Alerts
+          </Badge>
+          <h1 className="text-5xl font-bold text-primary mb-4 leading-tight">
+            Never Miss a Price Drop
+          </h1>
+          <p className="text-lg text-on-surface-variant max-w-2xl mx-auto leading-relaxed">
+            Create alerts for products you're watching. Budget Mitra monitors prices and notifies you when they reach your target.
+          </p>
+        </div>
 
-      {/* Main Content */}
-      <main className="relative z-10 max-w-7xl mx-auto px-margin-mobile md:px-margin-desktop pt-32 pb-20 grid grid-cols-1 lg:grid-cols-12 gap-12">
-        
-        {/* Left Column: Form Setup */}
-        <div className="lg:col-span-5">
-          <div className="mb-8">
-            <h1 className="text-display-lg md:text-[42px] font-bold text-primary mb-4 leading-tight">
-              Budgets that Breathe.
-            </h1>
-            <p className="text-body-md text-on-surface-variant leading-relaxed">
-              We monitor pricing trends 24/7. When the price dips to your desired target, we will send a notification straight to your email.
-            </p>
-          </div>
-
-          <div className="glass-panel p-8 rounded-3xl border border-white/40 shadow-glass relative overflow-hidden">
-            <div className="absolute top-0 right-0 w-32 h-32 bg-primary-fixed/20 blur-3xl rounded-full"></div>
-            
-            {successMsg && (
-              <div className="mb-6 flex items-start gap-3 p-4 bg-primary-fixed border border-primary/20 rounded-xl text-primary text-xs md:text-sm font-semibold">
-                <CheckCircle className="w-5 h-5 flex-shrink-0 text-surface-tint" />
-                <p>{successMsg}</p>
+        {/* Stats Row */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12 text-left">
+          <Card>
+            <CardContent className="p-6 flex items-center gap-5 pb-6">
+              <div className="w-14 h-14 rounded-2xl bg-primary-fixed flex items-center justify-center border border-primary/20">
+                <Bell className="w-6 h-6 text-primary" />
               </div>
-            )}
+              <div>
+                <p className="text-3xl font-black text-primary">{activeAlertsCount}</p>
+                <p className="text-xs font-bold uppercase tracking-wider text-on-surface-variant">Active Alerts</p>
+              </div>
+            </CardContent>
+          </Card>
 
-            <form onSubmit={handleSubmit} className="space-y-6 relative z-10 text-left">
-              <div className="space-y-2">
-                <label className="text-xs font-bold text-primary/70 uppercase tracking-wider ml-1 flex items-center gap-1.5">
-                  <Smartphone className="w-4 h-4 text-surface-tint" /> Select Device
-                </label>
-                <div className="relative">
-                  <select 
-                    value={selectedProduct}
-                    onChange={(e) => setSelectedProduct(e.target.value)}
-                    className="w-full bg-white/45 border border-outline-variant/40 rounded-xl py-3.5 px-4 text-on-surface font-semibold text-sm appearance-none outline-none focus:border-primary focus:ring-1 focus:ring-primary cursor-pointer"
-                  >
-                    {staticProducts.map(p => (
-                      <option key={p.product_key} value={p.product_key} className="bg-background text-on-surface">
-                        {p.product_name}
-                      </option>
-                    ))}
-                  </select>
-                  <div className="absolute inset-y-0 right-0 pr-4 flex items-center pointer-events-none text-on-surface-variant/60">
-                    <span className="text-[10px]">▼</span>
+          <Card>
+            <CardContent className="p-6 flex items-center gap-5 pb-6">
+              <div className="w-14 h-14 rounded-2xl bg-secondary-container/30 flex items-center justify-center border border-secondary/20">
+                <Target className="w-6 h-6 text-secondary" />
+              </div>
+              <div>
+                <p className="text-3xl font-black text-secondary">₹{totalSavings.toLocaleString()}</p>
+                <p className="text-xs font-bold uppercase tracking-wider text-on-surface-variant">Potential Savings</p>
+              </div>
+            </CardContent>
+          </Card>
+
+          <Card>
+            <CardContent className="p-6 flex items-center gap-5 pb-6">
+              <div className="w-14 h-14 rounded-2xl bg-primary-fixed flex items-center justify-center border border-primary/20">
+                <TrendingDown className="w-6 h-6 text-primary" />
+              </div>
+              <div>
+                <p className="text-3xl font-black text-primary">3</p>
+                <p className="text-xs font-bold uppercase tracking-wider text-on-surface-variant">Price Drops Found</p>
+              </div>
+            </CardContent>
+          </Card>
+        </div>
+
+        {/* Main Content */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 text-left">
+          {/* Left Column: Create Alert Card */}
+          <div className="lg:col-span-5">
+            <Card className="relative overflow-hidden">
+              <div className="absolute top-0 right-0 w-40 h-40 bg-primary-fixed/30 blur-3xl rounded-full pointer-events-none"></div>
+              <CardHeader>
+                <CardTitle className="text-2xl font-bold">Create Price Alert</CardTitle>
+                <CardDescription>
+                  Choose a product, set your target price, and we'll notify you when the deal is ready.
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <form onSubmit={handleCreateAlert} className="space-y-6 relative z-10">
+                  <div className="space-y-2">
+                    <Label htmlFor="product">Product</Label>
+                    <Select value={formData.product} onValueChange={(value) => setFormData({ ...formData, product: value })}>
+                      <SelectTrigger>
+                        <SelectValue placeholder="Select a product" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        {staticProducts.map(p => (
+                            <SelectItem key={p.product_key} value={p.product_key}>{p.product_name}</SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
                   </div>
-                </div>
-              </div>
 
-              <div className="space-y-2">
-                <label className="text-xs font-bold text-primary/70 uppercase tracking-wider ml-1 flex items-center gap-1.5">
-                  <Target className="w-4 h-4 text-secondary" /> Target Price (₹)
-                </label>
-                <input 
-                  type="number" 
-                  required
-                  min="1"
-                  value={targetPrice}
-                  onChange={(e) => setTargetPrice(e.target.value)}
-                  placeholder="e.g., 65000"
-                  className="w-full bg-white/45 border border-outline-variant/40 rounded-xl py-3.5 px-4 text-on-surface outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-all text-sm font-semibold"
-                />
-              </div>
+                  <div className="space-y-2">
+                    <Label htmlFor="targetPrice">Target Price</Label>
+                    <Input
+                      id="targetPrice"
+                      type="number"
+                      placeholder="e.g., 65000"
+                      value={formData.targetPrice}
+                      onChange={(e) => setFormData({ ...formData, targetPrice: e.target.value })}
+                    />
+                    <p className="text-xs text-on-surface-variant/80 ml-1 font-semibold">
+                      We'll alert you when the current price drops to this value or lower.
+                    </p>
+                  </div>
 
-              <div className="space-y-2">
-                <label className="text-xs font-bold text-primary/70 uppercase tracking-wider ml-1 flex items-center gap-1.5">
-                  <Mail className="w-4 h-4 text-primary" /> Notification Email
-                </label>
-                <input 
-                  type="email" 
-                  required
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  placeholder="you@example.com"
-                  className="w-full bg-white/45 border border-outline-variant/40 rounded-xl py-3.5 px-4 text-on-surface outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-all text-sm font-semibold"
-                />
-              </div>
+                  <div className="space-y-2">
+                    <Label htmlFor="email">Notification Email</Label>
+                    <Input
+                      id="email"
+                      type="email"
+                      placeholder="your@email.com"
+                      value={formData.email}
+                      onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                    />
+                  </div>
 
-              <motion.button 
-                type="submit" 
-                disabled={isSubmitting}
-                whileHover={{ scale: 1.02, y: -1 }}
-                whileTap={{ scale: 0.98 }}
-                className="w-full py-4 rounded-xl btn-primary-glow text-on-primary font-bold text-sm hover:shadow-lg transition-all flex items-center justify-center gap-2 disabled:opacity-75 cursor-pointer"
-              >
-                {isSubmitting ? (
-                  <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin"></div>
-                ) : (
-                  <>Create Active Monitor <Bell className="w-4 h-4" /></>
-                )}
-              </motion.button>
-            </form>
-          </div>
-        </div>
-
-        {/* Right Column: Active Monitors list */}
-        <div className="lg:col-span-7">
-          <div className="flex items-center gap-3 mb-8">
-            <div className="w-8 h-8 rounded-full bg-primary-fixed flex items-center justify-center text-primary">
-              <Activity className="w-4.5 h-4.5" />
-            </div>
-            <h2 className="text-headline-md font-bold text-primary">Active Monitors</h2>
-          </div>
-
-          <div className="grid gap-4 text-left">
-            <AnimatePresence mode="popLayout">
-              {activeAlerts.map(alert => {
-                const pacingPct = Math.round((alert.target / alert.current) * 100);
-                return (
-                  <motion.div 
-                    key={alert.id}
-                    layout
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, scale: 0.95 }}
-                    whileHover={{ scale: 1.01, y: -2 }}
-                    className="p-6 bg-white/45 border border-outline-variant/40 rounded-2xl flex flex-col hover:border-primary/20 transition-all shadow-glass hover:shadow-lg relative overflow-hidden group cursor-pointer"
+                  <Button
+                    type="submit"
+                    disabled={isSubmitting}
+                    className="w-full mt-4"
                   >
-                    <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4 mb-6">
-                      <div className="flex-1">
-                        <div className="flex items-center gap-2 mb-2">
-                          <span className="w-2.5 h-2.5 rounded-full bg-surface-tint animate-pulse"></span>
-                          <span className="text-[10px] font-bold text-surface-tint uppercase tracking-wider">{alert.status}</span>
-                        </div>
-                        <h3 className="font-bold text-base md:text-lg text-primary leading-tight">{alert.name}</h3>
-                      </div>
-                      
-                      <div className="flex items-center gap-6 w-full md:w-auto p-4 md:p-0 bg-background/50 md:bg-transparent rounded-xl border border-outline-variant/20 md:border-transparent">
-                        <div>
-                          <div className="text-[10px] font-bold text-on-surface-variant uppercase tracking-wider mb-1 flex items-center gap-1">
-                            <Target className="w-3 h-3 text-secondary" /> Target
-                          </div>
-                          <div className="font-extrabold text-secondary text-base md:text-lg">₹{alert.target.toLocaleString()}</div>
-                        </div>
-                        <div className="border-l border-outline-variant/30 h-8"></div>
-                        <div>
-                          <div className="text-[10px] font-bold text-on-surface-variant uppercase tracking-wider mb-1 flex items-center gap-1">
-                            <Tag className="w-3 h-3 text-primary" /> Current
-                          </div>
-                          <div className="font-extrabold text-primary text-base md:text-lg">₹{alert.current.toLocaleString()}</div>
-                        </div>
-                      </div>
-                    </div>
+                    {isSubmitting ? (
+                        <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin"></div>
+                    ) : (
+                        <><Plus className="w-5 h-5" /> Create Alert</>
+                    )}
+                  </Button>
+                </form>
+              </CardContent>
+            </Card>
+          </div>
 
-                    {/* Liquid progress pacing bar */}
-                    <div className="w-full bg-surface-container rounded-full h-2.5 overflow-hidden relative border border-outline-variant/10">
-                      <motion.div 
-                        initial={{ width: 0 }}
-                        animate={{ width: `${Math.min(100, Math.max(0, pacingPct))}%` }}
-                        transition={{ duration: 1.2, ease: "easeOut" }}
-                        className="h-full bg-gradient-to-r from-secondary to-primary rounded-full relative" 
-                      >
-                        <div className="absolute top-0 right-0 w-4 h-full bg-white/20 animate-pulse"></div>
-                      </motion.div>
-                    </div>
-                    
-                    <div className="mt-2 text-right text-[10px] font-bold text-on-surface-variant/80">
-                      {pacingPct}% of target price reached
-                    </div>
-                  </motion.div>
-                );
-              })}
-            </AnimatePresence>
+          {/* Right Column: Active Alerts */}
+          <div className="lg:col-span-7 space-y-6">
+            <div className="flex items-center gap-3">
+                <div className="w-8 h-8 rounded-full bg-primary-fixed flex items-center justify-center text-primary">
+                    <Bell className="w-4.5 h-4.5" />
+                </div>
+                <h2 className="text-headline-md font-bold text-primary">Active Monitors</h2>
+            </div>
 
-            {activeAlerts.length === 0 && (
-              <div className="p-10 text-center border-2 border-dashed border-outline-variant/30 rounded-2xl">
-                <Bell className="w-10 h-10 text-on-surface-variant/40 mx-auto mb-4" />
-                <p className="text-on-surface-variant font-semibold">No active monitors. Set one up to start tracking!</p>
+            {alerts.length === 0 ? (
+              <Card className="border-dashed border-2 border-outline-variant/30 bg-white/20">
+                <CardContent className="p-12 text-center">
+                  <div className="w-16 h-16 rounded-full bg-primary-fixed flex items-center justify-center mx-auto mb-4 border border-primary/20">
+                    <AlertCircle className="w-8 h-8 text-primary" />
+                  </div>
+                  <h3 className="text-xl font-bold text-primary mb-2">No price alerts yet</h3>
+                  <p className="text-on-surface-variant mb-6 font-semibold">
+                    Set your first target price and Budget Mitra will watch the market for you.
+                  </p>
+                </CardContent>
+              </Card>
+            ) : (
+              <div className="space-y-4">
+                <AnimatePresence mode="popLayout">
+                {alerts.map((alert) => {
+                  const progress = calculateProgress(alert.targetPrice, alert.currentPrice);
+                  const gap = calculateGap(alert.targetPrice, alert.currentPrice);
+                  const isEditing = editingAlertId === alert.id;
+                  const isActive = alert.status === 'active';
+
+                  return (
+                    <motion.div
+                        layout
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, scale: 0.95 }}
+                        key={alert.id}
+                    >
+                        <Card className={`hover:border-primary/30 transition-all cursor-pointer group ${!isActive ? 'opacity-75 grayscale-[20%]' : ''}`}>
+                        <CardContent className="p-6">
+                            <div className="flex flex-col md:flex-row items-start justify-between mb-4 gap-4">
+                            <div className="flex-1">
+                                <h3 className="text-lg font-bold text-primary mb-2 leading-tight">
+                                {alert.productName}
+                                </h3>
+                                <div className="flex items-center gap-2">
+                                    {isActive ? (
+                                        <span className="w-2.5 h-2.5 rounded-full bg-surface-tint animate-pulse"></span>
+                                    ) : (
+                                        <span className="w-2.5 h-2.5 rounded-full bg-outline-variant"></span>
+                                    )}
+                                    <span className={`text-[10px] font-bold uppercase tracking-wider ${isActive ? 'text-surface-tint' : 'text-on-surface-variant'}`}>{alert.status}</span>
+                                </div>
+                            </div>
+                            
+                            <div className="flex items-center gap-6 p-4 bg-background/50 rounded-xl border border-outline-variant/20 w-full md:w-auto">
+                                <div>
+                                    <p className="text-[10px] font-bold text-on-surface-variant uppercase tracking-wider mb-1 flex items-center gap-1">
+                                        <Target className="w-3 h-3 text-secondary" /> Target
+                                    </p>
+                                    {isEditing ? (
+                                        <div className="flex items-center gap-2">
+                                          <Input 
+                                            type="number" 
+                                            value={editTargetPrice} 
+                                            onChange={(e) => setEditTargetPrice(e.target.value)} 
+                                            className="h-8 w-24 px-2 py-1 text-sm bg-white" 
+                                            autoFocus
+                                          />
+                                        </div>
+                                    ) : (
+                                        <p className="text-lg font-black text-secondary">
+                                        ₹{alert.targetPrice.toLocaleString()}
+                                        </p>
+                                    )}
+                                </div>
+                                <div className="border-l border-outline-variant/30 h-8"></div>
+                                <div>
+                                    <p className="text-[10px] font-bold text-on-surface-variant uppercase tracking-wider mb-1 flex items-center gap-1">
+                                        <TrendingDown className="w-3 h-3 text-primary" /> Current
+                                    </p>
+                                    <p className="text-lg font-black text-primary">
+                                    ₹{alert.currentPrice.toLocaleString()}
+                                    </p>
+                                </div>
+                            </div>
+                            </div>
+
+                            <div className="mb-6 bg-white/40 p-4 rounded-xl border border-outline-variant/20">
+                                <div className="flex items-center justify-between mb-3">
+                                    <p className="text-xs font-bold text-secondary uppercase tracking-wider">
+                                    ₹{gap.toLocaleString()} away from target
+                                    </p>
+                                    <p className="text-xs font-black text-primary">
+                                    {progress}%
+                                    </p>
+                                </div>
+                                <Progress value={progress} />
+                            </div>
+
+                            <div className="flex items-center gap-2">
+                            {isEditing ? (
+                                <Button variant="default" size="sm" className="h-10 text-xs px-3 rounded-lg" onClick={() => saveEdit(alert.id)}>
+                                    <Check className="w-3.5 h-3.5 mr-1.5" />
+                                    Save
+                                </Button>
+                            ) : (
+                                <Button variant="outline" size="sm" className="h-10 text-xs px-3 rounded-lg" onClick={() => startEditing(alert)}>
+                                    <Edit2 className="w-3.5 h-3.5 mr-1.5" />
+                                    Edit
+                                </Button>
+                            )}
+                            
+                            <Button 
+                                variant="ghost" 
+                                size="sm" 
+                                className={`h-10 text-xs px-3 rounded-lg hover:text-primary ${!isActive ? 'text-surface-tint' : 'text-on-surface-variant'}`}
+                                onClick={() => handleTogglePause(alert.id)}
+                            >
+                                {isActive ? (
+                                    <><Pause className="w-3.5 h-3.5 mr-1.5" /> Pause</>
+                                ) : (
+                                    <><Play className="w-3.5 h-3.5 mr-1.5" /> Resume</>
+                                )}
+                            </Button>
+                            
+                            <Button
+                                variant="ghost"
+                                size="sm"
+                                className="h-10 text-xs px-3 rounded-lg text-error hover:bg-error/10 hover:text-error ml-auto"
+                                onClick={() => handleRemoveAlert(alert.id)}
+                            >
+                                <Trash2 className="w-3.5 h-3.5 mr-1.5" />
+                                Remove
+                            </Button>
+                            </div>
+                        </CardContent>
+                        </Card>
+                    </motion.div>
+                  );
+                })}
+                </AnimatePresence>
               </div>
             )}
           </div>
         </div>
-
-      </main>
-
-      {/* Footer */}
-      <footer className="glass-panel border-t border-outline-variant/30 w-full py-12 mt-12 relative z-10 bg-white/20">
-        <div className="flex flex-col md:flex-row justify-between items-center px-margin-desktop max-w-container-max mx-auto gap-6">
-          <div className="text-center md:text-left">
-            <div className="text-headline-md font-bold text-primary mb-1">Budget Mitra</div>
-            <p className="text-body-md text-on-surface-variant text-xs md:text-sm">
-              © 2026 Budget Mitra. Elevating financial freedom.
-            </p>
-          </div>
-          <ul className="flex flex-wrap justify-center gap-6 text-label-sm font-semibold">
-            <li><a className="text-on-surface-variant hover:text-primary hover:-translate-y-0.5 inline-block transition-all" href="#">Privacy Policy</a></li>
-            <li><a className="text-on-surface-variant hover:text-primary hover:-translate-y-0.5 inline-block transition-all" href="#">Terms of Service</a></li>
-            <li><a className="text-on-surface-variant hover:text-primary hover:-translate-y-0.5 inline-block transition-all" href="#">Security</a></li>
-            <li><a className="text-on-surface-variant hover:text-primary hover:-translate-y-0.5 inline-block transition-all" href="#">Help Center</a></li>
-          </ul>
-        </div>
-      </footer>
+      </div>
     </div>
   );
-}
+};
+
+export default AlertsPage;
